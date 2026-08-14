@@ -357,31 +357,31 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
   };
 
   return (
-    <div className="space-y-8 relative">
+    <div className="space-y-8 relative bg-black text-white">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-white">AQX Exchange</h1>
-          <p className="text-zinc-400 mt-1">Africa's Wall Street: Equities, Commodities & Forex</p>
+          <h1 className="text-3xl font-bold tracking-tight text-white uppercase">AQX Exchange</h1>
+          <p className="text-zinc-400 mt-1 font-medium">Africa's Wall Street: Equities, Commodities & Forex</p>
           <div className="flex items-center gap-3 mt-3">
-            <span className="text-2xl font-mono text-white">1,485.20</span>
-            <span className="flex items-center px-2 py-1 rounded-md bg-[#00C896]/10 text-[#00C896] text-xs font-medium">
-              <TrendingUp className="w-3 h-3 mr-1" />
+            <span className="text-2xl font-mono text-white font-bold">1,485.20</span>
+            <span className="flex items-center px-2.5 py-1 rounded-md bg-[#D4AF37]/10 text-[#D4AF37] text-xs font-bold border border-[#D4AF37]/20">
+              <TrendingUp className="w-3 h-3 mr-1 text-[#D4AF37]" />
               +2.4%
             </span>
-            <span className="flex items-center px-2 py-1 rounded-md bg-[#0066FF]/10 text-[#0066FF] text-xs font-medium">
-              <BrainCircuit className="w-3 h-3 mr-1" />
+            <span className="flex items-center px-2.5 py-1 rounded-md bg-[#D4AF37]/10 text-[#D4AF37] text-xs font-bold border border-[#D4AF37]/20">
+              <BrainCircuit className="w-3 h-3 mr-1 text-[#D4AF37]" />
               Bullish Trend
             </span>
           </div>
         </div>
         
         <div className="flex items-center gap-4 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
-          <div className="flex bg-white/[0.02] p-1 rounded-2xl border border-white/10 backdrop-blur-xl whitespace-nowrap">
+          <div className="flex bg-black p-1 rounded-2xl border border-white/10 whitespace-nowrap">
             <button
               onClick={() => setActiveTab('equities')}
-              className={`px-4 md:px-6 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
+              className={`px-4 md:px-6 py-2.5 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 ${
                 activeTab === 'equities' 
-                  ? 'bg-white/10 text-white shadow-lg shadow-black/20' 
+                  ? 'bg-[#D4AF37] text-black shadow-lg' 
                   : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
             >
@@ -389,9 +389,9 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
             </button>
             <button
               onClick={() => setActiveTab('commodities')}
-              className={`px-4 md:px-6 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
+              className={`px-4 md:px-6 py-2.5 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 ${
                 activeTab === 'commodities' 
-                  ? 'bg-white/10 text-white shadow-lg shadow-black/20' 
+                  ? 'bg-[#D4AF37] text-black shadow-lg' 
                   : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
             >
@@ -401,15 +401,15 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
               onClick={() => {
                 if (setAppActiveTab) setAppActiveTab('market-forex');
               }}
-              className={`px-4 md:px-6 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-2 text-zinc-400 hover:text-white hover:bg-white/5`}
+              className={`px-4 md:px-6 py-2.5 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 text-zinc-400 hover:text-white hover:bg-white/5`}
             >
               <Globe className="w-4 h-4" /> Forex
             </button>
             <button
               onClick={() => setActiveTab('products')}
-              className={`px-4 md:px-6 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
+              className={`px-4 md:px-6 py-2.5 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 ${
                 activeTab === 'products' 
-                  ? 'bg-white/10 text-white shadow-lg shadow-black/20' 
+                  ? 'bg-[#D4AF37] text-black shadow-lg' 
                   : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
             >
@@ -421,14 +421,14 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
               onClick={() => {
                 if (setAppActiveTab) setAppActiveTab('market-secondary');
               }}
-              className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#00C896]/10 text-[#00C896] border border-[#00C896]/20 hover:bg-[#00C896]/20 transition-colors text-sm font-medium whitespace-nowrap"
+              className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 hover:bg-[#D4AF37] hover:text-black transition-colors text-sm font-bold uppercase tracking-wider whitespace-nowrap"
             >
               <ArrowRightLeft className="w-4 h-4" />
               Secondary Market
             </button>
             <button 
               onClick={onNavigateToOnboarding}
-              className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0066FF]/10 text-[#0066FF] border border-[#0066FF]/20 hover:bg-[#0066FF]/20 transition-colors text-sm font-medium whitespace-nowrap"
+              className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#D4AF37] text-black border border-[#D4AF37] hover:bg-white hover:text-black transition-colors text-sm font-bold uppercase tracking-wider whitespace-nowrap"
             >
               <Building2 className="w-4 h-4" />
               List Company
@@ -446,61 +446,57 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
           {/* Top Performing Companies */}
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <TrendingUp className="w-5 h-5 text-[#00C896]" />
-              <h2 className="text-xl font-semibold text-white">Top African Equities</h2>
+              <TrendingUp className="w-5 h-5 text-[#D4AF37]" />
+              <h2 className="text-xl font-bold text-white uppercase tracking-wider">Top African Equities</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {getPaginatedData(displayEquities).map((company: any, i: number) => (
+              {getPaginatedData(displayEquities).map((company: any) => (
                 <div 
                   key={company.id}
                   onClick={() => onNavigateToCompany?.(company.id)}
-                  className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:scale-[1.02] transition-all duration-300 cursor-pointer group relative overflow-hidden shadow-lg"
+                  className="bg-black border border-white/10 rounded-2xl p-6 hover:border-[#D4AF37]/50 transition-all duration-300 cursor-pointer group relative overflow-hidden shadow-2xl"
                 >
-                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <BrainCircuit className="w-24 h-24 text-[#0066FF]" />
+                  <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <BrainCircuit className="w-24 h-24 text-[#D4AF37]" />
                   </div>
                   
                   <div className="flex items-start justify-between mb-4 relative z-10">
                     <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-white shadow-lg ${
-                        i % 3 === 0 ? 'bg-gradient-to-br from-[#00C896] to-[#0066FF]' :
-                        i % 3 === 1 ? 'bg-gradient-to-br from-[#0066FF] to-[#00C896]' :
-                        'bg-gradient-to-br from-[#D4AF37] to-[#FF3B3B]'
-                      }`}>
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-black bg-[#D4AF37] shadow-lg">
                         {company.logo}
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-white flex items-center gap-1.5">
+                        <h3 className="text-lg font-bold text-white flex items-center gap-1.5 group-hover:text-[#D4AF37] transition-colors">
                           {company.ticker}
-                          <ShieldCheck className="w-4 h-4 text-[#00C896]" />
+                          <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
                         </h3>
-                        <span className="text-xs text-zinc-500">{company.name} • {company.sector}</span>
+                        <span className="text-xs text-zinc-400">{company.name} • {company.sector}</span>
                       </div>
                     </div>
-                    <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-zinc-400 font-medium">
+                    <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-zinc-400 font-bold uppercase tracking-wider">
                       {company.risk} Risk
                     </span>
                   </div>
                   
-                  <p className="text-sm text-zinc-400 mb-6 relative z-10 line-clamp-2">{company.description}</p>
+                  <p className="text-sm text-zinc-300 mb-6 relative z-10 line-clamp-2 font-medium">{company.description}</p>
                   
                   <div className="grid grid-cols-2 gap-4 mb-6 relative z-10">
-                    <div className="bg-white/5 rounded-xl p-3 border border-white/5">
-                      <p className="text-xs text-zinc-500 mb-1">Price</p>
-                      <p className="text-sm font-mono text-white">${company.price.toFixed(2)}</p>
+                    <div className="bg-white/[0.02] rounded-xl p-3 border border-white/10">
+                      <p className="text-xs text-zinc-400 mb-1 uppercase tracking-wider font-bold">Price</p>
+                      <p className="text-sm font-mono font-bold text-white">${company.price.toFixed(2)}</p>
                     </div>
-                    <div className="bg-white/5 rounded-xl p-3 border border-white/5">
-                      <p className="text-xs text-zinc-500 mb-1">Growth</p>
-                      <p className="text-sm font-mono text-[#00C896]">{company.revGrowth}</p>
+                    <div className="bg-white/[0.02] rounded-xl p-3 border border-white/10">
+                      <p className="text-xs text-zinc-400 mb-1 uppercase tracking-wider font-bold">Growth</p>
+                      <p className="text-sm font-mono font-bold text-[#D4AF37]">{company.revGrowth}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-white/10 relative z-10">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-zinc-500">AI Score:</span>
-                      <span className="text-sm font-bold text-white">{company.growthScore}/100</span>
+                      <span className="text-xs text-zinc-400 uppercase tracking-wider font-bold">AI Score:</span>
+                      <span className="text-sm font-bold text-[#D4AF37] font-mono">{company.growthScore}/100</span>
                     </div>
-                    <button className="bg-gradient-to-r from-[#0066FF] to-[#00C896] px-4 py-2 rounded-xl text-sm font-semibold text-white hover:shadow-[0_0_20px_rgba(0,102,255,0.5)] transition-all hover:-translate-y-0.5">
+                    <button className="bg-[#D4AF37] text-black px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-white transition-all shadow-md">
                       Trade
                     </button>
                   </div>
@@ -520,35 +516,35 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
         >
           <div className="flex items-center gap-2 mb-6">
             <Coins className="w-5 h-5 text-[#D4AF37]" />
-            <h2 className="text-xl font-semibold text-white">African Commodities Market</h2>
+            <h2 className="text-xl font-bold text-white uppercase tracking-wider">African Commodities Market</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {getPaginatedData(allCommodities).map((cmd: any) => (
-              <div key={cmd.id} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all group">
+              <div key={cmd.id} className="bg-black border border-white/10 rounded-2xl p-6 hover:border-[#D4AF37]/50 transition-all group shadow-2xl">
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-xl">
+                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xl">
                       {cmd.icon}
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-white">{cmd.name}</h3>
-                      <p className="text-xs text-zinc-500">{cmd.type}</p>
+                      <h3 className="text-lg font-bold text-white group-hover:text-[#D4AF37] transition-colors">{cmd.name}</h3>
+                      <p className="text-xs text-zinc-400">{cmd.type}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p className="text-lg font-mono font-bold text-white">${cmd.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
-                    <p className={`text-sm font-medium flex items-center justify-end gap-1 ${cmd.trend === 'up' ? 'text-[#00C896]' : 'text-[#FF3B3B]'}`}>
-                      {cmd.trend === 'up' ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                    <p className="text-sm font-bold font-mono flex items-center justify-end gap-1 text-[#D4AF37]">
+                      {cmd.trend === 'up' ? <TrendingUp className="w-3 h-3 text-[#D4AF37]" /> : <TrendingDown className="w-3 h-3 text-[#D4AF37]" />}
                       {cmd.change}
                     </p>
                   </div>
                 </div>
-                <p className="text-sm text-zinc-400 mb-6">{cmd.description}</p>
+                <p className="text-sm text-zinc-300 mb-6 font-medium">{cmd.description}</p>
                 <div className="flex gap-3">
-                  <button className="flex-1 bg-[#00C896]/10 text-[#00C896] border border-[#00C896]/20 py-2 rounded-xl text-sm font-bold hover:bg-[#00C896]/20 transition-colors">
+                  <button className="flex-1 bg-[#D4AF37] text-black border border-[#D4AF37] py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-white transition-colors">
                     Buy
                   </button>
-                  <button className="flex-1 bg-[#FF3B3B]/10 text-[#FF3B3B] border border-[#FF3B3B]/20 py-2 rounded-xl text-sm font-bold hover:bg-[#FF3B3B]/20 transition-colors">
+                  <button className="flex-1 bg-white/5 text-white border border-white/10 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors">
                     Sell
                   </button>
                 </div>
@@ -569,48 +565,46 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
             {getPaginatedData(allProducts).map((product: any) => (
               <motion.div 
                 key={product.id}
-                whileHover={{ y: -8 }}
-                className="bg-white/[0.02] border border-white/10 rounded-3xl overflow-hidden flex flex-col group backdrop-blur-xl relative"
+                whileHover={{ y: -6 }}
+                className="bg-black border border-white/10 rounded-3xl overflow-hidden flex flex-col group shadow-2xl relative hover:border-[#D4AF37]/50 transition-colors"
               >
-              <div className="absolute inset-0 bg-gradient-to-b from-[#0066FF]/0 to-[#0066FF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              
               <div className="relative h-56 overflow-hidden p-2">
                 <div className="w-full h-full rounded-2xl overflow-hidden relative">
                   <img 
                     src={product.image} 
                     alt={product.name} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#05070D] via-transparent to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
                 </div>
-                <div className="absolute top-4 left-4 bg-black/40 backdrop-blur-xl px-3 py-1.5 rounded-full text-xs font-medium text-white border border-white/10">
+                <div className="absolute top-4 left-4 bg-black px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-white border border-white/10">
                   {product.category}
                 </div>
-                <div className="absolute top-4 right-4 bg-[#0066FF]/90 backdrop-blur-xl px-3 py-1.5 rounded-full text-xs font-bold text-white flex items-center gap-1 shadow-[0_0_15px_rgba(0,102,255,0.5)]">
-                  <TrendingUp className="w-3 h-3" />
+                <div className="absolute top-4 right-4 bg-[#D4AF37] px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-black flex items-center gap-1 shadow-lg">
+                  <TrendingUp className="w-3 h-3 text-black" />
                   +{product.equity}% Equity
                 </div>
               </div>
               
               <div className="p-6 flex flex-col flex-1 relative z-10">
                 <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-xl font-semibold text-white leading-tight">{product.name}</h3>
-                  <div className="flex items-center gap-1 text-yellow-500 text-sm bg-yellow-500/10 px-2 py-1 rounded-lg">
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                    <span className="font-medium text-yellow-400">{product.rating}</span>
+                  <h3 className="text-xl font-bold text-white group-hover:text-[#D4AF37] transition-colors leading-tight">{product.name}</h3>
+                  <div className="flex items-center gap-1 text-[#D4AF37] text-sm bg-[#D4AF37]/10 px-2 py-1 rounded-lg border border-[#D4AF37]/20">
+                    <Star className="w-3.5 h-3.5 fill-current text-[#D4AF37]" />
+                    <span className="font-bold text-[#D4AF37] font-mono">{product.rating}</span>
                   </div>
                 </div>
-                <p className="text-zinc-400 text-sm mb-6 flex-1 leading-relaxed">{product.description}</p>
+                <p className="text-zinc-300 text-sm mb-6 flex-1 leading-relaxed font-medium">{product.description}</p>
                 
                 <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/10">
                   <div>
-                    <p className="text-xs text-zinc-500 mb-1 uppercase tracking-wider font-medium">Price</p>
-                    <p className="text-2xl font-bold text-white tracking-tight">${product.price.toLocaleString()}</p>
+                    <p className="text-xs text-zinc-400 mb-1 uppercase tracking-wider font-bold">Price</p>
+                    <p className="text-2xl font-bold font-mono text-white tracking-tight">${product.price.toLocaleString()}</p>
                   </div>
                   <button 
                     onClick={() => setSelectedProduct(product)}
-                    className="bg-gradient-to-r from-[#0066FF] to-[#00C896] px-5 py-2.5 rounded-xl font-semibold text-sm text-white transition-all duration-300 flex items-center gap-2 hover:shadow-[0_0_20px_rgba(0,102,255,0.5)] hover:-translate-y-0.5"
+                    className="bg-[#D4AF37] text-black px-5 py-2.5 rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300 flex items-center gap-2 hover:bg-white hover:text-black shadow-lg"
                   >
                     <ShoppingBag className="w-4 h-4" />
                     Buy & Earn
@@ -636,55 +630,55 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
           >
             <div 
               onClick={() => setSelectedProduct(null)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-xl"
+              className="absolute inset-0 bg-black/80 backdrop-blur-md"
             />
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-md bg-[#0A0F1C] border border-white/10 rounded-3xl shadow-2xl overflow-hidden"
+              className="relative w-full max-w-md bg-black border border-white/10 rounded-3xl shadow-2xl overflow-hidden"
             >
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#0066FF] via-[#00C896] to-[#D4AF37]" />
+              <div className="absolute top-0 inset-x-0 h-1 bg-[#D4AF37]" />
               
               <div className="p-6 sm:p-8">
                 <div className="flex justify-between items-start mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-[#0066FF]/20 border border-[#0066FF]/30 flex items-center justify-center text-[#0066FF]">
+                  <div className="w-12 h-12 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]">
                     <BrainCircuit className="w-6 h-6" />
                   </div>
                   <button 
                     onClick={() => setSelectedProduct(null)}
-                    className="p-2 text-zinc-500 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+                    className="p-2 text-zinc-400 hover:text-white hover:bg-white/10 rounded-full transition-colors"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
 
-                <h2 className="text-2xl font-bold text-white mb-2 tracking-tight">Investment Summary</h2>
-                <p className="text-zinc-400 text-sm mb-8">Review your product purchase and equity allocation.</p>
+                <h2 className="text-2xl font-bold text-white mb-2 tracking-tight uppercase">Investment Summary</h2>
+                <p className="text-zinc-400 text-sm mb-8 font-medium">Review your product purchase and equity allocation.</p>
 
                 <div className="space-y-4 mb-8">
-                  <div className="flex justify-between items-center p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                  <div className="flex justify-between items-center p-4 rounded-2xl bg-white/[0.02] border border-white/10">
                     <span className="text-zinc-400 text-sm">You are purchasing:</span>
-                    <span className="font-semibold text-white">{selectedProduct.name}</span>
+                    <span className="font-bold text-white">{selectedProduct.name}</span>
                   </div>
                   
-                  <div className="flex justify-between items-center p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                  <div className="flex justify-between items-center p-4 rounded-2xl bg-white/[0.02] border border-white/10">
                     <span className="text-zinc-400 text-sm">Value:</span>
-                    <span className="font-semibold text-white">${selectedProduct.price.toLocaleString()}</span>
+                    <span className="font-bold font-mono text-white">${selectedProduct.price.toLocaleString()}</span>
                   </div>
 
-                  <div className="flex justify-between items-center p-4 rounded-2xl bg-[#0066FF]/10 border border-[#0066FF]/20">
-                    <span className="text-[#0066FF] text-sm font-medium">Equity Earned:</span>
-                    <span className="font-bold text-[#0066FF] text-lg">+{selectedProduct.equity}%</span>
+                  <div className="flex justify-between items-center p-4 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20">
+                    <span className="text-[#D4AF37] text-sm font-bold uppercase tracking-wider">Equity Earned:</span>
+                    <span className="font-bold text-[#D4AF37] text-lg font-mono">+{selectedProduct.equity}%</span>
                   </div>
 
-                  <div className="flex justify-between items-center p-4 rounded-2xl bg-[#00C896]/10 border border-[#00C896]/20">
-                    <span className="text-[#00C896] text-sm font-medium">Quarterly Return (Est.):</span>
-                    <span className="font-bold text-[#00C896] text-lg">${selectedProduct.estReturn}</span>
+                  <div className="flex justify-between items-center p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+                    <span className="text-zinc-300 text-sm font-bold uppercase tracking-wider">Quarterly Return (Est.):</span>
+                    <span className="font-bold text-white text-lg font-mono">${selectedProduct.estReturn}</span>
                   </div>
                 </div>
 
-                <button className="w-full bg-gradient-to-r from-[#0066FF] to-[#00C896] text-white py-4 rounded-2xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-[0_0_30px_rgba(0,102,255,0.3)]">
+                <button className="w-full bg-[#D4AF37] text-black py-4 rounded-2xl font-bold uppercase tracking-wider text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:bg-white hover:text-black shadow-2xl">
                   Confirm Investment <ChevronRight className="w-5 h-5" />
                 </button>
                 <p className="text-center text-xs text-zinc-500 mt-4">

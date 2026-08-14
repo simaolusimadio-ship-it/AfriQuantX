@@ -139,18 +139,8 @@ export function CapitalAccessPipeline({ onNavigateToAuth }: CapitalAccessPipelin
   return (
     <div className="w-full space-y-16">
       
-      {/* Step Indicator Navigation Line */}
+      {/* Step Indicator Navigation */}
       <div className="relative">
-        
-        {/* Horizontal Connecting Guide Line */}
-        <div className="hidden lg:block absolute top-7 left-8 right-8 h-[1px] bg-black/[0.08]" />
-        
-        {/* Active Stage Progress Fill Line */}
-        <div 
-          className="hidden lg:block absolute top-7 left-8 h-[2px] bg-[#D9A94E] transition-all duration-500" 
-          style={{ width: `${(activeIndex / (PIPELINE_STAGES.length - 1)) * 92}%` }}
-        />
-
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6 relative z-10">
           {PIPELINE_STAGES.map((stage, idx) => {
             const isActive = stage.id === activeStageId;

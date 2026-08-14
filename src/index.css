@@ -35,7 +35,7 @@
 
 @layer base {
   body {
-    @apply bg-white text-[#191C1F] antialiased selection:bg-[#0666EB] selection:text-white;
+    @apply bg-black text-white antialiased selection:bg-[#D4AF37] selection:text-black;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }

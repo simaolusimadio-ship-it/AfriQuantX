@@ -54,29 +54,29 @@ const documents = [
 ];
 
 const companySplitData = [
-  { name: 'Naspers', value: 62500, color: '#00C896' },
-  { name: 'Standard Bank', value: 40000, color: '#0066FF' },
-  { name: 'Dangote Cement', value: 22000, color: '#D4AF37' },
+  { name: 'Naspers', value: 62500, color: '#D4AF37' },
+  { name: 'Standard Bank', value: 40000, color: '#FFFFFF' },
+  { name: 'Dangote Cement', value: 22000, color: '#888888' },
 ];
 
 const sectorData = [
-  { name: 'Technology', value: 50, color: '#00C896' },
-  { name: 'Financials', value: 32, color: '#0066FF' },
-  { name: 'Manufacturing', value: 18, color: '#D4AF37' },
+  { name: 'Technology', value: 50, color: '#D4AF37' },
+  { name: 'Financials', value: 32, color: '#FFFFFF' },
+  { name: 'Manufacturing', value: 18, color: '#888888' },
 ];
 
 const riskData = [
-  { name: 'Low Risk', value: 68, color: '#00C896' },
-  { name: 'Medium Risk', value: 32, color: '#D4AF37' },
-  { name: 'High Risk', value: 0, color: '#FF3B3B' },
+  { name: 'Low Risk', value: 68, color: '#D4AF37' },
+  { name: 'Medium Risk', value: 32, color: '#FFFFFF' },
+  { name: 'High Risk', value: 0, color: '#888888' },
 ];
 
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-[#0A0F1C] border border-white/10 p-3 rounded-xl shadow-xl backdrop-blur-xl">
-        <p className="text-white font-medium text-sm">{payload[0].name}</p>
-        <p className="text-zinc-400 text-xs mt-1">
+      <div className="bg-black border border-[#D4AF37]/40 p-3 rounded-xl shadow-2xl">
+        <p className="text-white font-bold text-sm">{payload[0].name}</p>
+        <p className="text-[#D4AF37] text-xs font-mono mt-1">
           {payload[0].name.includes('Risk') || payload[0].name.includes('Tech') || payload[0].name === 'Manufacturing' 
             ? `${payload[0].value}%` 
             : `$${payload[0].value.toLocaleString()}`}
@@ -89,13 +89,13 @@ const CustomTooltip = ({ active, payload }: any) => {
 
 export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
   return (
-    <div className="space-y-8 relative">
+    <div className="space-y-8 relative bg-black text-white">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-white">Multi-Asset Portfolio</h1>
-          <p className="text-zinc-400 mt-1">Manage your equity across the African private market network.</p>
+          <h1 className="text-3xl font-bold tracking-tight text-white uppercase">Multi-Asset Portfolio</h1>
+          <p className="text-zinc-400 mt-1 font-medium">Manage your equity across the African private market network.</p>
         </div>
-        <button className="bg-white/5 hover:bg-white/10 text-white font-medium px-6 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 border border-white/10 backdrop-blur-xl hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+        <button className="bg-[#D4AF37] text-black font-bold uppercase tracking-wider text-xs px-6 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 hover:bg-white shadow-lg">
           <Download className="w-4 h-4" />
           Export Report
         </button>
@@ -107,21 +107,21 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white/[0.02] border border-white/10 rounded-3xl p-6 backdrop-blur-xl relative overflow-hidden group"
+          className="bg-black border border-white/10 rounded-3xl p-6 shadow-2xl relative overflow-hidden group hover:border-[#D4AF37]/40 transition-colors"
         >
           <div className="flex items-center gap-3 mb-6 relative z-10">
-            <div className="p-2.5 bg-[#00C896]/10 border border-[#00C896]/20 rounded-xl">
-               <Briefcase className="w-5 h-5 text-[#00C896]" />
+            <div className="p-2.5 bg-[#D4AF37]/10 border border-[#D4AF37]/20 rounded-xl">
+               <Briefcase className="w-5 h-5 text-[#D4AF37]" />
             </div>
-            <h3 className="text-zinc-400 font-medium tracking-wide text-sm uppercase">Total Portfolio Value</h3>
+            <h3 className="text-zinc-400 font-bold tracking-wider text-xs uppercase">Total Portfolio Value</h3>
           </div>
           <p className="text-4xl font-bold font-mono text-white mb-3 tracking-tight relative z-10">$124,500.00</p>
           <div className="flex items-center gap-2 text-sm font-medium relative z-10">
-            <span className="flex items-center gap-1 text-[#00C896] bg-[#00C896]/10 px-2 py-1 rounded-lg">
-              <ArrowUpRight className="w-4 h-4" />
+            <span className="flex items-center gap-1 text-[#D4AF37] bg-[#D4AF37]/10 px-2 py-1 rounded-lg border border-[#D4AF37]/20 text-xs font-bold font-mono">
+              <ArrowUpRight className="w-4 h-4 text-[#D4AF37]" />
               +12.5%
             </span>
-            <span className="text-zinc-500">All Time</span>
+            <span className="text-zinc-500 text-xs uppercase tracking-wider font-bold">All Time</span>
           </div>
         </motion.div>
 
@@ -129,21 +129,21 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white/[0.02] border border-white/10 rounded-3xl p-6 backdrop-blur-xl relative overflow-hidden group"
+          className="bg-black border border-white/10 rounded-3xl p-6 shadow-2xl relative overflow-hidden group hover:border-[#D4AF37]/40 transition-colors"
         >
           <div className="flex items-center gap-3 mb-6 relative z-10">
-            <div className="p-2.5 bg-[#0066FF]/10 border border-[#0066FF]/20 rounded-xl">
-              <Activity className="w-5 h-5 text-[#0066FF]" />
+            <div className="p-2.5 bg-[#D4AF37]/10 border border-[#D4AF37]/20 rounded-xl">
+              <Activity className="w-5 h-5 text-[#D4AF37]" />
             </div>
-            <h3 className="text-zinc-400 font-medium tracking-wide text-sm uppercase">Active Investments</h3>
+            <h3 className="text-zinc-400 font-bold tracking-wider text-xs uppercase">Active Investments</h3>
           </div>
           <p className="text-4xl font-bold font-mono text-white mb-3 tracking-tight relative z-10">3 Companies</p>
           <div className="flex items-center gap-2 text-sm font-medium relative z-10">
-            <span className="flex items-center gap-1 text-[#0066FF] bg-[#0066FF]/10 px-2 py-1 rounded-lg">
+            <span className="flex items-center gap-1 text-[#D4AF37] bg-[#D4AF37]/10 px-2 py-1 rounded-lg border border-[#D4AF37]/20 text-xs font-bold">
               <TrendingUp className="w-4 h-4" />
               Diversified
             </span>
-            <span className="text-zinc-500">Across 3 Sectors</span>
+            <span className="text-zinc-500 text-xs uppercase tracking-wider font-bold">Across 3 Sectors</span>
           </div>
         </motion.div>
 
@@ -151,21 +151,21 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white/[0.02] border border-white/10 rounded-3xl p-6 backdrop-blur-xl relative overflow-hidden group"
+          className="bg-black border border-white/10 rounded-3xl p-6 shadow-2xl relative overflow-hidden group hover:border-[#D4AF37]/40 transition-colors"
         >
           <div className="flex items-center gap-3 mb-6 relative z-10">
             <div className="p-2.5 bg-[#D4AF37]/10 border border-[#D4AF37]/20 rounded-xl">
               <ShieldCheck className="w-5 h-5 text-[#D4AF37]" />
             </div>
-            <h3 className="text-zinc-400 font-medium tracking-wide text-sm uppercase">Overall Risk Profile</h3>
+            <h3 className="text-zinc-400 font-bold tracking-wider text-xs uppercase">Overall Risk Profile</h3>
           </div>
-          <p className="text-2xl font-bold text-white mb-3 tracking-tight relative z-10">Low-to-Medium</p>
+          <p className="text-2xl font-bold text-white mb-3 tracking-tight relative z-10 uppercase">Low-to-Medium</p>
           <div className="flex items-center gap-2 text-sm font-medium relative z-10">
-            <span className="flex items-center gap-1 text-[#00C896] bg-[#00C896]/10 px-2 py-1 rounded-lg">
+            <span className="flex items-center gap-1 text-[#D4AF37] bg-[#D4AF37]/10 px-2 py-1 rounded-lg border border-[#D4AF37]/20 text-xs font-bold">
               <Lock className="w-3.5 h-3.5" />
               Optimized
             </span>
-            <span className="text-zinc-500">AI Rebalanced</span>
+            <span className="text-zinc-500 text-xs uppercase tracking-wider font-bold">AI Rebalanced</span>
           </div>
         </motion.div>
       </div>
@@ -176,9 +176,9 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="bg-white/[0.02] border border-white/10 rounded-3xl p-6 backdrop-blur-xl flex flex-col"
+          className="bg-black border border-white/10 rounded-3xl p-6 shadow-2xl flex flex-col"
         >
-          <h3 className="text-lg font-semibold text-white mb-6">Company Allocation</h3>
+          <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wider">Company Allocation</h3>
           <div className="h-48 w-full relative">
             <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
               <PieChart>
@@ -200,8 +200,8 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
               </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none flex-col">
-              <span className="text-2xl font-bold text-white">3</span>
-              <span className="text-xs text-zinc-500">Assets</span>
+              <span className="text-2xl font-bold font-mono text-white">3</span>
+              <span className="text-[10px] uppercase font-bold text-zinc-500">Assets</span>
             </div>
           </div>
           <div className="mt-4 space-y-2">
@@ -209,9 +209,9 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
               <div key={i} className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
-                  <span className="text-zinc-400">{item.name}</span>
+                  <span className="text-zinc-300 font-medium">{item.name}</span>
                 </div>
-                <span className="text-white font-medium">{Math.round((item.value / 124500) * 100)}%</span>
+                <span className="text-white font-bold font-mono">{Math.round((item.value / 124500) * 100)}%</span>
               </div>
             ))}
           </div>
@@ -221,9 +221,9 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-white/[0.02] border border-white/10 rounded-3xl p-6 backdrop-blur-xl flex flex-col"
+          className="bg-black border border-white/10 rounded-3xl p-6 shadow-2xl flex flex-col"
         >
-          <h3 className="text-lg font-semibold text-white mb-6">Sector Exposure</h3>
+          <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wider">Sector Exposure</h3>
           <div className="h-48 w-full relative">
             <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
               <PieChart>
@@ -245,8 +245,8 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
               </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none flex-col">
-              <span className="text-2xl font-bold text-white">3</span>
-              <span className="text-xs text-zinc-500">Sectors</span>
+              <span className="text-2xl font-bold font-mono text-white">3</span>
+              <span className="text-[10px] uppercase font-bold text-zinc-500">Sectors</span>
             </div>
           </div>
           <div className="mt-4 space-y-2">
@@ -254,9 +254,9 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
               <div key={i} className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
-                  <span className="text-zinc-400">{item.name}</span>
+                  <span className="text-zinc-300 font-medium">{item.name}</span>
                 </div>
-                <span className="text-white font-medium">{item.value}%</span>
+                <span className="text-white font-bold font-mono">{item.value}%</span>
               </div>
             ))}
           </div>
@@ -266,9 +266,9 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
-          className="bg-white/[0.02] border border-white/10 rounded-3xl p-6 backdrop-blur-xl flex flex-col"
+          className="bg-black border border-white/10 rounded-3xl p-6 shadow-2xl flex flex-col"
         >
-          <h3 className="text-lg font-semibold text-white mb-6">Risk Profile</h3>
+          <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wider">Risk Profile</h3>
           <div className="h-48 w-full relative">
             <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
               <PieChart>
@@ -290,8 +290,8 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
               </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none flex-col">
-              <ShieldCheck className="w-8 h-8 text-[#00C896] mb-1" />
-              <span className="text-xs text-[#00C896] font-medium">Healthy</span>
+              <ShieldCheck className="w-8 h-8 text-[#D4AF37] mb-1" />
+              <span className="text-xs text-[#D4AF37] font-bold uppercase tracking-wider">Healthy</span>
             </div>
           </div>
           <div className="mt-4 space-y-2">
@@ -299,9 +299,9 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
               <div key={i} className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
-                  <span className="text-zinc-400">{item.name}</span>
+                  <span className="text-zinc-300 font-medium">{item.name}</span>
                 </div>
-                <span className="text-white font-medium">{item.value}%</span>
+                <span className="text-white font-bold font-mono">{item.value}%</span>
               </div>
             ))}
           </div>
@@ -314,33 +314,33 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="lg:col-span-2 bg-white/[0.02] border border-white/10 rounded-3xl overflow-hidden flex flex-col backdrop-blur-xl"
+          className="lg:col-span-2 bg-black border border-white/10 rounded-3xl overflow-hidden flex flex-col shadow-2xl"
         >
           <div className="p-6 border-b border-white/10 flex justify-between items-center bg-white/[0.01]">
-            <h2 className="text-xl font-bold text-white tracking-tight">Asset Breakdown</h2>
+            <h2 className="text-xl font-bold text-white uppercase tracking-wider">Asset Breakdown</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-white/5 text-xs uppercase tracking-wider text-zinc-500 bg-white/[0.02]">
-                  <th className="p-6 font-medium">Company</th>
-                  <th className="p-6 font-medium">Type</th>
-                  <th className="p-6 font-medium">Shares / %</th>
-                  <th className="p-6 font-medium">Value</th>
-                  <th className="p-6 font-medium text-right">Change</th>
+                <tr className="border-b border-white/5 text-xs uppercase tracking-wider text-zinc-400 bg-white/[0.02]">
+                  <th className="p-6 font-bold">Company</th>
+                  <th className="p-6 font-bold">Type</th>
+                  <th className="p-6 font-bold">Shares / %</th>
+                  <th className="p-6 font-bold">Value</th>
+                  <th className="p-6 font-bold text-right">Change</th>
                 </tr>
               </thead>
               <tbody className="text-sm">
                 {holdings.map((holding) => (
-                  <tr key={holding.id} className="border-b border-white/5 hover:bg-white/[0.04] transition-colors group">
-                    <td className="p-6 font-medium text-white flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#0066FF]/20 border border-[#0066FF]/30 flex items-center justify-center text-[#0066FF] font-bold text-xs">
+                  <tr key={holding.id} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors group">
+                    <td className="p-6 font-bold text-white flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] font-bold text-xs">
                         {holding.asset.charAt(0)}
                       </div>
                       {holding.asset}
                     </td>
                     <td className="p-6 text-zinc-400">
-                      <span className="bg-white/5 px-2.5 py-1 rounded-lg text-xs border border-white/5">
+                      <span className="bg-white/5 px-2.5 py-1 rounded-lg text-xs border border-white/10 font-medium">
                         {holding.type}
                       </span>
                     </td>
@@ -350,8 +350,8 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
                     </td>
                     <td className="p-6 font-bold font-mono text-white tracking-tight">{holding.value}</td>
                     <td className="p-6 text-right">
-                      <span className="inline-flex items-center gap-1 text-[#00C896] bg-[#00C896]/10 px-2.5 py-1 rounded-lg text-xs font-bold">
-                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      <span className="inline-flex items-center gap-1 text-[#D4AF37] bg-[#D4AF37]/10 border border-[#D4AF37]/20 px-2.5 py-1 rounded-lg text-xs font-bold font-mono">
+                        <ArrowUpRight className="w-3.5 h-3.5 text-[#D4AF37]" />
                         {holding.change}
                       </span>
                     </td>
@@ -367,26 +367,26 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="bg-white/[0.02] border border-white/10 rounded-3xl p-6 flex flex-col backdrop-blur-xl relative overflow-hidden"
+          className="bg-black border border-white/10 rounded-3xl p-6 flex flex-col shadow-2xl relative overflow-hidden"
         >
-          <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          <div className="absolute top-0 inset-x-0 h-1 bg-[#D4AF37]" />
           
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-white tracking-tight">Legal Documents</h2>
-            <button onClick={() => setActiveTab('company-profile')} className="text-[#0066FF] hover:text-[#0066FF]/80 text-sm font-medium flex items-center gap-1 transition-colors">
+            <h2 className="text-xl font-bold text-white uppercase tracking-wider">Legal Documents</h2>
+            <button onClick={() => setActiveTab('company-profile')} className="text-[#D4AF37] hover:text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-colors">
               View All <ChevronRight className="w-4 h-4" />
             </button>
           </div>
           
           <div className="space-y-3">
             {documents.map((doc) => (
-              <div key={doc.id} className="flex items-center justify-between p-4 rounded-2xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.05] transition-all duration-300 group cursor-pointer">
+              <div key={doc.id} className="flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.01] hover:border-[#D4AF37]/30 transition-all duration-300 group cursor-pointer">
                 <div className="flex items-center gap-4">
-                  <div className="p-2.5 bg-white/5 rounded-xl text-zinc-400 group-hover:text-[#0066FF] group-hover:bg-[#0066FF]/10 transition-colors border border-white/5 group-hover:border-[#0066FF]/20">
+                  <div className="p-2.5 bg-white/5 rounded-xl text-zinc-400 group-hover:text-[#D4AF37] group-hover:bg-[#D4AF37]/10 transition-colors border border-white/10 group-hover:border-[#D4AF37]/20">
                     <FileText className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-white group-hover:text-[#0066FF] transition-colors">{doc.name}</p>
+                    <p className="text-sm font-bold text-white group-hover:text-[#D4AF37] transition-colors">{doc.name}</p>
                     <p className="text-xs text-zinc-500 mt-0.5">{doc.date} • {doc.size}</p>
                   </div>
                 </div>
@@ -398,15 +398,14 @@ export function Portfolio({ setActiveTab }: { setActiveTab: (tab: string) => voi
           </div>
           
           <div className="mt-auto pt-8">
-            <div className="bg-[#00C896]/5 border border-[#00C896]/20 rounded-2xl p-5 flex items-start gap-4 relative overflow-hidden">
-              <div className="absolute -right-4 -top-4 w-16 h-16 bg-[#00C896]/10 rounded-full blur-xl" />
-              <div className="p-2 bg-[#00C896]/10 rounded-xl shrink-0">
-                <ShieldCheck className="w-5 h-5 text-[#00C896]" />
+            <div className="bg-[#D4AF37]/5 border border-[#D4AF37]/20 rounded-2xl p-5 flex items-start gap-4 relative overflow-hidden">
+              <div className="p-2 bg-[#D4AF37]/10 rounded-xl shrink-0">
+                <ShieldCheck className="w-5 h-5 text-[#D4AF37]" />
               </div>
               <div className="relative z-10">
-                <p className="text-sm font-bold text-[#00C896] mb-1 tracking-tight">Smart Contracts Active</p>
-                <p className="text-xs text-[#00C896]/70 leading-relaxed">
-                  Your equity and revenue share agreements are secured and automated via blockchain smart contracts.
+                <p className="text-sm font-bold text-[#D4AF37] mb-1 uppercase tracking-wider">Smart Contracts Active</p>
+                <p className="text-xs text-zinc-400 leading-relaxed font-medium">
+                  Your equity and revenue share agreements are secured and automated via smart contracts.
                 </p>
               </div>
             </div>

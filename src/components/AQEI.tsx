@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 
 import { AQEICopilot } from './AQEICopilot';
-import { PanAfricanHeatmap } from './PanAfricanHeatmap';
 import { News } from './News';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -236,8 +235,8 @@ export function AQEI() {
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 text-xs font-bold text-[#D4AF37] bg-[#D4AF37]/10 px-4 py-2 rounded-full border border-[#D4AF37]/20 uppercase tracking-widest shadow-[0_0_15px_rgba(212,175,55,0.1)]">
-            <ShieldAlert className="w-4 h-4" />
-            AI-powered insights, not financial advice
+            <span className="w-2 h-2 rounded-full bg-[#00FFB2] animate-pulse" />
+            INSTITUTIONAL QUANT DESK • 38+ AFRICAN BOURSES
           </div>
         </div>
       </header>
@@ -336,11 +335,6 @@ export function AQEI() {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Heatmap */}
-              <div className="h-[500px]">
-                <PanAfricanHeatmap />
               </div>
 
               {/* Bottom: Prices Change */}

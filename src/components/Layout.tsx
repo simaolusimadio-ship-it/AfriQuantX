@@ -225,36 +225,36 @@ export function Layout({
         <div className={cn("p-4 mt-auto transition-all duration-300", isSidebarCollapsed ? "items-center flex flex-col gap-4" : "")}>
           {isSidebarCollapsed ? (
             <div className="flex flex-col items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white p-[2px] cursor-pointer hover:scale-105 transition-transform" title="Alex Investor">
+              <div className="w-10 h-10 rounded-full bg-[#D4AF37] p-[2px] cursor-pointer hover:scale-105 transition-transform" title="Alex Investor">
                 <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
                   <User className="w-5 h-5 text-white" />
                 </div>
               </div>
-              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer" title="Wallet Balance: $12,450.00">
+              <div className="w-8 h-8 rounded-full bg-black border border-white/10 flex items-center justify-center text-zinc-400 hover:text-[#D4AF37] cursor-pointer" title="Wallet Balance: $0">
                 <Wallet className="w-4 h-4" />
               </div>
             </div>
           ) : (
-            <div className="p-4 rounded-2xl bg-black border border-white/5 relative overflow-hidden group cursor-pointer hover:border-white/20 transition-colors shadow-2xl">
-              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="p-4 rounded-2xl bg-black border border-white/10 relative overflow-hidden group cursor-pointer hover:border-[#D4AF37]/40 transition-colors shadow-2xl">
+              <div className="absolute inset-0 bg-[#D4AF37]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="flex items-center gap-3 mb-4 relative z-10">
-                <div className="w-10 h-10 rounded-full bg-white p-[2px]">
+                <div className="w-10 h-10 rounded-full bg-[#D4AF37] p-[2px]">
                   <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
                     <User className="w-5 h-5 text-white" />
                   </div>
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white uppercase tracking-wider">Alex Investor</p>
-                  <p className="text-[10px] text-white flex items-center gap-1 uppercase tracking-widest font-bold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> Verified
+                  <p className="text-[10px] text-[#D4AF37] flex items-center gap-1 uppercase tracking-widest font-bold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" /> Verified
                   </p>
                 </div>
               </div>
-              <div className="pt-3 border-t border-white/5 relative z-10">
-                <p className="text-[10px] text-zinc-500 mb-1 flex items-center gap-1 uppercase tracking-widest font-bold">
-                  <Wallet className="w-3 h-3" /> Wallet Balance
+              <div className="pt-3 border-t border-white/10 relative z-10">
+                <p className="text-[10px] text-zinc-400 mb-1 flex items-center gap-1 uppercase tracking-widest font-bold">
+                  <Wallet className="w-3 h-3 text-[#D4AF37]" /> Wallet Balance
                 </p>
-                <p className="text-lg font-bold font-mono text-white tracking-tight">$12,450.00</p>
+                <p className="text-lg font-bold font-mono text-white tracking-tight">$0</p>
               </div>
             </div>
           )}

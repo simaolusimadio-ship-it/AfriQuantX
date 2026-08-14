@@ -104,17 +104,6 @@ export function BusinessPage({ onNavigatePage, onNavigateToAuth }: BusinessPageP
 
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8 py-28 sm:py-36">
           
-          {/* Live Status Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/[0.06] border border-white/[0.12] backdrop-blur-md text-xs font-mono font-semibold text-[#D9A94E]"
-          >
-            <span className="w-2 h-2 rounded-full bg-[#D9A94E] animate-pulse" />
-            <span className="tracking-widest uppercase">AFRIQUANTX INVESTMENT BANKING &amp; TREASURY</span>
-          </motion.div>
-
           {/* Kinetic Headline */}
           <motion.h1 
             initial={{ opacity: 0, y: 24 }}
@@ -277,14 +266,14 @@ export function BusinessPage({ onNavigatePage, onNavigateToAuth }: BusinessPageP
       </motion.section>
 
       {/* ========================================================================= */}
-      {/* 5. GLOBAL PAYMENT & CLEARING MESH VISUALIZER: PURE WHITE #FFFFFF          */}
+      {/* 5. GLOBAL PAYMENT & CLEARING MESH VISUALIZER: STRETCHED WORLD-CLASS        */}
       {/* ========================================================================= */}
       <motion.section 
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="py-24 px-6 sm:px-12 lg:px-16 xl:px-24 max-w-7xl mx-auto w-full space-y-8"
+        className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16 max-w-[1540px] mx-auto w-full"
       >
         <GlobalPaymentMesh />
       </motion.section>

@@ -8,6 +8,7 @@ import {
 import { SharedFooter } from './SharedFooter';
 import { HeroVideoBackground } from '../ui/HeroVideoBackground';
 import { AfriQuantXInvestmentBankSection } from '../ui/AfriQuantXInvestmentBankSection';
+import { About3DFinanceUniverse } from '../ui/About3DFinanceUniverse';
 
 interface AboutPageProps {
   onNavigatePage: (page: string) => void;
@@ -40,38 +41,32 @@ export function AboutPage({ onNavigatePage, onNavigateToAuth }: AboutPageProps) 
   return (
     <div className="min-h-screen bg-white text-[#0D0F13] font-sans selection:bg-[#D9A94E] selection:text-[#0D0F13] overflow-x-hidden">
       
-      {/* 1. FULL-BLEED HERO SECTION WITH EMBEDDED MUTED AUTO-PLAYING FINANCIAL MARKETS YOUTUBE VIDEO BACKGROUND */}
-      <section className="relative w-full min-h-[80vh] sm:min-h-[88vh] flex items-center justify-center bg-[#0D0F13] text-[#F4F1E8] px-6 sm:px-12 lg:px-16 xl:px-24 overflow-hidden border-b border-white/[0.08]">
+      {/* 1. FULL-BLEED HERO SECTION WITH 3D MOTION GRAPHICS & FINANCIAL REFLECTIONS VIDEO */}
+      <section className="relative w-full min-h-[88vh] sm:min-h-[94vh] flex items-center justify-center bg-[#0D0F13] text-[#F4F1E8] px-6 sm:px-12 lg:px-16 xl:px-24 overflow-hidden border-b border-white/[0.08]">
         
-        {/* Full-bleed Auto-playing Muted YouTube Video of Financial Markets */}
+        {/* Full-bleed Auto-playing Muted Video of Financial Markets & Reflections */}
         <HeroVideoBackground 
+          videoSrc="/videos/vecteezy_financial-reflections-through-futuristic-glasses-with_52874750.mp4"
           videoId="t5lO9Z42nZ0" 
-          overlayOpacity={0.68} 
+          overlayOpacity={0.65} 
           darkMode={true}
-          title="Global Financial Markets & Stock Exchanges"
-          creditLabel="LIVE FEED • GLOBAL CAPITAL MARKETS & EXCHANGES"
+          title="Financial Reflections & Global Capital Markets"
+          creditLabel="FINANCIAL REFLECTIONS • GLOBAL CAPITAL INTELLIGENCE"
         />
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8 py-28 sm:py-36">
-          
-          <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/[0.08] border border-white/[0.14] backdrop-blur-md text-xs font-mono font-semibold text-[#D9A94E]"
-          >
-            <span className="w-2 h-2 rounded-full bg-[#D9A94E] animate-pulse" />
-            <span className="tracking-widest uppercase">PAN-AFRICAN CAPITAL ARCHITECTURE</span>
-          </motion.div>
+        {/* 3D Interactive Finance Universe Motion Graphics (Bank Cards, Currencies, Market Screens) */}
+        <About3DFinanceUniverse darkMode={true} />
 
+        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8 py-28 sm:py-36 pointer-events-none">
+          
           <motion.h1 
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="text-4xl sm:text-6xl lg:text-[76px] font-extrabold tracking-tight text-[#F4F1E8] leading-[1.06]"
+            className="text-4xl sm:text-6xl lg:text-[80px] font-extrabold tracking-tight text-[#F4F1E8] leading-[1.04]"
           >
             Building Africa's <br className="hidden sm:inline" />
-            <span className="text-[#34A87E] drop-shadow-[0_0_35px_rgba(52,168,126,0.3)]">
+            <span className="text-[#34A87E] drop-shadow-[0_0_40px_rgba(52,168,126,0.35)]">
               Financial Future.
             </span>
           </motion.h1>
@@ -80,7 +75,7 @@ export function AboutPage({ onNavigatePage, onNavigateToAuth }: AboutPageProps) 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-lg sm:text-xl text-[#F4F1E8]/80 max-w-3xl mx-auto leading-relaxed font-medium"
+            className="text-lg sm:text-xl text-[#F4F1E8]/85 max-w-3xl mx-auto leading-relaxed font-medium"
           >
             We build the quantitative clearing, institutional securities settlement, and private market rails connecting African enterprise to global liquidity.
           </motion.p>
