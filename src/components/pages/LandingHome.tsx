@@ -148,7 +148,7 @@ export function LandingHome({ onNavigatePage, onNavigateToAuth, onNavigateToDash
 
       {/* 3. PARTNER & UNICORN LOGOS SECTION */}
       <section className="w-full space-y-0">
-        <PlatformVideoPlayerSection />
+        <PlatformVideoPlayerSection videoId="M-QFGiwUCPA" />
         <AfricanPartnersMarquee />
       </section>
 

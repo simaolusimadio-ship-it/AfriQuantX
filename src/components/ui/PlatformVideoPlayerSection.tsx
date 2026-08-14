@@ -10,7 +10,7 @@ interface PlatformVideoPlayerSectionProps {
 }
 
 export function PlatformVideoPlayerSection({
-  videoId = 'LXb3EKWsInQ',
+  videoId = 'M-QFGiwUCPA',
   title = 'Watch AfriQuantX in Action',
   subtitle = 'Experience our sub-millisecond quantitative engine, automated risk controls, and institutional cross-border settlement in real-time.'
 }: PlatformVideoPlayerSectionProps) {
