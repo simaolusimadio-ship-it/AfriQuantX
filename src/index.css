@@ -1,17 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-ngx-navy: #0A0F1C;
-  --color-ngx-black: #05070D;
-  --color-ngx-blue: #0066FF;
-  --color-ngx-green: #00C896;
-  --color-ngx-red: #FF3B3B;
-  --color-ngx-gold-start: #D4AF37;
-  --color-ngx-gold-end: #F5D76E;
+  --color-revolut-black: #0A0A0A;
+  --color-revolut-ink: #191C1F;
+  --color-revolut-grey: #F5F5F7;
+  --color-revolut-darkgrey: #E5E5EA;
+  --color-revolut-blue: #0666EB;
+  --color-revolut-violet: #7C4DFF;
+  --color-revolut-green: #00C805;
+  --color-revolut-emerald: #10B981;
+  --color-revolut-gold: #F5A623;
 
   --animate-ticker: ticker 30s linear infinite;
 
@@ -19,11 +21,22 @@
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
+
+  @keyframes signalTravel {
+    0% { left: -70px; }
+    100% { left: 100%; }
+  }
+
+  @keyframes marqueeScrollX {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 }
 
 @layer base {
   body {
-    @apply bg-black text-white antialiased;
+    @apply bg-white text-[#191C1F] antialiased selection:bg-[#0666EB] selection:text-white;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 

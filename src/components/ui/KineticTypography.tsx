@@ -249,11 +249,6 @@ export function AnimatedQuoteCarousel({
 
             <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-200/40">
               <div className="flex items-center gap-3">
-                {current.avatar && (
-                  <div className="w-11 h-11 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-xl shrink-0">
-                    {current.avatar}
-                  </div>
-                )}
                 <div>
                   <div className="font-bold text-base">{current.author}</div>
                   <div className={`text-xs font-mono ${darkTheme ? 'text-zinc-400' : 'text-gray-500'}`}>

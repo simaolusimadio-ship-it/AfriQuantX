@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  ArrowRight, Menu, X, Globe, Sparkles
+  ArrowRight, Menu, X, Globe, Smartphone, ChevronRight, ShieldCheck
 } from 'lucide-react';
 import { LandingHome } from './pages/LandingHome';
-import { ProductsPage } from './pages/ProductsPage';
-import { InvestPage } from './pages/InvestPage';
-import { PreIPOsPage } from './pages/PreIPOsPage';
-import { AQEIEnginePage } from './pages/AQEIEnginePage';
 import { BusinessPage } from './pages/BusinessPage';
-import { LearnPage } from './pages/LearnPage';
 import { AboutPage } from './pages/AboutPage';
 
 interface LandingPageProps {
@@ -25,13 +20,16 @@ export function LandingPage({
 }: LandingPageProps) {
   const [currentPage, setCurrentPage] = useState<string>('home');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showStickyCTA, setShowStickyCTA] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 20);
+      setShowStickyCTA(scrollY > 480);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -43,29 +41,14 @@ export function LandingPage({
 
   const navItems = [
     { id: 'home', label: 'Home' },
-    { id: 'products', label: 'Products' },
-    { id: 'invest', label: 'Invest' },
-    { id: 'pre-ipos', label: 'Pre-IPOs' },
-    { id: 'aqei-engine', label: 'AQEI Engine' },
     { id: 'business', label: 'Business' },
-    { id: 'learn', label: 'Learn' },
     { id: 'about', label: 'About' }
   ];
 
   const renderActivePage = () => {
     switch (currentPage) {
-      case 'products':
-        return <ProductsPage onNavigatePage={handleNavigatePage} onNavigateToAuth={onNavigateToAuth} />;
-      case 'invest':
-        return <InvestPage onNavigatePage={handleNavigatePage} onNavigateToAuth={onNavigateToAuth} />;
-      case 'pre-ipos':
-        return <PreIPOsPage onNavigatePage={handleNavigatePage} onNavigateToAuth={onNavigateToAuth} />;
-      case 'aqei-engine':
-        return <AQEIEnginePage onNavigatePage={handleNavigatePage} onNavigateToAuth={onNavigateToAuth} />;
       case 'business':
         return <BusinessPage onNavigatePage={handleNavigatePage} onNavigateToAuth={onNavigateToAuth} />;
-      case 'learn':
-        return <LearnPage onNavigatePage={handleNavigatePage} onNavigateToAuth={onNavigateToAuth} />;
       case 'about':
         return <AboutPage onNavigatePage={handleNavigatePage} onNavigateToAuth={onNavigateToAuth} />;
       case 'home':
@@ -81,44 +64,39 @@ export function LandingPage({
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#1A1A1A] font-sans selection:bg-[#D5FF2F] relative">
+    <div className="min-h-screen bg-white text-[#191C1F] font-sans selection:bg-[#0666EB] selection:text-white relative">
       
-      {/* GLOBAL STICKY HEADER NAVBAR */}
-      <header className={`fixed top-0 left-0 right-0 z-50 h-[72px] transition-all duration-300 flex items-center ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)]' 
-          : 'bg-white/80 backdrop-blur-sm border-b border-gray-100'
-      }`}>
-        <div className="w-full max-w-[1280px] mx-auto px-6 lg:px-12 flex items-center justify-between">
+      {/* GLOBAL TRANSPARENT HEADER NAVBAR */}
+      <header className="fixed top-0 left-0 right-0 z-50 h-[76px] transition-all duration-300 flex items-center bg-transparent border-b border-transparent">
+        <div className="w-full px-6 sm:px-12 lg:px-16 xl:px-24 flex items-center justify-between">
           
           {/* Brand Logo Left */}
           <div 
             onClick={() => handleNavigatePage('home')}
-            className="flex items-center gap-2.5 cursor-pointer group"
+            className="flex items-center gap-2 cursor-pointer group"
           >
-            <img src="/logo.svg" alt="AfriQuantX" className="w-8 h-8 object-contain filter invert group-hover:scale-105 transition-transform" />
-            <span className="font-extrabold text-xl tracking-tight text-[#000000]">
-              AfriQuant<span className="text-[#00C805]">X</span>
+            <span className="font-extrabold text-2xl tracking-tight text-white drop-shadow-sm">
+              AfriQuant<span className="text-[#D9A94E]">X</span>
             </span>
           </div>
 
           {/* Desktop Navigation Tabs */}
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
+          <nav className="hidden lg:flex items-center gap-8 text-[15px] font-semibold text-white/90">
             {navItems.map((item) => (
               <span
                 key={item.id}
                 onClick={() => handleNavigatePage(item.id)}
-                className={`cursor-pointer transition-colors relative py-1 ${
+                className={`cursor-pointer transition-all duration-200 relative py-1 px-1 ${
                   currentPage === item.id 
-                    ? 'text-black font-bold' 
-                    : 'text-gray-600 hover:text-black'
+                    ? 'text-white font-bold' 
+                    : 'text-white/70 hover:text-white'
                 }`}
               >
                 {item.label}
                 {currentPage === item.id && (
                   <motion.div 
                     layoutId="navIndicator"
-                    className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#00C805] rounded-full" 
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#D9A94E] rounded-full" 
                   />
                 )}
               </span>
@@ -129,24 +107,24 @@ export function LandingPage({
           <div className="hidden lg:flex items-center gap-4">
             <button 
               onClick={onNavigateToAuth}
-              className="text-sm font-semibold text-[#1A1A1A] hover:text-[#00C805] transition-colors"
+              className="text-sm font-semibold text-white/90 hover:text-[#D9A94E] transition-colors px-3 py-2"
             >
-              Sign In
+              Log in
             </button>
 
             <button 
               onClick={onNavigateToAuth}
-              className="h-[44px] px-6 rounded-full bg-black text-white hover:bg-[#D5FF2F] hover:text-black text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-md flex items-center gap-2 group"
+              className="h-[46px] px-7 rounded-full bg-[#D9A94E] text-[#0D0F13] hover:bg-[#e5b75f] font-bold text-sm tracking-tight transition-all duration-200 shadow-[0_4px_16px_rgba(217,169,78,0.25)] hover:scale-[1.02] flex items-center gap-2 group"
             >
-              <span>Get Started</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <span>Get the app</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
 
           {/* Mobile Menu Button */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-black hover:bg-gray-100 rounded-lg transition-colors"
+            className="lg:hidden p-2.5 text-white hover:bg-white/10 rounded-full transition-colors"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -161,28 +139,52 @@ export function LandingPage({
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-x-0 top-[72px] z-40 bg-white border-b border-gray-200 p-6 shadow-2xl lg:hidden space-y-4"
+            className="fixed inset-x-0 top-[76px] z-40 bg-[#0A0A0A] text-white border-b border-white/10 p-6 shadow-2xl lg:hidden space-y-4"
           >
-            <div className="flex flex-col gap-3 font-mono text-sm">
+            <div className="flex flex-col gap-2 font-semibold text-base">
               {navItems.map((item) => (
                 <div
                   key={item.id}
                   onClick={() => handleNavigatePage(item.id)}
-                  className={`py-2 px-3 rounded-lg cursor-pointer ${currentPage === item.id ? 'bg-black text-white font-bold' : 'text-gray-700 hover:bg-gray-100'}`}
+                  className={`py-3 px-4 rounded-xl cursor-pointer transition-all ${
+                    currentPage === item.id ? 'bg-[#D9A94E] text-[#0D0F13] font-bold' : 'text-zinc-300 hover:bg-white/5'
+                  }`}
                 >
                   {item.label}
                 </div>
               ))}
             </div>
 
-            <div className="pt-4 border-t border-gray-100 space-y-2">
+            <div className="pt-4 border-t border-white/10 space-y-3">
               <button
                 onClick={onNavigateToAuth}
-                className="w-full py-3 rounded-full bg-black text-white font-bold text-xs uppercase tracking-wider"
+                className="w-full py-4 rounded-full bg-[#D9A94E] text-[#0D0F13] font-bold text-sm tracking-tight shadow-md"
               >
-                Sign In / Register
+                Sign In / Open Account
               </button>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* PERSISTENT STICKY BOTTOM CTA (REVOLUT STYLE) */}
+      <AnimatePresence>
+        {showStickyCTA && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+            className="fixed bottom-6 right-6 z-40"
+          >
+            <button
+              onClick={onNavigateToAuth}
+              className="px-7 py-3.5 rounded-full bg-[#0A0A0A] hover:bg-black text-white text-sm font-bold shadow-[0_10px_30px_rgba(0,0,0,0.25)] flex items-center gap-3 group hover:scale-[1.03] transition-all"
+            >
+              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#0666EB] to-[#7C4DFF] animate-pulse" />
+              <span>Get AfriQuantX</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

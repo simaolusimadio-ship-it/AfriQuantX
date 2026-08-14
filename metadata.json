@@ -1,5 +1,6 @@
 {
   "name": "AfriQuantX",
-  "description": "A Private IPO, Product Investment, and AI Financial Intelligence Platform.",
-  "requestFramePermissions": []
+  "description": "Pan-African Multi-Currency Securities Clearing, Quantitative Investment Banking, and Pre-IPO Platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

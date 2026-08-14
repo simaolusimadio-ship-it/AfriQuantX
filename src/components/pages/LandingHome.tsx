@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   TrendingUp, ShieldCheck, Zap, ArrowRight, Play, CheckCircle2, 
   Sparkles, Layers, Cpu, Globe, PieChart, Star, ChevronRight, Lock, 
-  BarChart3, Activity, UserCheck, DollarSign
+  BarChart3, Activity, UserCheck, DollarSign, Smartphone, CreditCard,
+  Building2, Award, Landmark, Wallet, Check
 } from 'lucide-react';
 import { AfricanGlobeCanvas } from './AfricanGlobeCanvas';
 import { SharedFooter } from './SharedFooter';
@@ -11,13 +12,10 @@ import {
   KineticWordReveal, 
   TextMorph, 
   AnimatedQuoteCarousel, 
-  TypewriterText,
-  KineticCharacterStagger 
+  TypewriterText 
 } from '../ui/KineticTypography';
-import { CinematicAIBackground } from '../ui/CinematicAIBackground';
-import { CinematicShowcase } from '../ui/CinematicShowcase';
-import { FeatureExplorerHub } from '../ui/FeatureExplorerHub';
-import { LiveMarketTicker } from '../ui/LiveMarketTicker';
+import { PanAfricanHeroSection } from '../ui/PanAfricanHeroSection';
+import { MaterializeCardSection } from '../ui/MaterializeCardSection';
 import { HeroVideoBackground } from '../ui/HeroVideoBackground';
 import { 
   SecurityVaultCard, 
@@ -26,6 +24,7 @@ import {
 import { AfriQuantXInvestmentBankSection } from '../ui/AfriQuantXInvestmentBankSection';
 import { PlatformVideoPlayerSection } from '../ui/PlatformVideoPlayerSection';
 import { AfricanPartnersMarquee } from '../ui/AfricanPartnersMarquee';
+import { RealTimePortfolioCommand } from '../ui/RealTimePortfolioCommand';
 
 interface LandingHomeProps {
   onNavigatePage: (page: string) => void;
@@ -33,355 +32,344 @@ interface LandingHomeProps {
   onNavigateToDashboard?: () => void;
 }
 
-const LIVE_TICKER_ITEMS = [
-  { symbol: 'PAYST', name: 'Paystack Pre-IPO', price: '$18.40', change: '+4.2%', up: true },
-  { symbol: 'FLTW', name: 'Flutterwave Equity', price: '$32.10', change: '+6.8%', up: true },
-  { symbol: 'DANGCEM', name: 'Dangote Cement', price: '₦680.00', change: '+1.4%', up: true },
-  { symbol: 'SCOM', name: 'Safaricom PLC', price: 'KSh 18.50', change: '-0.3%', up: false },
-  { symbol: 'NPN', name: 'Naspers Ltd', price: 'R 3,420.00', change: '+2.1%', up: true },
-  { symbol: 'MNPT', name: 'Moniepoint Secondary', price: '$12.00', change: '+5.5%', up: true },
-];
-
-const TESTIMONIALS = [
-  {
-    name: 'Tariq Al-Mansoor',
-    role: 'Managing Partner, Sahara Capital',
-    quote: 'AfriQuantX provided our fund with instant FX clearing and secondary access to Flutterwave pre-IPO equity that was previously unreachable.',
-    roi: '+48.2% ROI',
-    avatar: '👨‍💼'
-  },
-  {
-    name: 'Dr. Chioma Nwachukwu',
-    role: 'Private Investor, Lagos',
-    quote: 'The AQEI Engine auto-rebalanced my portfolio into high-yield sovereign Eurobonds right before interest rate adjustments. Absolute game changer.',
-    roi: '+22.4% APY',
-    avatar: '👩‍🔬'
-  },
-  {
-    name: 'Kofi Mensah',
-    role: 'Tech Lead & Angel Investor, Accra',
-    quote: 'Fractional dual-listed shares across JSE and NGX from a single app. The interface polish is Apple-level.',
-    roi: '+34.8% ROI',
-    avatar: '👨‍💻'
-  }
-];
-
 export function LandingHome({ onNavigatePage, onNavigateToAuth, onNavigateToDashboard }: LandingHomeProps) {
+  // Plan/Account Tier selection tab state (Revolut style: Standard, Plus, Premium, Metal, Ultra)
+  const [selectedPlan, setSelectedPlan] = useState<'standard' | 'plus' | 'premium' | 'metal' | 'ultra'>('metal');
+  
+  // Interactive Product Toggle: Physical / Virtual / Sovereign Vault
+  const [activeAssetMode, setActiveAssetMode] = useState<'equities' | 'preipo' | 'eurobonds' | 'forex'>('equities');
+
   // Interactive AQEI Score State in Preview Section
   const [selectedAsset, setSelectedAsset] = useState('PAYST');
 
+  const plans = [
+    {
+      id: 'standard',
+      name: 'Standard',
+      price: '$0',
+      period: '/ month',
+      description: 'Zero-commission Pan-African investing & multi-currency account.',
+      badge: 'Free Forever',
+      badgeColor: 'bg-zinc-100 text-zinc-700',
+      features: [
+        'Zero commission on dual-listed equities',
+        'NGN, ZAR, KES, USD multi-currency wallet',
+        'Basic AQEI Risk Index scores',
+        'Instant P2P transfers across Africa',
+        'Virtual virtual debit card'
+      ],
+      popular: false,
+      ctaText: 'Get Standard Free'
+    },
+    {
+      id: 'plus',
+      name: 'Plus',
+      price: '$9.99',
+      period: '/ month',
+      description: 'Priority FX clearing rates and dedicated pre-IPO allocations.',
+      badge: 'Smart Saver',
+      badgeColor: 'bg-blue-50 text-blue-700',
+      features: [
+        'Everything in Standard',
+        'Preferred sub-second FX conversion spreads',
+        'Early access to Pre-IPO seed rounds',
+        'Custom virtual cards with disposable numbers',
+        'Automated monthly dividend reinvestment'
+      ],
+      popular: false,
+      ctaText: 'Start 30-Day Free Trial'
+    },
+    {
+      id: 'premium',
+      name: 'Premium',
+      price: '$19.99',
+      period: '/ month',
+      description: 'Comprehensive algorithmic execution with DeepMind risk hedging.',
+      badge: 'High Yield',
+      badgeColor: 'bg-purple-50 text-purple-700',
+      features: [
+        'Everything in Plus',
+        'Unlimited sub-second FX exchange at real interbank rates',
+        'Autonomous AI quantitative rebalancing',
+        'Global medical & purchase purchase insurance',
+        'Higher daily ATM & instant wire withdrawal limits'
+      ],
+      popular: false,
+      ctaText: 'Upgrade to Premium'
+    },
+    {
+      id: 'metal',
+      name: 'Metal',
+      price: '$34.99',
+      period: '/ month',
+      description: '18g solid steel brushed card, 1.0% cashback & institutional pre-IPOs.',
+      badge: 'Most Popular',
+      badgeColor: 'bg-[#0A0A0A] text-white',
+      accentGlow: 'border-2 border-black shadow-[0_8px_32px_rgba(0,0,0,0.12)]',
+      features: [
+        '18g Solid Brushed Metal Card in Platinum or Black',
+        'Up to 1.0% cashback on all stock & merchant purchases',
+        'Direct access to Series B/C private unicorn shares',
+        'Zero-markup Sovereign Eurobond secondary desk',
+        '24/7 dedicated wealth advisory concierge'
+      ],
+      popular: true,
+      ctaText: 'Get Metal Account'
+    },
+    {
+      id: 'ultra',
+      name: 'Ultra',
+      price: '$69.99',
+      period: '/ month',
+      description: 'Platinum-plated luxury card, airport lounge access & syndicate co-investing.',
+      badge: 'Platinum Prestige',
+      badgeColor: 'bg-amber-100 text-amber-900 border border-amber-300',
+      features: [
+        'Platinum-plated precision laser-etched metal card',
+        'Unlimited complimentary worldwide airport lounge access',
+        'Zero commission on block trades up to $5,000,000',
+        'Direct syndicate co-investing with Tier 1 African VCs',
+        'Full capital loss protection up to $250,000'
+      ],
+      popular: false,
+      ctaText: 'Join Ultra Club'
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-white text-[#1A1A1A] font-sans selection:bg-[#D5FF2F] overflow-x-hidden">
+    <div className="min-h-screen bg-white text-[#191C1F] font-sans selection:bg-[#0666EB] selection:text-white overflow-x-hidden">
       
-      {/* HIGH-PERFORMANCE LIVE MARKET TICKER WITH NEON GLOW */}
-      <LiveMarketTicker />
+      {/* 1. PAN-AFRICAN CAPITAL INFRASTRUCTURE HERO SECTION */}
+      <PanAfricanHeroSection 
+        onNavigateToAuth={onNavigateToAuth}
+        onNavigatePage={onNavigatePage}
+        onNavigateToDashboard={onNavigateToDashboard}
+      />
 
-      {/* 1. HERO SECTION WITH CINEMATIC YOUTUBE VIDEO BACKGROUND */}
-      <section className="relative pt-24 pb-20 px-6 lg:px-12 max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center overflow-hidden">
-        
-        {/* Cinematic Background YouTube Video Showcasing Fintech Revolution in Africa */}
-        <HeroVideoBackground videoId="LXb3EKWsInQ" overlayOpacity={0.88} />
-
-        {/* Left Column Text & CTAs */}
-        <div className="lg:col-span-7 space-y-8 text-left">
-          <div className="space-y-2">
-            <h1 className="text-4xl sm:text-5xl lg:text-[70px] font-semibold tracking-tight leading-[1.05] text-black">
-              <KineticWordReveal text="Invest in Africa's" delay={0.1} />
-              <br />
-              <div className="pt-2">
-                <TextMorph 
-                  words={[
-                    "High-Growth Assets.",
-                    "Pre-IPO Tech Equity.",
-                    "Sovereign Eurobonds.",
-                    "Dual-Listed Equities.",
-                    "Autonomous AI Vaults."
-                  ]} 
-                  interval={3000}
-                />
-              </div>
-            </h1>
-          </div>
-
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg sm:text-xl text-gray-500 max-w-xl leading-relaxed"
-          >
-            Access dual-listed stocks, pre-IPO tech unicorn equity, and sovereign Eurobond vaults powered by DeepMind-inspired AI risk intelligence.
-          </motion.p>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center gap-4 pt-2"
-          >
-            <button 
-              onClick={onNavigateToAuth}
-              className="w-full sm:w-auto h-[54px] px-9 rounded-full bg-black text-white hover:bg-[#D5FF2F] hover:text-black font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xl flex items-center justify-center gap-2 group"
-            >
-              <span>Start Investing</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-
-            <button 
-              onClick={() => onNavigatePage('products')}
-              className="w-full sm:w-auto h-[54px] px-8 rounded-full bg-[#F5F5F7] text-black hover:bg-gray-200 font-bold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2"
-            >
-              <span>Explore Products</span>
-            </button>
-          </motion.div>
-        </div>
-
-        {/* Right Column: AI Animated Globe & Floating Dashboard Preview */}
-        <div className="lg:col-span-5 relative">
-          <AfricanGlobeCanvas />
-        </div>
-
-      </section>
-
-      {/* VIDEO SECTION & TARGETED AFRICAN PARTNERS */}
-      <section className="px-6 lg:px-12 max-w-[1280px] mx-auto -mt-6 mb-12 space-y-12">
+      {/* 3. PARTNER & UNICORN LOGOS SECTION */}
+      <section className="w-full space-y-0">
         <PlatformVideoPlayerSection />
         <AfricanPartnersMarquee />
       </section>
 
-      {/* 2. TRUSTED BY & STATS BAR */}
-      <section className="py-14 bg-[#F5F5F7] border-y border-gray-200/80 px-6 lg:px-12">
-        <div className="max-w-[1280px] mx-auto space-y-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center font-mono">
-            <div className="space-y-1">
-              <span className="text-3xl lg:text-4xl font-extrabold text-black">$42.8B+</span>
-              <span className="text-xs text-gray-500 block uppercase tracking-wider">ASSETS UNDER MANAGEMENT</span>
+      {/* 4. RHYTHMIC FULL-BLEED SECTION 1: STATS & CLEARING METRICS (SOFT LIGHT GREY #F5F5F7) */}
+      <section className="py-24 bg-[#F5F5F7] border-y border-black/[0.05] px-6 sm:px-12 lg:px-16 xl:px-24 w-full">
+        <div className="w-full space-y-16">
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] tracking-tight">
+              Built for speed, security, and institutional volume.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            <div className="p-8 rounded-2xl bg-white border border-black/[0.04] shadow-[0_2px_12px_rgba(0,0,0,0.03)] space-y-3">
+              <span className="text-4xl lg:text-6xl font-black text-[#0A0A0A] tracking-tight">$42.8B+</span>
+              <span className="text-xs font-semibold text-[#6E737B] block uppercase tracking-wider">ASSETS UNDER MANAGEMENT</span>
             </div>
-            <div className="space-y-1">
-              <span className="text-3xl lg:text-4xl font-extrabold text-[#00C805]">300,000+</span>
-              <span className="text-xs text-gray-500 block uppercase tracking-wider">ACTIVE INVESTORS</span>
+            <div className="p-8 rounded-2xl bg-white border border-black/[0.04] shadow-[0_2px_12px_rgba(0,0,0,0.03)] space-y-3">
+              <span className="text-4xl lg:text-6xl font-black text-[#10B981] tracking-tight">300k+</span>
+              <span className="text-xs font-semibold text-[#6E737B] block uppercase tracking-wider">ACTIVE INVESTORS</span>
             </div>
-            <div className="space-y-1">
-              <span className="text-3xl lg:text-4xl font-extrabold text-black">14</span>
-              <span className="text-xs text-gray-500 block uppercase tracking-wider">AFRICAN EXCHANGES</span>
+            <div className="p-8 rounded-2xl bg-white border border-black/[0.04] shadow-[0_2px_12px_rgba(0,0,0,0.03)] space-y-3">
+              <span className="text-4xl lg:text-6xl font-black text-[#0666EB] tracking-tight">14</span>
+              <span className="text-xs font-semibold text-[#6E737B] block uppercase tracking-wider">AFRICAN EXCHANGES</span>
             </div>
-            <div className="space-y-1">
-              <span className="text-3xl lg:text-4xl font-extrabold text-[#00C805]">99.99%</span>
-              <span className="text-xs text-gray-500 block uppercase tracking-wider">CLEARING UPTIME</span>
+            <div className="p-8 rounded-2xl bg-white border border-black/[0.04] shadow-[0_2px_12px_rgba(0,0,0,0.03)] space-y-3">
+              <span className="text-4xl lg:text-6xl font-black text-[#0A0A0A] tracking-tight">99.99%</span>
+              <span className="text-xs font-semibold text-[#6E737B] block uppercase tracking-wider">CLEARING UPTIME</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. WHY AFRIQUANTX (3 PREMIUM HOVER FEATURE CARDS) */}
-      <section className="py-28 px-6 lg:px-12 max-w-[1280px] mx-auto space-y-16">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-gray-400">THE AQX ADVANTAGE</span>
-          <h2 className="text-3xl lg:text-4xl font-semibold text-black">Why leading institutional & retail investors choose AfriQuantX.</h2>
+      {/* 5. WHY AFRIQUANTX — 3 EQUAL-WIDTH FEATURE CARDS (WHITE SECTION) */}
+      <section className="py-28 px-6 sm:px-12 lg:px-16 xl:px-24 w-full space-y-16">
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] tracking-tight">
+            Every tool you need to build serious wealth.
+          </h2>
+          <p className="text-base sm:text-lg text-[#6E737B] max-w-2xl mx-auto">
+            Engineered with the polish of Apple and the high-frequency execution of London & Johannesburg trading floors.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          <motion.div 
-            whileHover={{ y: -8 }}
-            className="bg-white rounded-[28px] p-8 border border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.05)] hover:shadow-2xl transition-all duration-300 space-y-6"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-black text-[#D5FF2F] flex items-center justify-center">
-              <Cpu className="w-7 h-7" />
-            </div>
-            <h3 className="text-2xl font-bold text-black">AI Investment Intelligence</h3>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              AQEI neural models process 1.4B daily market signals to dynamically hedge portfolio risk and capture multi-currency yield opportunities.
-            </p>
-            <button 
-              onClick={() => onNavigatePage('aqei-engine')}
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#00C805] hover:text-black transition-colors"
-            >
-              <span>Explore AQEI Architecture</span> <ChevronRight className="w-4 h-4" />
-            </button>
-          </motion.div>
-
-          <motion.div 
-            whileHover={{ y: -8 }}
-            className="bg-white rounded-[28px] p-8 border border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.05)] hover:shadow-2xl transition-all duration-300 space-y-6"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-emerald-100 text-[#00C805] flex items-center justify-center">
-              <PieChart className="w-7 h-7" />
-            </div>
-            <h3 className="text-2xl font-bold text-black">Fractional Investing</h3>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              Buy fractional shares of high-value African blue chips (Dangote, Naspers, Safaricom) and US equities from as little as $1.
-            </p>
-            <button 
-              onClick={() => onNavigatePage('products')}
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#00C805] hover:text-black transition-colors"
-            >
-              <span>View Fractional Assets</span> <ChevronRight className="w-4 h-4" />
-            </button>
-          </motion.div>
-
-          <motion.div 
-            whileHover={{ y: -8 }}
-            className="bg-white rounded-[28px] p-8 border border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.05)] hover:shadow-2xl transition-all duration-300 space-y-6"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center">
-              <Globe className="w-7 h-7" />
-            </div>
-            <h3 className="text-2xl font-bold text-black">Cross-Border FX Access</h3>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              Seamlessly deposit in local currencies (NGN, ZAR, KES, EUR, USD) with sub-second FX conversion rates and zero spread markup.
-            </p>
-            <button 
-              onClick={() => onNavigatePage('invest')}
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#00C805] hover:text-black transition-colors"
-            >
-              <span>Learn About Multi-Currency</span> <ChevronRight className="w-4 h-4" />
-            </button>
-          </motion.div>
-
-        </div>
-      </section>
-
-      {/* 4. INTERACTIVE DASHBOARD SHOWCASE (STICKY SCROLL STYLE) */}
-      <section className="py-24 bg-black text-white border-y border-gray-800 px-6 lg:px-12">
-        <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Text & Stats */}
-          <div className="lg:col-span-5 space-y-8">
-            <span className="text-xs font-mono font-bold text-[#D5FF2F] uppercase tracking-widest">LIVE PLATFORM EXPERIENCE</span>
-            <h2 className="text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-tight">
-              Real-time portfolio management designed for clarity.
-            </h2>
-            <p className="text-gray-400 text-base leading-relaxed">
-              Monitor your total net worth across public stocks, pre-IPO equity certificates, and automated yield vaults with sub-millisecond precision.
-            </p>
-
-            <div className="space-y-4 font-mono text-xs">
-              <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-between">
-                <span className="text-zinc-400">AQEI RISK INDEX</span>
-                <span className="text-[#00C805] font-bold">94/100 (LOW RISK)</span>
+          <div className="bg-[#F5F5F7] rounded-3xl p-8 sm:p-10 border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 space-y-6 group flex flex-col justify-between">
+            <div className="space-y-6">
+              <div className="w-14 h-14 rounded-2xl bg-[#0A0A0A] text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Cpu className="w-7 h-7 text-[#0666EB]" />
               </div>
-              <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-between">
-                <span className="text-zinc-400">PROJECTED ANNUAL YIELD</span>
-                <span className="text-[#D5FF2F] font-bold">+18.4% APY</span>
+              <div className="space-y-2">
+                <h3 className="text-2xl font-bold text-[#0A0A0A] tracking-tight">Quantitative Intelligence</h3>
+                <p className="text-sm text-[#6E737B] leading-relaxed">
+                  Algorithmic models process 1.4B daily signals across NGX, JSE, NSE and LSE to dynamically hedge FX risk and maximize yields.
+                </p>
               </div>
             </div>
-
             <button 
               onClick={onNavigateToAuth}
-              className="h-[52px] px-8 rounded-full bg-[#00C805] hover:bg-[#D5FF2F] text-black font-bold text-xs uppercase tracking-wider transition-all"
+              className="inline-flex items-center gap-2 text-sm font-bold text-[#0A0A0A] group-hover:text-[#0666EB] transition-colors pt-4"
             >
-              Open Live Trading Demo
+              <span>Get Started</span> <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
 
-          {/* Right Desktop/Phone Mockup with Animated Charts */}
-          <div className="lg:col-span-7 bg-zinc-900 rounded-[32px] p-8 border border-zinc-800 shadow-2xl space-y-6">
-            <div className="flex items-center justify-between text-xs font-mono border-b border-zinc-800 pb-4">
-              <span className="text-white font-bold">PORTFOLIO OVERVIEW — AFRIQUANTX</span>
-              <span className="text-[#00C805] font-bold">● LIVE CLEARING</span>
+          <div className="bg-[#F5F5F7] rounded-3xl p-8 sm:p-10 border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 space-y-6 group flex flex-col justify-between">
+            <div className="space-y-6">
+              <div className="w-14 h-14 rounded-2xl bg-[#0A0A0A] text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                <PieChart className="w-7 h-7 text-[#10B981]" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-2xl font-bold text-[#0A0A0A] tracking-tight">Fractional Pre-IPOs</h3>
+                <p className="text-sm text-[#6E737B] leading-relaxed">
+                  Own private equity in Africa's billion-dollar tech unicorns (Paystack, Flutterwave, Moniepoint) starting from just $10.
+                </p>
+              </div>
             </div>
+            <button 
+              onClick={onNavigateToAuth}
+              className="inline-flex items-center gap-2 text-sm font-bold text-[#0A0A0A] group-hover:text-[#10B981] transition-colors pt-4"
+            >
+              <span>View Opportunities</span> <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
 
-            <div className="space-y-2">
-              <span className="text-xs text-zinc-500 font-mono">TOTAL NET BALANCE</span>
-              <div className="text-4xl lg:text-5xl font-extrabold font-mono text-[#D5FF2F]">$148,920.40</div>
+          <div className="bg-[#F5F5F7] rounded-3xl p-8 sm:p-10 border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 space-y-6 group flex flex-col justify-between">
+            <div className="space-y-6">
+              <div className="w-14 h-14 rounded-2xl bg-[#0A0A0A] text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Globe className="w-7 h-7 text-[#7C4DFF]" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-2xl font-bold text-[#0A0A0A] tracking-tight">Multi-Currency Wallet</h3>
+                <p className="text-sm text-[#6E737B] leading-relaxed">
+                  Hold, convert, and spend NGN, ZAR, KES, EUR, GBP, and USD with zero spread markups and instant bank wire settlement.
+                </p>
+              </div>
             </div>
-
-            {/* Simulated Live Chart Area */}
-            <div className="h-48 bg-zinc-950 rounded-2xl p-4 border border-zinc-800 flex items-end gap-2">
-              {[35, 42, 58, 50, 65, 80, 75, 90, 85, 110, 100, 125, 140, 148].map((h, i) => (
-                <div key={i} className="flex-1 bg-gradient-to-t from-[#00C805]/20 to-[#00C805] rounded-t" style={{ height: `${h}%` }} />
-              ))}
-            </div>
+            <button 
+              onClick={onNavigateToAuth}
+              className="inline-flex items-center gap-2 text-sm font-bold text-[#0A0A0A] group-hover:text-[#7C4DFF] transition-colors pt-4"
+            >
+              <span>Explore Multi-Currency</span> <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
 
         </div>
       </section>
 
-      {/* 5. AQEI ENGINE PREVIEW (DARK FUTURISTIC SECTION) */}
-      <section className="py-28 bg-[#070708] text-white px-6 lg:px-12 border-b border-zinc-800">
-        <div className="max-w-[1280px] mx-auto space-y-16">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#D5FF2F]">AQEI ENGINE PREVIEW</span>
-            <h2 className="text-3xl lg:text-4xl font-semibold text-white">Neural Market Predictions in Action.</h2>
-          </div>
+      {/* 6. REAL-TIME PORTFOLIO COMMAND */}
+      <RealTimePortfolioCommand onNavigateToAuth={onNavigateToAuth} />
 
-          <div className="bg-zinc-900 rounded-[32px] p-8 lg:p-12 border border-zinc-800 space-y-8">
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-6">
-              <div className="space-y-1">
-                <span className="text-xs font-mono text-zinc-400">SELECT ASSET TO RUN AQEI AUDIT:</span>
-                <div className="flex gap-2">
-                  {['PAYST', 'FLTW', 'DANGCEM', 'NPN'].map((sym) => (
-                    <button 
-                      key={sym}
-                      onClick={() => setSelectedAsset(sym)}
-                      className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all ${selectedAsset === sym ? 'bg-[#00C805] text-black' : 'bg-zinc-950 text-zinc-400 hover:text-white'}`}
-                    >
-                      {sym}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <span className="text-xs font-mono text-[#D5FF2F] font-bold">PREDICTION CONFIDENCE: 98.4%</span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-center">
-              <div className="p-6 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-2">
-                <span className="text-xs text-zinc-500">RISK INDEX</span>
-                <div className="text-3xl font-bold text-white">92 / 100</div>
-              </div>
-              <div className="p-6 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-2">
-                <span className="text-xs text-zinc-500">GROWTH FORECAST</span>
-                <div className="text-3xl font-bold text-[#D5FF2F]">+24.5%</div>
-              </div>
-              <div className="p-6 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-2">
-                <span className="text-xs text-zinc-500">ACTION SIGNAL</span>
-                <div className="text-3xl font-bold text-[#00C805]">STRONG BUY</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5.4 AFRIQUANTX INVESTMENT BANK SERVICES SPOTLIGHT */}
-      <AfriQuantXInvestmentBankSection onNavigateToAuth={onNavigateToAuth} />
-
-      {/* 5.5 INTERACTIVE FINTECH DESIGN GRAPHICS (SECURITY VAULT, CUSTOMER JOURNEY) */}
-      <section className="py-16 px-6 lg:px-12 max-w-[1280px] mx-auto space-y-12">
-        {/* Customer Wealth Journey */}
-        <CustomerJourneyFlow />
-
-        {/* Security Vault */}
-        <SecurityVaultCard />
-      </section>
-
-      {/* 5.6 CINEMATIC PRODUCT TRAILER SECTION */}
-      <section className="py-24 px-6 lg:px-12 max-w-[1280px] mx-auto space-y-12">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#00C805]">CINEMATIC SHOWCASE</span>
-          <h2 className="text-3xl lg:text-4xl font-semibold text-black">
-            Experience the future of Pan-African quantitative finance.
+      {/* 7. PLAN TIERS GRID (STANDARD, PLUS, PREMIUM, METAL, ULTRA — REVOLUT ARCHETYPE) */}
+      <section className="py-28 px-6 sm:px-12 lg:px-16 xl:px-24 w-full space-y-16">
+        
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] tracking-tight">
+            Choose your level of execution.
           </h2>
-          <p className="text-gray-500 text-sm">
-            Story-driven cinematic breakdown of our quantitative risk intelligence, pre-IPO equity engine, and autonomous yield vaults.
+          <p className="text-base sm:text-lg text-[#6E737B] max-w-xl mx-auto">
+            From zero-commission retail accounts to platinum metal cards and direct institutional syndicates.
           </p>
         </div>
 
-        <CinematicShowcase />
+        {/* 5-Column Grid on Desktop, Clean Stack on Mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          {plans.map((plan) => {
+            const isSelected = selectedPlan === plan.id;
+            return (
+              <div
+                key={plan.id}
+                onClick={() => setSelectedPlan(plan.id as any)}
+                className={`
+                  rounded-3xl p-6 transition-all duration-300 cursor-pointer flex flex-col justify-between relative
+                  ${plan.popular 
+                    ? 'bg-black text-white shadow-2xl scale-100 lg:scale-[1.03] z-20 border-2 border-black' 
+                    : 'bg-[#F5F5F7] text-[#191C1F] hover:bg-[#EBEBEF] border border-black/[0.04]'
+                  }
+                `}
+              >
+                {/* Tier Top Header */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className={`px-2.5 py-1 rounded-full text-[11px] font-bold tracking-tight ${plan.badgeColor}`}>
+                      {plan.badge}
+                    </span>
+                    {plan.popular && (
+                      <Star className="w-4 h-4 fill-[#F5A623] text-[#F5A623]" />
+                    )}
+                  </div>
+
+                  <div>
+                    <h3 className={`text-2xl font-extrabold tracking-tight ${plan.popular ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                      {plan.name}
+                    </h3>
+                    <p className={`text-xs mt-1 leading-relaxed ${plan.popular ? 'text-zinc-400' : 'text-[#6E737B]'}`}>
+                      {plan.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className={`text-3xl font-black tracking-tight ${plan.popular ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                      {plan.price}
+                    </span>
+                    <span className={`text-xs ${plan.popular ? 'text-zinc-400' : 'text-[#6E737B]'}`}>
+                      {plan.period}
+                    </span>
+                  </div>
+
+                  {/* Feature Checklist */}
+                  <ul className="space-y-2.5 pt-4 border-t border-black/[0.08] dark:border-white/10 text-xs">
+                    {plan.features.map((feat, fIdx) => (
+                      <li key={fIdx} className="flex items-start gap-2 leading-tight">
+                        <Check className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${plan.popular ? 'text-[#10B981]' : 'text-[#0666EB]'}`} />
+                        <span className={plan.popular ? 'text-zinc-300' : 'text-[#4A4D52]'}>
+                          {feat}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Bottom CTA Button */}
+                <div className="pt-8">
+                  <button
+                    onClick={onNavigateToAuth}
+                    className={`
+                      w-full py-3.5 px-4 rounded-full font-bold text-xs tracking-tight transition-all duration-200 hover:scale-[1.02]
+                      ${plan.popular 
+                        ? 'bg-white text-black hover:bg-zinc-100 shadow-md' 
+                        : 'bg-[#0A0A0A] text-white hover:bg-black shadow-sm'
+                      }
+                    `}
+                  >
+                    {plan.ctaText}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
       </section>
 
-      {/* 5.8 ALL 12 CORE PLATFORM MODULES EXPLORER */}
-      <FeatureExplorerHub 
-        onNavigateToAuth={onNavigateToAuth}
-        onNavigateToDashboard={onNavigateToDashboard}
-      />
+      {/* 8. AFRIQUANTX INVESTMENT BANK SERVICES SPOTLIGHT */}
+      <AfriQuantXInvestmentBankSection onNavigateToAuth={onNavigateToAuth} />
 
-      {/* 6. ANIMATED INVESTOR TESTIMONIAL QUOTES */}
-      <section className="py-24 px-6 lg:px-12 max-w-[1280px] mx-auto space-y-12">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-gray-400">ANIMATED INVESTOR TESTIMONIALS</span>
-          <h2 className="text-3xl lg:text-4xl font-semibold text-black">
-            Trusted by venture partners & institutional treasuries.
+      {/* 9. INTERACTIVE FINTECH GRAPHICS (SECURITY VAULT & CUSTOMER JOURNEY) */}
+      <section className="py-20 px-6 sm:px-12 lg:px-16 xl:px-24 w-full space-y-12">
+        <CustomerJourneyFlow />
+        <SecurityVaultCard />
+      </section>
+
+      {/* 10. MATERIALIZE / DEMATERIALIZE CARD EXPERIENCE */}
+      <MaterializeCardSection onNavigateToAuth={onNavigateToAuth} />
+
+      {/* 11. INVESTOR TESTIMONIALS */}
+      <section className="py-24 px-6 sm:px-12 lg:px-16 xl:px-24 w-full space-y-12">
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] tracking-tight">
+            Trusted by 300,000+ investors & funds.
           </h2>
         </div>
 
@@ -392,56 +380,52 @@ export function LandingHome({ onNavigatePage, onNavigateToAuth, onNavigateToDash
               role: 'Managing Partner',
               company: 'Sahara Capital Dubai',
               quote: 'AfriQuantX provided our fund with instant FX clearing and secondary access to Flutterwave pre-IPO equity that was previously unreachable in GCC markets.',
-              roi: '+48.2% ROI',
-              avatar: '👨‍💼'
+              roi: '+48.2% ROI'
             },
             {
               author: 'Dr. Chioma Nwachukwu',
               role: 'Private Investor',
               company: 'Lagos Tech Angels',
-              quote: 'The AQEI Engine auto-rebalanced my portfolio into high-yield sovereign Eurobonds right before interest rate adjustments. Absolute quantitative masterclass.',
-              roi: '+22.4% APY',
-              avatar: '👩‍🔬'
+              quote: 'The algorithmic quantitative engine auto-rebalanced my portfolio into high-yield sovereign Eurobonds right before interest rate adjustments. Absolute quantitative masterclass.',
+              roi: '+22.4% APY'
             },
             {
               author: 'Kofi Mensah',
               role: 'Tech Lead & Angel Investor',
               company: 'Accra Capital',
               quote: 'Fractional dual-listed shares across JSE and NGX from a single app. The typography, smooth animations, and kinetic interface polish are world-class.',
-              roi: '+34.8% ROI',
-              avatar: '👨‍💻'
+              roi: '+34.8% ROI'
             },
             {
               author: 'Elena Rostova',
               role: 'Global Emerging Markets Lead',
               company: 'Helios Fund London',
-              quote: 'Executing $10M+ block trades in Pan-African sovereign debt with zero counterparty settlement risk and live neural confidence metrics.',
-              roi: '+19.6% APY',
-              avatar: '👩‍💼'
+              quote: 'Executing $10M+ block trades in Pan-African sovereign debt with zero counterparty settlement risk and live quantitative execution metrics.',
+              roi: '+19.6% APY'
             }
           ]} 
           autoPlayInterval={5000}
         />
       </section>
 
-      {/* 7. FINAL BLACK CTA SECTION */}
-      <section className="py-28 bg-black text-white px-6 lg:px-12 text-center relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#00C805]/20 rounded-full blur-[140px] pointer-events-none" />
+      {/* 12. FINAL CONTRAST BLACK CTA SECTION */}
+      <section className="py-28 bg-[#000000] text-white px-6 sm:px-12 lg:px-16 xl:px-24 w-full text-center relative overflow-hidden border-t border-zinc-800">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-[#0666EB]/20 to-[#7C4DFF]/20 rounded-full blur-[160px] pointer-events-none" />
 
-        <div className="max-w-3xl mx-auto space-y-8 relative z-10">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-tight">
-            Invest in Africa's Future Today.
+        <div className="max-w-4xl mx-auto space-y-8 relative z-10">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+            Invest in Africa's future today.
           </h2>
-          <p className="text-gray-400 text-lg max-w-xl mx-auto">
-            Join 300,000+ investors creating wealth with zero commission dual-listed stocks and AI intelligence.
+          <p className="text-zinc-400 text-lg sm:text-xl max-w-2xl mx-auto font-normal">
+            Join 300,000+ investors creating generational wealth with zero-commission equities, pre-IPO tech unicorns, and algorithmic intelligence.
           </p>
 
-          <div className="pt-4 flex justify-center">
+          <div className="pt-4 flex flex-col sm:flex-row justify-center items-center gap-4">
             <button 
               onClick={onNavigateToAuth}
-              className="h-[60px] px-12 rounded-full bg-[#00C805] hover:bg-[#D5FF2F] text-black font-extrabold text-base uppercase tracking-wider transition-all duration-200 shadow-[0_0_50px_rgba(0,200,5,0.4)] flex items-center gap-3"
+              className="w-full sm:w-auto h-[56px] px-10 rounded-full bg-white text-black hover:bg-zinc-100 font-extrabold text-base tracking-tight transition-all duration-200 shadow-[0_4px_30px_rgba(255,255,255,0.2)] hover:scale-[1.02] flex items-center justify-center gap-3"
             >
-              <span>Create Free Account</span>
+              <span>Open your account in 3 minutes</span>
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>

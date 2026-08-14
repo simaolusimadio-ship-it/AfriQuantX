@@ -5,7 +5,7 @@ import {
   ArrowRight, Check, Sparkles, DollarSign, PieChart, Cpu, Clock, CheckCircle2
 } from 'lucide-react';
 import { SharedFooter } from './SharedFooter';
-import { FeatureExplorerHub } from '../ui/FeatureExplorerHub';
+import { MaterializeCardSection } from '../ui/MaterializeCardSection';
 import { HeroVideoBackground } from '../ui/HeroVideoBackground';
 import { CustomerJourneyFlow } from '../ui/InteractiveFintechGraphics';
 import { 
@@ -300,8 +300,8 @@ export function ProductsPage({ onNavigatePage, onNavigateToAuth }: ProductsPageP
         </div>
       </section>
 
-      {/* 3.5 PLATFORM 12-MODULE FEATURE EXPLORER HUB */}
-      <FeatureExplorerHub onNavigateToAuth={onNavigateToAuth} />
+      {/* 3.5 MATERIALIZE & DEMATERIALIZE CARD SECTION */}
+      <MaterializeCardSection onNavigateToAuth={onNavigateToAuth} />
 
       {/* FINTECH PROCESS VISUALS */}
       <section className="py-12 px-6 lg:px-12 max-w-[1280px] mx-auto space-y-8">

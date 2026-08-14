@@ -240,30 +240,26 @@ export function SecurityVaultCard() {
   const [unlocked, setUnlocked] = useState(false);
 
   return (
-    <div className="p-8 rounded-[32px] bg-zinc-950 border border-zinc-800 text-white my-8 space-y-6 relative overflow-hidden">
+    <div className="w-full p-8 sm:p-10 rounded-2xl bg-zinc-950 border border-zinc-800 text-white space-y-8 relative overflow-hidden">
       {/* Background Security Wave Pattern */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-zinc-800">
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-bold">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            <span>INSTITUTIONAL GRADE SECURITY</span>
-          </div>
-          <h3 className="text-2xl font-bold text-white tracking-tight">
+        <div className="space-y-2 max-w-2xl">
+          <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
             Multi-Layer Cryptographic Vault Protection
           </h3>
-          <p className="text-xs text-zinc-400 font-mono">
+          <p className="text-xs sm:text-sm text-zinc-400 font-mono">
             SOC2 Type II • ISO 27001 • FIPS 140-2 Level 3 Hardware Security Modules
           </p>
         </div>
 
         <button
           onClick={() => setUnlocked(!unlocked)}
-          className={`px-5 py-2.5 rounded-full text-xs font-mono font-bold transition-all flex items-center gap-2 border ${
+          className={`px-6 py-3 rounded-full text-xs font-mono font-bold transition-all flex items-center gap-2 border shrink-0 ${
             unlocked 
-              ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' 
-              : 'bg-blue-600 text-white border-blue-500 hover:bg-blue-700'
+              ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400 shadow-lg shadow-emerald-500/10' 
+              : 'bg-blue-600 text-white border-blue-500 hover:bg-blue-700 shadow-lg shadow-blue-600/20'
           }`}
         >
           {unlocked ? <Lock className="w-4 h-4 text-emerald-400" /> : <Key className="w-4 h-4" />}
@@ -271,32 +267,32 @@ export function SecurityVaultCard() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 rounded-2xl bg-zinc-900/80 border border-zinc-800 space-y-2">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="p-6 rounded-2xl bg-zinc-900/80 border border-zinc-800 space-y-3">
           <div className="flex items-center justify-between">
-            <Fingerprint className="w-5 h-5 text-blue-400" />
-            <span className="text-[10px] font-mono text-zinc-500">LAYER 1</span>
+            <Fingerprint className="w-6 h-6 text-blue-400" />
+            <span className="text-[11px] font-mono text-zinc-500">LAYER 1</span>
           </div>
-          <div className="font-bold text-sm text-white">Biometric Multi-Sig</div>
-          <div className="text-xs text-zinc-400">WebAuthn, Hardware Passkeys & Corporate Threshold Signatures.</div>
+          <div className="font-bold text-base text-white">Biometric Multi-Sig</div>
+          <div className="text-xs sm:text-sm text-zinc-400 leading-relaxed">WebAuthn, Hardware Passkeys & Corporate Threshold Signatures.</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-zinc-900/80 border border-zinc-800 space-y-2">
+        <div className="p-6 rounded-2xl bg-zinc-900/80 border border-zinc-800 space-y-3">
           <div className="flex items-center justify-between">
-            <Lock className="w-5 h-5 text-emerald-400" />
-            <span className="text-[10px] font-mono text-zinc-500">LAYER 2</span>
+            <Lock className="w-6 h-6 text-emerald-400" />
+            <span className="text-[11px] font-mono text-zinc-500">LAYER 2</span>
           </div>
-          <div className="font-bold text-sm text-white">AES-256 HSM Encryption</div>
-          <div className="text-xs text-zinc-400">Data at rest and in transit encrypted with isolated keys.</div>
+          <div className="font-bold text-base text-white">AES-256 HSM Encryption</div>
+          <div className="text-xs sm:text-sm text-zinc-400 leading-relaxed">Data at rest and in transit encrypted with isolated keys.</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-zinc-900/80 border border-zinc-800 space-y-2">
+        <div className="p-6 rounded-2xl bg-zinc-900/80 border border-zinc-800 space-y-3">
           <div className="flex items-center justify-between">
-            <FileCheck className="w-5 h-5 text-cyan-400" />
-            <span className="text-[10px] font-mono text-zinc-500">LAYER 3</span>
+            <FileCheck className="w-6 h-6 text-cyan-400" />
+            <span className="text-[11px] font-mono text-zinc-500">LAYER 3</span>
           </div>
-          <div className="font-bold text-sm text-white">Zero-Knowledge Audits</div>
-          <div className="text-xs text-zinc-400">Real-time proof of reserve verified by Big 4 accounting standards.</div>
+          <div className="font-bold text-base text-white">Zero-Knowledge Audits</div>
+          <div className="text-xs sm:text-sm text-zinc-400 leading-relaxed">Real-time proof of reserve verified by Big 4 accounting standards.</div>
         </div>
       </div>
     </div>
@@ -314,20 +310,20 @@ export function CustomerJourneyFlow() {
   ];
 
   return (
-    <div className="py-10 px-6 bg-gray-50 border border-gray-200 rounded-[32px] my-10 space-y-6">
-      <div className="text-center max-w-xl mx-auto space-y-2">
-        <h3 className="text-2xl font-bold text-black tracking-tight">Your Seamless Wealth Journey</h3>
-        <p className="text-xs font-mono text-gray-500">From setup to institutional execution in under 3 minutes.</p>
+    <div className="w-full py-12 px-6 sm:px-10 bg-[#F5F5F7] border border-black/[0.06] rounded-2xl space-y-8">
+      <div className="text-center max-w-2xl mx-auto space-y-2">
+        <h3 className="text-2xl sm:text-3xl font-extrabold text-black tracking-tight">Your Seamless Wealth Journey</h3>
+        <p className="text-xs sm:text-sm font-mono text-gray-600">From setup to institutional execution in under 3 minutes.</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
         {steps.map((s, idx) => (
-          <div key={idx} className="p-4 rounded-2xl bg-white border border-gray-200 shadow-sm text-center space-y-1 relative">
-            <div className="w-8 h-8 rounded-full bg-black text-white font-mono text-xs font-bold flex items-center justify-center mx-auto mb-2">
+          <div key={idx} className="p-5 rounded-2xl bg-white border border-black/[0.06] shadow-sm text-center space-y-2 relative hover:shadow-md transition-shadow">
+            <div className="w-9 h-9 rounded-full bg-black text-white font-mono text-xs font-bold flex items-center justify-center mx-auto mb-2">
               {s.num}
             </div>
             <div className="font-bold text-sm text-black">{s.label}</div>
-            <div className="text-[11px] text-gray-500 leading-tight">{s.desc}</div>
+            <div className="text-xs text-gray-500 leading-tight">{s.desc}</div>
           </div>
         ))}
       </div>

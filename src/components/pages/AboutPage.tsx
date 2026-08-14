@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { 
   Globe, ShieldCheck, Award, Users, HeartHandshake, MapPin, 
-  ArrowRight, CheckCircle2, Building2, Sparkles, Mail, Phone
+  ArrowRight, CheckCircle2, Building2, Sparkles, Mail, Phone,
+  Compass, Landmark, Cpu, BarChart3, TrendingUp
 } from 'lucide-react';
-import { AfricanGlobeCanvas } from './AfricanGlobeCanvas';
 import { SharedFooter } from './SharedFooter';
 import { HeroVideoBackground } from '../ui/HeroVideoBackground';
-import { GlobalPaymentMesh } from '../ui/InteractiveFintechGraphics';
 import { AfriQuantXInvestmentBankSection } from '../ui/AfriQuantXInvestmentBankSection';
 
 interface AboutPageProps {
@@ -18,14 +17,14 @@ interface AboutPageProps {
 const TIMELINE_EVENTS = [
   { year: '2022', title: 'Founded in Lagos & London', desc: 'Started with a mission to democratize cross-border securities clearing for African investors.' },
   { year: '2024', title: 'SEC & Regulatory Licensing', desc: 'Achieved clearing house integrations and partner broker licenses across Nigeria, South Africa, and Kenya.' },
-  { year: '2025', title: 'AQEI AI Engine Deployment', desc: 'Launched DeepMind-trained neural network executing 410ns order routing and volatility predictions.' },
-  { year: '2026', title: '$42B+ AUM & Pre-IPO Platform', desc: 'Expanded to 14 African markets, serving over 300,000 active investors globally.' }
+  { year: '2025', title: 'Quantitative Engine Deployment', desc: 'Launched algorithmic quantitative routing network executing sub-millisecond settlement and volatility forecasting.' },
+  { year: '2026', title: '$42B+ AUM & Pre-IPO Platform', desc: 'Expanded to 14 African markets, serving institutional allocators and accredited wealth desks globally.' }
 ];
 
 const LEADERSHIP = [
-  { name: 'Lusima Adio', role: 'Founder & Chief Executive Officer', bio: 'Former DeepMind AI researcher and Pan-African macro strategist.', avatar: '👨‍💼' },
-  { name: 'Amina Bello', role: 'Chief Risk & Compliance Officer', bio: 'Ex-SEC Securities regulator with 15+ years cross-border legal experience.', avatar: '👩‍💼' },
-  { name: 'David Van Der Merwe', role: 'Chief Technology Officer', bio: 'Pioneer of high-frequency exchange matching engines in Johannesburg.', avatar: '👨‍💻' }
+  { name: 'Lusima Adio', role: 'Founder & Chief Executive Officer', bio: 'Former quantitative researcher and Pan-African macro strategist.', initials: 'LA' },
+  { name: 'Amina Bello', role: 'Chief Risk & Compliance Officer', bio: 'Ex-SEC Securities regulator with 15+ years cross-border legal experience.', initials: 'AB' },
+  { name: 'David Van Der Merwe', role: 'Chief Technology Officer', bio: 'Pioneer of high-frequency exchange matching engines in Johannesburg.', initials: 'DM' }
 ];
 
 const OFFICES = [
@@ -39,50 +38,79 @@ export function AboutPage({ onNavigatePage, onNavigateToAuth }: AboutPageProps) 
   const [activeOffice, setActiveOffice] = useState(0);
 
   return (
-    <div className="min-h-screen bg-white text-[#1A1A1A] font-sans selection:bg-[#D5FF2F]">
+    <div className="min-h-screen bg-white text-[#0D0F13] font-sans selection:bg-[#D9A94E] selection:text-[#0D0F13] overflow-x-hidden">
       
-      {/* 1. HERO SECTION WITH ANIMATED GLOBE & YOUTUBE VIDEO BACKGROUND */}
-      <section className="relative pt-32 pb-20 px-6 lg:px-12 max-w-[1280px] mx-auto text-center space-y-8 overflow-hidden">
-        <HeroVideoBackground videoId="LXb3EKWsInQ" overlayOpacity={0.88} />
+      {/* 1. FULL-BLEED HERO SECTION WITH EMBEDDED MUTED AUTO-PLAYING FINANCIAL MARKETS YOUTUBE VIDEO BACKGROUND */}
+      <section className="relative w-full min-h-[80vh] sm:min-h-[88vh] flex items-center justify-center bg-[#0D0F13] text-[#F4F1E8] px-6 sm:px-12 lg:px-16 xl:px-24 overflow-hidden border-b border-white/[0.08]">
+        
+        {/* Full-bleed Auto-playing Muted YouTube Video of Financial Markets */}
+        <HeroVideoBackground 
+          videoId="t5lO9Z42nZ0" 
+          overlayOpacity={0.68} 
+          darkMode={true}
+          title="Global Financial Markets & Stock Exchanges"
+          creditLabel="LIVE FEED • GLOBAL CAPITAL MARKETS & EXCHANGES"
+        />
 
-        <h1 className="text-5xl sm:text-6xl lg:text-[76px] font-semibold tracking-tight leading-[1.04]">
-          Building Africa's <br />
-          <span>Financial Future.</span>
-        </h1>
+        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8 py-28 sm:py-36">
+          
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/[0.08] border border-white/[0.14] backdrop-blur-md text-xs font-mono font-semibold text-[#D9A94E]"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#D9A94E] animate-pulse" />
+            <span className="tracking-widest uppercase">PAN-AFRICAN CAPITAL ARCHITECTURE</span>
+          </motion.div>
 
-        <p className="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
-          We are building the intelligent clearing and investment rails connecting African wealth to global capital markets.
-        </p>
+          <motion.h1 
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="text-4xl sm:text-6xl lg:text-[76px] font-extrabold tracking-tight text-[#F4F1E8] leading-[1.06]"
+          >
+            Building Africa's <br className="hidden sm:inline" />
+            <span className="text-[#34A87E] drop-shadow-[0_0_35px_rgba(52,168,126,0.3)]">
+              Financial Future.
+            </span>
+          </motion.h1>
 
-        {/* Vector Globe */}
-        <div className="pt-6">
-          <AfricanGlobeCanvas />
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="text-lg sm:text-xl text-[#F4F1E8]/80 max-w-3xl mx-auto leading-relaxed font-medium"
+          >
+            We build the quantitative clearing, institutional securities settlement, and private market rails connecting African enterprise to global liquidity.
+          </motion.p>
+
         </div>
       </section>
 
       {/* 2. MISSION STATEMENT */}
-      <section className="py-24 bg-[#F5F5F7] border-y border-gray-200/80 px-6 lg:px-12 text-center">
+      <section className="py-24 sm:py-32 bg-[#F5F5F7] border-y border-black/[0.06] px-6 sm:px-12 lg:px-16 xl:px-24 text-center">
         <div className="max-w-4xl mx-auto space-y-6">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-gray-400">OUR CORE PURPOSE</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-black leading-tight">
-            "To remove friction, FX barriers, and access limits for every investor building wealth in Africa."
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#D9A94E]">OUR CORE PURPOSE</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0D0F13] leading-tight tracking-tight">
+            "To remove friction, FX barriers, and access limits for every institutional and private allocator building wealth in Africa."
           </h2>
         </div>
       </section>
 
       {/* 3. STORY TIMELINE */}
-      <section className="py-24 px-6 lg:px-12 max-w-[1280px] mx-auto space-y-16">
+      <section className="py-28 lg:py-36 px-6 sm:px-12 lg:px-16 xl:px-24 max-w-7xl mx-auto space-y-16">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-gray-400">OUR MILESTONES</span>
-          <h2 className="text-3xl lg:text-4xl font-semibold text-black">From vision to $42B+ AUM infrastructure.</h2>
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#34A87E]">OUR MILESTONES</span>
+          <h2 className="text-3xl lg:text-5xl font-extrabold text-[#0D0F13] tracking-tight">From vision to $42B+ AUM infrastructure.</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {TIMELINE_EVENTS.map((event, idx) => (
-            <div key={idx} className="bg-white rounded-[24px] p-6 border border-gray-200 shadow-sm space-y-3 relative">
-              <span className="text-2xl font-extrabold font-mono text-[#00C805] block">{event.year}</span>
-              <h3 className="text-lg font-bold text-black">{event.title}</h3>
-              <p className="text-xs text-gray-500 leading-relaxed">{event.desc}</p>
+            <div key={idx} className="bg-[#F5F5F7] rounded-3xl p-8 border border-black/[0.06] space-y-4 relative">
+              <span className="text-3xl font-extrabold font-mono text-[#D9A94E] block">{event.year}</span>
+              <h3 className="text-xl font-bold text-[#0D0F13] tracking-tight">{event.title}</h3>
+              <p className="text-sm text-[#6E737B] leading-relaxed">{event.desc}</p>
             </div>
           ))}
         </div>
@@ -91,28 +119,25 @@ export function AboutPage({ onNavigatePage, onNavigateToAuth }: AboutPageProps) 
       {/* AFRIQUANTX INVESTMENT BANK SERVICES HIGHLIGHT */}
       <AfriQuantXInvestmentBankSection onNavigateToAuth={onNavigateToAuth} />
 
-      {/* PAN-AFRICAN & GLOBAL CLEARING MESH */}
-      <section className="py-12 px-6 lg:px-12 max-w-[1280px] mx-auto space-y-8">
-        <GlobalPaymentMesh />
-      </section>
-
-      {/* 4. LEADERSHIP CARDS */}
-      <section className="py-24 bg-black text-white border-y border-gray-800 px-6 lg:px-12">
-        <div className="max-w-[1280px] mx-auto space-y-16">
+      {/* 4. LEADERSHIP */}
+      <section className="py-28 lg:py-36 bg-[#0D0F13] text-[#F4F1E8] border-y border-white/[0.08] px-6 sm:px-12 lg:px-16 xl:px-24">
+        <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#D5FF2F]">EXECUTIVES</span>
-            <h2 className="text-3xl lg:text-4xl font-semibold text-white">Backed by world-class leaders.</h2>
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#D9A94E]">EXECUTIVE LEADERSHIP</span>
+            <h2 className="text-3xl lg:text-5xl font-extrabold text-[#F4F1E8] tracking-tight">Backed by industry pioneers.</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {LEADERSHIP.map((leader, idx) => (
-              <div key={idx} className="bg-zinc-900 rounded-[28px] p-8 border border-zinc-800 space-y-4 hover:border-[#00C805] transition-all">
-                <span className="text-5xl block">{leader.avatar}</span>
-                <div>
-                  <h3 className="text-xl font-bold text-white">{leader.name}</h3>
-                  <span className="text-xs font-mono text-[#00C805] font-bold block mt-1">{leader.role}</span>
+              <div key={idx} className="bg-[#14171F] rounded-3xl p-8 border border-white/[0.08] space-y-5 hover:border-[#D9A94E]/50 transition-all">
+                <div className="w-14 h-14 rounded-2xl bg-[#191D27] border border-white/[0.12] flex items-center justify-center font-mono font-bold text-lg text-[#F4F1E8]">
+                  {leader.initials}
                 </div>
-                <p className="text-xs text-zinc-400 leading-relaxed pt-2 border-t border-zinc-800">{leader.bio}</p>
+                <div>
+                  <h3 className="text-2xl font-bold text-[#F4F1E8] tracking-tight">{leader.name}</h3>
+                  <span className="text-xs font-mono text-[#34A87E] font-bold block mt-1">{leader.role}</span>
+                </div>
+                <p className="text-sm text-[#F4F1E8]/60 leading-relaxed pt-3 border-t border-white/[0.06]">{leader.bio}</p>
               </div>
             ))}
           </div>
@@ -120,23 +145,27 @@ export function AboutPage({ onNavigatePage, onNavigateToAuth }: AboutPageProps) 
       </section>
 
       {/* 5. INTERACTIVE OFFICE LOCATIONS */}
-      <section className="py-24 px-6 lg:px-12 max-w-[1280px] mx-auto space-y-12">
+      <section className="py-28 lg:py-36 px-6 sm:px-12 lg:px-16 xl:px-24 max-w-7xl mx-auto space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-gray-400">GLOBAL PRESENCE</span>
-          <h2 className="text-3xl lg:text-4xl font-semibold text-black">Our Regional Hubs.</h2>
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#6E737B]">GLOBAL PRESENCE</span>
+          <h2 className="text-3xl lg:text-5xl font-extrabold text-[#0D0F13] tracking-tight">Our Regional Hubs.</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {OFFICES.map((off, idx) => (
             <div 
               key={idx}
               onClick={() => setActiveOffice(idx)}
-              className={`p-6 rounded-[24px] border cursor-pointer transition-all space-y-3 ${activeOffice === idx ? 'bg-black text-white border-black shadow-xl' : 'bg-[#F5F5F7] text-black border-gray-200'}`}
+              className={`p-7 rounded-3xl border cursor-pointer transition-all space-y-3 ${
+                activeOffice === idx 
+                  ? 'bg-[#0D0F13] text-[#F4F1E8] border-[#0D0F13] shadow-xl' 
+                  : 'bg-[#F5F5F7] text-[#0D0F13] border-black/[0.06] hover:border-black/[0.15]'
+              }`}
             >
-              <MapPin className={`w-5 h-5 ${activeOffice === idx ? 'text-[#D5FF2F]' : 'text-[#00C805]'}`} />
-              <h4 className="font-bold text-lg">{off.city}</h4>
-              <p className={`text-xs ${activeOffice === idx ? 'text-gray-400' : 'text-gray-500'}`}>{off.address}</p>
-              <p className={`text-[11px] font-mono ${activeOffice === idx ? 'text-[#00C805]' : 'text-gray-600'}`}>{off.phone}</p>
+              <MapPin className={`w-5 h-5 ${activeOffice === idx ? 'text-[#D9A94E]' : 'text-[#34A87E]'}`} />
+              <h4 className="font-bold text-xl tracking-tight">{off.city}</h4>
+              <p className={`text-xs ${activeOffice === idx ? 'text-[#F4F1E8]/60' : 'text-[#6E737B]'}`}>{off.address}</p>
+              <p className={`text-xs font-mono ${activeOffice === idx ? 'text-[#34A87E]' : 'text-[#0D0F13]'}`}>{off.phone}</p>
             </div>
           ))}
         </div>
@@ -148,3 +177,4 @@ export function AboutPage({ onNavigatePage, onNavigateToAuth }: AboutPageProps) 
     </div>
   );
 }
+
