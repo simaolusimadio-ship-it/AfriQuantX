@@ -22,17 +22,18 @@ const initialMessages = [
   {
     id: 1,
     role: 'ai',
-    content: 'Welcome to NXG Intelligence. I am your autonomous financial agent, equipped with real-time market data, SEC filings analysis, and multi-agent orchestration. How can I assist your research today?',
+    content: 'Welcome to AfriQuantX Institutional Advisory & Wealth Intelligence. I am your senior quantitative advisor, equipped with deep real-time models across African Stock Markets (JSE, NGX, NSE Kenya), Commodities, Forex corridors (PAPSS & SARB allowances), and global macroeconomic/geopolitical risk frameworks. How may I assist your portfolio strategy today?',
     timestamp: '10:00 AM',
-    citations: []
+    citations: ['AfriQuantX Multi-Asset Telemetry Engine']
   }
 ];
 
 const suggestions = [
-  "Screen top AI companies by revenue growth",
-  "Analyze Naspers's latest financials",
-  "Compare Standard Bank vs Dangote Cement risk profiles",
-  "Generate a due diligence report for Safaricom"
+  "Analyze JSE Top 40 vs NGX 30 multi-asset valuation spreads",
+  "Evaluate Zambian Copperbelt & SA Platinum group commodities outlook",
+  "Assess PAPSS intra-African currency settlement vs USD liquidity constraints",
+  "Model AfCFTA supply chain expansion impact on Kenyan & Egyptian banking sectors",
+  "Simulate SARB & CBN monetary policy divergence on corporate bond yields"
 ];
 
 const spaces = [

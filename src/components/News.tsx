@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   Activity, Globe, BarChart2, User, Sparkles, Send, 
-  RefreshCw, TrendingUp, TrendingDown, DollarSign, Calendar
+  RefreshCw, TrendingUp, TrendingDown, DollarSign, Calendar, Zap, Landmark
 } from 'lucide-react';
 import OpenAI from "openai";
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer 
 } from 'recharts';
+import { africanExchangeService, AltcoinLiveStats } from '../services/africanExchangeService';
 
 const ai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
@@ -116,6 +117,28 @@ export function News() {
   // Live Watchlist Quotes State
   const [quotes, setQuotes] = useState<Record<string, any>>({});
   const [isRefreshingQuotes, setIsRefreshingQuotes] = useState(false);
+  const [altcoinStats, setAltcoinStats] = useState<AltcoinLiveStats[]>([]);
+  const [isAltcoinLoading, setIsAltcoinLoading] = useState(false);
+
+  const fetchAltcoinStats = async () => {
+    setIsAltcoinLoading(true);
+    try {
+      const stats = await africanExchangeService.getAltcoinLiveStats();
+      if (stats && Object.keys(stats).length > 0) {
+        setAltcoinStats(Object.values(stats));
+      }
+    } catch (e) {
+      console.warn("Failed to load Altcoin stats:", e);
+    } finally {
+      setIsAltcoinLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAltcoinStats();
+    const interval = setInterval(fetchAltcoinStats, 12000);
+    return () => clearInterval(interval);
+  }, []);
 
   const watchSymbols = ['AAPL', 'MSFT', 'GOOG', 'AMZN', 'NVDA', 'AFQ'];
 
@@ -246,6 +269,65 @@ export function News() {
 
   return (
     <div className="space-y-6">
+      {/* Live Pan-African Market Data Strip (AltCoinTrader & OVEX) */}
+      <div className="bg-black border border-[#D4AF37]/30 rounded-2xl p-4 shadow-xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3 mb-3">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#D4AF37] flex items-center gap-1.5">
+              <Zap className="w-3.5 h-3.5 fill-current" />
+              AltCoinTrader v3 & OVEX Real-Time Liquidity Mesh
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={fetchAltcoinStats}
+              disabled={isAltcoinLoading}
+              className="text-[10px] font-mono text-zinc-400 hover:text-white flex items-center gap-1 bg-white/5 px-2.5 py-1 rounded-lg border border-white/10 transition-colors"
+            >
+              <RefreshCw className={`w-3 h-3 ${isAltcoinLoading ? 'animate-spin text-[#D4AF37]' : ''}`} />
+              Auto-Synced (12s)
+            </button>
+            <span className="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">
+              ZAR Pairs Active
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          {altcoinStats.map((item) => {
+            const changeNum = parseFloat(item.Change || '0');
+            const priceNum = parseFloat(item.Price || item.Close || '0');
+            const isPos = changeNum >= 0;
+            const sym = item.Symbol || 'BTCZAR';
+            return (
+              <div 
+                key={sym}
+                className="bg-[#0A0A0A] border border-white/10 rounded-xl p-3 hover:border-[#D4AF37]/50 transition-all cursor-pointer group"
+                onClick={() => {
+                  setAiQuery(`Provide an in-depth institutional analysis of ${sym} currently trading at R ${priceNum.toLocaleString()} with 24h volume of ${item.Volume || 'N/A'} on South African markets.`);
+                  window.scrollTo({ top: 100, behavior: 'smooth' });
+                }}
+              >
+                <div className="flex justify-between items-start mb-1">
+                  <span className="text-xs font-bold text-white group-hover:text-[#D4AF37] transition-colors">{sym}</span>
+                  <span className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded ${isPos ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
+                    {isPos ? '+' : ''}{item.Change}%
+                  </span>
+                </div>
+                <div className="text-sm font-mono font-extrabold text-white">
+                  R {priceNum.toLocaleString()}
+                </div>
+                <div className="flex justify-between items-center text-[9px] font-mono text-zinc-500 mt-1">
+                  <span>H: R{parseFloat(item.High || '0').toLocaleString()}</span>
+                  <span>L: R{parseFloat(item.Low || '0').toLocaleString()}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       {/* AI News Analyzer */}
       <Card className="bg-[#0A0A0A] border-white/[0.08] shadow-[0_0_30px_rgba(0,0,0,0.5)]">
         <CardHeader className="pb-3 border-b border-white/[0.04]">

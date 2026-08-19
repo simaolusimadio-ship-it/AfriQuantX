@@ -8,6 +8,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { generateTradingSignals } from '../services/geminiService';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { OvexRfqTrading } from './OvexRfqTrading';
 
 // Sound design using Web Audio API
 const playSoundEffect = (type: 'beep' | 'success' | 'click' | 'stop') => {
@@ -135,7 +136,7 @@ const BACKTEST_CURVES: Record<string, any[]> = {
 };
 
 export function TradingEngine() {
-  const [activeTab, setActiveTab] = useState<'nautilus_strategies' | 'nautilus_backtest' | 'ai_recommendations' | 'nautilus_venue'>('nautilus_strategies');
+  const [activeTab, setActiveTab] = useState<'ovex_rfq' | 'nautilus_strategies' | 'nautilus_backtest' | 'ai_recommendations' | 'nautilus_venue'>('ovex_rfq');
   const [strategies, setStrategies] = useState(MOCK_STRATEGIES);
   const [selectedStrategy, setSelectedStrategy] = useState(MOCK_STRATEGIES[0]);
   const [logLines, setLogLines] = useState<string[]>([]);
@@ -295,9 +296,10 @@ export function TradingEngine() {
       {/* Premium Tab Bar */}
       <div className="flex border-b border-white/5 bg-black/30 p-1">
         {[
+          { id: 'ovex_rfq', label: 'OVEX OTC & RFQ Mesh', icon: Zap },
           { id: 'nautilus_strategies', label: 'Strategies Console', icon: Settings2 },
           { id: 'nautilus_backtest', label: 'Backtesting Lab', icon: BarChart3 },
-          { id: 'ai_recommendations', label: 'AI Signal Router', icon: Zap },
+          { id: 'ai_recommendations', label: 'AI Signal Router', icon: Activity },
           { id: 'nautilus_venue', label: 'Venue Connectors', icon: Server }
         ].map(tab => (
           <button
@@ -308,11 +310,11 @@ export function TradingEngine() {
             }}
             className={`flex-1 py-3 px-4 flex items-center justify-center gap-2 font-bold text-xs uppercase tracking-wider transition-all border-b-2 ${
               activeTab === tab.id 
-                ? 'border-[#00C853] text-white bg-white/[0.02]' 
+                ? 'border-[#D4AF37] text-white bg-white/[0.02]' 
                 : 'border-transparent text-zinc-400 hover:text-white hover:bg-white/[0.01]'
             }`}
           >
-            <tab.icon className={`w-4 h-4 ${activeTab === tab.id ? 'text-[#00C853]' : 'text-zinc-400'}`} />
+            <tab.icon className={`w-4 h-4 ${activeTab === tab.id ? 'text-[#D4AF37]' : 'text-zinc-400'}`} />
             <span>{tab.label}</span>
           </button>
         ))}
@@ -322,6 +324,18 @@ export function TradingEngine() {
       <div className="flex-1 overflow-y-auto p-6 relative z-10">
         <AnimatePresence mode="wait">
           
+          {/* TAB 0: OVEX OTC & RFQ Mesh */}
+          {activeTab === 'ovex_rfq' && (
+            <motion.div
+              key="ovex_rfq"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+            >
+              <OvexRfqTrading />
+            </motion.div>
+          )}
+
           {/* TAB 1: Nautilus Strategies Console */}
           {activeTab === 'nautilus_strategies' && (
             <motion.div

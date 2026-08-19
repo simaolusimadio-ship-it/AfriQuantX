@@ -21,7 +21,21 @@ export const generateFinancialAnalysis = async (prompt: string): Promise<AIRespo
       messages: [
         {
           role: "system",
-          content: "You are an expert financial advisor and research analyst for NXG Intelligence. Provide accurate, data-driven insights. When making claims, format them clearly and provide simulated citations or sources where appropriate."
+          content: `You are the Principal Chief Financial Officer and Senior Quantitative Macro Strategist for AfriQuantX (AQX Intelligence) — an elite world-class institutional financial advisor with unmatched expertise in:
+1. Pan-African Stock Exchanges: Johannesburg Stock Exchange (JSE), Nigerian Exchange (NGX), Nairobi Securities Exchange (NSE), Bourse Régionale des Valeurs Mobilières (BRVM), Egyptian Exchange (EGX), Ghana Stock Exchange (GSE), and Casablanca Stock Exchange.
+2. Global & African Commodities: Gold, Platinum Group Metals (PGM), Copper (Zambian Copperbelt), Crude Oil (Bonny Light, Brent), Natural Gas, Lithium, Cobalt, Cocoa (Ivory Coast & Ghana), and Arabica/Robusta Coffee.
+3. Foreign Exchange & Clearing MESH: USD, EUR, GBP, ZAR, NGN, KES, EGP, GHS, XOF/XAF, SARB Foreign Allowance limits, and PAPSS (Pan-African Payment and Settlement System) FX corridors.
+4. Global Financial Markets: US Equities (NYSE, Nasdaq), European Bourses, Asian Markets, Fixed Income yields, Fed/ECB/BoE rate trajectory.
+5. African & Global Geopolitics and Macroeconomics: AfCFTA supply chain integration, BRICS+ trade flows, African sovereign debt dynamics (Eurobonds, IMF/World Bank facilities), Central Bank monetary policies (SARB, CBN, CBK, CBE), inflation targeting, and OECD CARF regulatory frameworks.
+
+Structure your analysis authoritatively with:
+- Executive Summary & Investment Thesis
+- Macro & Geopolitical Context (AfCFTA / BRICS / Central Bank Stance)
+- Asset Valuation & Quantitative Risk Profile
+- Actionable Portfolio Allocation Strategy
+- Citations & Institutional Telemetry Reference
+
+Provide deep, mathematically and economically grounded insights without boilerplate disclaimers.`
         },
         {
           role: "user",
@@ -34,19 +48,25 @@ export const generateFinancialAnalysis = async (prompt: string): Promise<AIRespo
     // Extract text and simulate citations based on the content
     const text = response.choices[0].message.content || "I'm sorry, I couldn't generate an analysis at this time.";
     
-    // Simple heuristic to generate mock citations based on keywords in the response
+    // Heuristic citations based on African & Global financial sources
     const citations: string[] = [];
-    if (text.toLowerCase().includes('sec') || text.toLowerCase().includes('10-k') || text.toLowerCase().includes('10-q')) {
-      citations.push('Recent SEC Filings');
+    if (text.toLowerCase().includes('jse') || text.toLowerCase().includes('south africa') || text.toLowerCase().includes('sarb')) {
+      citations.push('JSE Equity & SARB Bulletin Telemetry');
     }
-    if (text.toLowerCase().includes('earnings') || text.toLowerCase().includes('revenue')) {
-      citations.push('Q3 Earnings Call Transcript');
+    if (text.toLowerCase().includes('ngx') || text.toLowerCase().includes('nigeria') || text.toLowerCase().includes('cbn')) {
+      citations.push('NGX Exchange Intelligence & CBN Directives');
     }
-    if (text.toLowerCase().includes('market') || text.toLowerCase().includes('trend')) {
-      citations.push('NXG Market Intelligence Data');
+    if (text.toLowerCase().includes('nse') || text.toLowerCase().includes('kenya') || text.toLowerCase().includes('cbk')) {
+      citations.push('Nairobi Securities Exchange & CBK Economic Matrix');
+    }
+    if (text.toLowerCase().includes('commodity') || text.toLowerCase().includes('gold') || text.toLowerCase().includes('oil')) {
+      citations.push('LME & Bloomberg Commodity Indices');
+    }
+    if (text.toLowerCase().includes('afcfta') || text.toLowerCase().includes('papss') || text.toLowerCase().includes('brics')) {
+      citations.push('AfCFTA Secretariat & Afreximbank Trade Monitor');
     }
     if (citations.length === 0) {
-      citations.push('NXG Proprietary Financial Models');
+      citations.push('AfriQuantX Quantitative Multi-Asset Clearing Models');
     }
 
     return { text, citations };

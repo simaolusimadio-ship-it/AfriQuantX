@@ -5,6 +5,7 @@ import tradeRoutes from './trade.routes.js';
 import authRoutes from './auth.routes.js';
 import botRoutes from './bot.routes.js';
 import whopRoutes from './whop.routes.js';
+import africanRoutes from './african_exchange.routes.js';
 
 const router = Router();
 
@@ -15,6 +16,7 @@ router.use('/trade', tradeRoutes);
 router.use('/auth', authRoutes);
 router.use('/bot', botRoutes);
 router.use('/whop', whopRoutes);
+router.use('/african', africanRoutes);
 
 export default router;
 

@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { generateWalletYield } from '../services/geminiService';
 import { WhopCardFundModal } from './WhopCardFundModal';
 import { PocketWalletWidget } from './PocketWalletWidget';
+import { OvexWalletHub } from './OvexWalletHub';
 
 export function GlobalWallet() {
   const [data, setData] = useState<any>(null);
@@ -188,6 +189,9 @@ export function GlobalWallet() {
                 ))}
               </div>
             </div>
+
+            {/* OVEX Prime & CARF Regulatory Compliance Hub */}
+            <OvexWalletHub />
           </>
         ) : (
           <div className="flex flex-col items-center justify-center h-64 gap-4">

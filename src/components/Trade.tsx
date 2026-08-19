@@ -3,12 +3,13 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowRightLeft, TrendingUp, TrendingDown, 
   Search, Filter, Clock, Activity, ShieldCheck,
-  ChevronDown, ArrowUpRight, ArrowDownRight, Radio
+  ChevronDown, ArrowUpRight, ArrowDownRight, Radio, Landmark, Zap
 } from 'lucide-react';
 import { StockPurchaseConfirmation } from './StockPurchaseConfirmation';
 import { supabase } from '../lib/supabase';
 import { TwelveDataTrade } from './TwelveDataTrade';
 import { FinnhubTrade } from './FinnhubTrade';
+import { OvexRfqTrading } from './OvexRfqTrading';
 import {
   AreaChart,
   Area,
@@ -31,7 +32,7 @@ export function Trade({ setActiveTab }: { setActiveTab: (tab: string) => void })
   const [selectedAssetId, setSelectedAssetId] = useState(MOCK_ASSETS[0].id);
   const selectedAsset = assets.find(a => a.id === selectedAssetId) || assets[0];
 
-  const [activeSubTab, setActiveSubTab] = useState<'private' | 'twelvedata' | 'finnhub'>('finnhub');
+  const [activeSubTab, setActiveSubTab] = useState<'ovex' | 'finnhub' | 'twelvedata' | 'private'>('ovex');
 
   const [orderType, setOrderType] = useState<'market' | 'limit'>('market');
   const [tradeAction, setTradeAction] = useState<'buy' | 'sell'>('buy');
@@ -263,23 +264,34 @@ export function Trade({ setActiveTab }: { setActiveTab: (tab: string) => void })
         </div>
 
         {/* Custom Tab Switcher */}
-        <div className="flex bg-white/5 border border-white/15 p-1 rounded-2xl flex-wrap gap-1">
+        <div className="flex bg-black border border-[#D4AF37]/30 p-1.5 rounded-2xl flex-wrap gap-1.5">
           <button
-            onClick={() => setActiveSubTab('private')}
+            onClick={() => setActiveSubTab('ovex')}
             className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
-              activeSubTab === 'private' 
-                ? 'bg-gradient-to-r from-[#0057FF] to-[#00C853] text-white shadow-lg shadow-black/30' 
+              activeSubTab === 'ovex' 
+                ? 'bg-[#D4AF37] text-black shadow-lg shadow-[#D4AF37]/20 font-extrabold' 
                 : 'text-zinc-400 hover:text-white'
             }`}
           >
-            <Activity className="w-4 h-4" />
-            African Startups
+            <Zap className="w-4 h-4 text-amber-500 fill-current" />
+            OVEX RFQ & AltcoinTrader
+          </button>
+          <button
+            onClick={() => setActiveSubTab('finnhub')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
+              activeSubTab === 'finnhub' 
+                ? 'bg-[#D4AF37] text-black shadow-lg shadow-[#D4AF37]/20 font-extrabold' 
+                : 'text-zinc-400 hover:text-white'
+            }`}
+          >
+            <Radio className="w-4 h-4 text-emerald-400 animate-pulse" />
+            Finnhub Live WS
           </button>
           <button
             onClick={() => setActiveSubTab('twelvedata')}
             className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
               activeSubTab === 'twelvedata' 
-                ? 'bg-gradient-to-r from-[#0057FF] to-[#00C853] text-white shadow-lg shadow-black/30' 
+                ? 'bg-[#D4AF37] text-black shadow-lg shadow-[#D4AF37]/20 font-extrabold' 
                 : 'text-zinc-400 hover:text-white'
             }`}
           >
@@ -287,20 +299,22 @@ export function Trade({ setActiveTab }: { setActiveTab: (tab: string) => void })
             Twelve Data WS
           </button>
           <button
-            onClick={() => setActiveSubTab('finnhub')}
+            onClick={() => setActiveSubTab('private')}
             className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
-              activeSubTab === 'finnhub' 
-                ? 'bg-gradient-to-r from-[#0057FF] to-[#00C853] text-white shadow-lg shadow-black/30' 
+              activeSubTab === 'private' 
+                ? 'bg-[#D4AF37] text-black shadow-lg shadow-[#D4AF37]/20 font-extrabold' 
                 : 'text-zinc-400 hover:text-white'
             }`}
           >
-            <Radio className="w-4 h-4 text-emerald-300 animate-pulse" />
-            Finnhub Live WS
+            <Activity className="w-4 h-4" />
+            African Startups
           </button>
         </div>
       </div>
 
-      {activeSubTab === 'finnhub' ? (
+      {activeSubTab === 'ovex' ? (
+        <OvexRfqTrading />
+      ) : activeSubTab === 'finnhub' ? (
         <FinnhubTrade setActiveTab={setActiveTab} />
       ) : activeSubTab === 'twelvedata' ? (
         <TwelveDataTrade setActiveTab={setActiveTab} />
