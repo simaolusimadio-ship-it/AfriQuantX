@@ -537,4 +537,103 @@
   box-shadow: none;
 }
 
+/* =========================================================================
+   LIGHT MODE PALETTE OVERRIDES
+   Crisp, mathematical light theme maintaining AfriQuantX luxury and contrast
+   ========================================================================= */
+
+html.light-mode body {
+  background-color: #F8F9FA !important;
+  color: #0F172A !important;
+}
+
+html.light-mode ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+html.light-mode * {
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+
+html.light-mode .bg-black {
+  background-color: #FFFFFF !important;
+}
+
+html.light-mode .bg-black\/50,
+html.light-mode .bg-black\/80,
+html.light-mode .bg-black\/85,
+html.light-mode .bg-black\/90 {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+}
+
+html.light-mode .bg-neutral-950,
+html.light-mode .bg-neutral-900,
+html.light-mode .bg-\[\#0A0A0A\],
+html.light-mode .bg-\[\#07090E\],
+html.light-mode .bg-\[\#04060C\],
+html.light-mode .bg-\[\#0A0F1C\],
+html.light-mode .bg-\[\#0B0E17\] {
+  background-color: #FFFFFF !important;
+}
+
+html.light-mode .bg-neutral-800,
+html.light-mode .bg-white\/5,
+html.light-mode .bg-white\/10 {
+  background-color: #F1F5F9 !important;
+}
+
+html.light-mode .bg-white\/\[0\.02\],
+html.light-mode .bg-white\/\[0\.03\],
+html.light-mode .bg-white\/\[0\.04\] {
+  background-color: #F8FAFC !important;
+}
+
+html.light-mode .text-white {
+  color: #0F172A !important;
+}
+
+html.light-mode .text-zinc-200,
+html.light-mode .text-zinc-300 {
+  color: #1E293B !important;
+}
+
+html.light-mode .text-zinc-400,
+html.light-mode .text-zinc-500 {
+  color: #64748B !important;
+}
+
+html.light-mode .border-white\/5,
+html.light-mode .border-white\/10,
+html.light-mode .border-white\/15,
+html.light-mode .border-white\/20,
+html.light-mode .border-white\/\[0\.04\],
+html.light-mode .border-white\/\[0\.08\],
+html.light-mode .border-neutral-800,
+html.light-mode .border-neutral-900 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light-mode .divide-white\/5,
+html.light-mode .divide-white\/10 {
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+html.light-mode header,
+html.light-mode aside {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+html.light-mode input,
+html.light-mode select,
+html.light-mode textarea {
+  color: #0F172A !important;
+}
+
+html.light-mode .hover\:bg-white\/5:hover,
+html.light-mode .hover\:bg-white\/10:hover,
+html.light-mode .hover\:bg-white\/\[0\.03\]:hover {
+  background-color: #F1F5F9 !important;
+}
+
+
 

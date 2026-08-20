@@ -14,22 +14,48 @@ export function ThemeToggleSwitch({
   onChange
 }: ThemeToggleSwitchProps) {
   const [isChecked, setIsChecked] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
     return localStorage.getItem('aqx_theme_mode') === 'light';
   });
 
   useEffect(() => {
-    if (isChecked) {
+    const applyTheme = (light: boolean) => {
+      if (light) {
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('aqx_theme_mode', 'light');
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        localStorage.setItem('aqx_theme_mode', 'dark');
+      }
+    };
+
+    applyTheme(isChecked);
+
+    const handleSync = (e: Event) => {
+      const customEvent = e as CustomEvent<{ isLight: boolean }>;
+      if (customEvent.detail && typeof customEvent.detail.isLight === 'boolean') {
+        setIsChecked(customEvent.detail.isLight);
+      }
+    };
+
+    window.addEventListener('aqx-theme-change', handleSync);
+    return () => window.removeEventListener('aqx-theme-change', handleSync);
+  }, [isChecked]);
+
+  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    setIsChecked(checked);
+    if (checked) {
       document.documentElement.classList.add('light-mode');
       localStorage.setItem('aqx_theme_mode', 'light');
     } else {
       document.documentElement.classList.remove('light-mode');
       localStorage.setItem('aqx_theme_mode', 'dark');
     }
-  }, [isChecked]);
 
-  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const checked = e.target.checked;
-    setIsChecked(checked);
+    // Broadcast change to other switches in layout
+    window.dispatchEvent(new CustomEvent('aqx-theme-change', { detail: { isLight: checked } }));
+
     if (onChange) {
       onChange(checked);
     }
@@ -42,7 +68,10 @@ export function ThemeToggleSwitch({
     : 'scale-100';
 
   return (
-    <div className={`flex items-center gap-2 ${scaleClass} ${className}`}>
+    <div 
+      className={`flex items-center gap-2 ${scaleClass} ${className}`}
+      title={isChecked ? "Switch to Dark Theme" : "Switch to Light Theme"}
+    >
       <div className="toggle-switch">
         <label className="switch-label" htmlFor={id}>
           <input
@@ -51,6 +80,7 @@ export function ThemeToggleSwitch({
             id={id}
             checked={isChecked}
             onChange={handleToggle}
+            aria-label="Toggle Dark/Light Mode"
           />
           <span className="slider" />
         </label>
@@ -58,3 +88,4 @@ export function ThemeToggleSwitch({
     </div>
   );
 }
+

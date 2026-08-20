@@ -9,9 +9,18 @@ import {
   africanExchangeService, DepositAddressResponse, 
   PendingCarfItem, CarfTransferType 
 } from '../services/africanExchangeService';
+import { BiometricAuthModal } from './BiometricAuthModal';
 
 export function OvexWalletHub() {
   const [activeTab, setActiveTab] = useState<'deposit' | 'withdraw' | 'carf' | 'offshore' | 'fees'>('deposit');
+  
+  // Biometric Auth Modal State
+  const [isBioModalOpen, setIsBioModalOpen] = useState(false);
+  const [pendingBioAction, setPendingBioAction] = useState<(() => Promise<void>) | null>(null);
+  const [bioTitle, setBioTitle] = useState('Authorize Instant Withdrawal');
+  const [bioDescription, setBioDescription] = useState('Authenticate using your hardware Face ID / Touch ID sensor or Passkey.');
+  const [bioAmount, setBioAmount] = useState<string | number | undefined>(undefined);
+  const [bioCurrency, setBioCurrency] = useState('ZAR');
   
   // Deposit State
   const [selectedCurrency, setSelectedCurrency] = useState('btc');
@@ -85,44 +94,66 @@ export function OvexWalletHub() {
 
   const handleDeclareCarfSingle = async () => {
     if (!selectedPendingItem) return;
-    setDeclaringCarf(true);
-    const res = await africanExchangeService.declareCarf(selectedPendingItem.id, selectedCarfType);
-    setDeclaringCarf(false);
-    if (res.success) {
-      setCarfSuccessMsg(res.message);
-      setSelectedPendingItem(null);
-      loadCarfData();
-      setTimeout(() => setCarfSuccessMsg(null), 5000);
-    }
+    setBioTitle('Authorize CARF Declaration');
+    setBioDescription(`Confirm identity to sign and transmit OECD CARF declaration for ${selectedPendingItem.currency.toUpperCase()} deposit.`);
+    setBioAmount(selectedPendingItem.amount);
+    setBioCurrency(selectedPendingItem.currency.toUpperCase());
+    setPendingBioAction(() => async () => {
+      setDeclaringCarf(true);
+      const res = await africanExchangeService.declareCarf(selectedPendingItem.id, selectedCarfType);
+      setDeclaringCarf(false);
+      if (res.success) {
+        setCarfSuccessMsg(res.message);
+        setSelectedPendingItem(null);
+        loadCarfData();
+        setTimeout(() => setCarfSuccessMsg(null), 5000);
+      }
+    });
+    setIsBioModalOpen(true);
   };
 
   const handleDeclareCarfAll = async () => {
-    setDeclaringCarf(true);
-    const res = await africanExchangeService.declareCarfAll('SELF_TRANSFER');
-    setDeclaringCarf(false);
-    if (res.success) {
-      setCarfSuccessMsg(res.message);
-      loadCarfData();
-      setTimeout(() => setCarfSuccessMsg(null), 5000);
-    }
+    setBioTitle('Batch Sign CARF Declarations');
+    setBioDescription('Hardware verification required to sign and submit bulk CARF declarations across all pending deposits.');
+    setBioAmount(pendingCarf.length);
+    setBioCurrency('ITEMS');
+    setPendingBioAction(() => async () => {
+      setDeclaringCarf(true);
+      const res = await africanExchangeService.declareCarfAll('SELF_TRANSFER');
+      setDeclaringCarf(false);
+      if (res.success) {
+        setCarfSuccessMsg(res.message);
+        loadCarfData();
+        setTimeout(() => setCarfSuccessMsg(null), 5000);
+      }
+    });
+    setIsBioModalOpen(true);
   };
 
-  const handleCreateWithdrawal = async (e: React.FormEvent) => {
+  const handleCreateWithdrawal = (e: React.FormEvent) => {
     e.preventDefault();
     if (!withdrawAmount) return;
-    setWithdrawing(true);
-    const res = await africanExchangeService.createWithdrawal(
-      parseFloat(withdrawAmount),
-      withdrawBeneficiary,
-      withdrawCurrency
-    );
-    setWithdrawing(false);
-    if (res.success) {
-      setWithdrawResult(res);
-      setWithdrawAmount('');
-      const updated = await africanExchangeService.getWithdrawsHistory(withdrawCurrency);
-      if (updated?.withdraws) setWithdrawsHistory(updated.withdraws);
-    }
+
+    setBioTitle('Authorize Real-Time Withdrawal');
+    setBioDescription(`Hardware biometric sign-off required to dispatch ${withdrawCurrency} ${withdrawAmount} to verified beneficiary.`);
+    setBioAmount(withdrawAmount);
+    setBioCurrency(withdrawCurrency);
+    setPendingBioAction(() => async () => {
+      setWithdrawing(true);
+      const res = await africanExchangeService.createWithdrawal(
+        parseFloat(withdrawAmount),
+        withdrawBeneficiary,
+        withdrawCurrency
+      );
+      setWithdrawing(false);
+      if (res.success) {
+        setWithdrawResult(res);
+        setWithdrawAmount('');
+        const updated = await africanExchangeService.getWithdrawsHistory(withdrawCurrency);
+        if (updated?.withdraws) setWithdrawsHistory(updated.withdraws);
+      }
+    });
+    setIsBioModalOpen(true);
   };
 
   return (
@@ -676,6 +707,26 @@ export function OvexWalletHub() {
           </div>
         </div>
       )}
+
+      {/* Hardware Biometric Security Gate Modal */}
+      <BiometricAuthModal
+        isOpen={isBioModalOpen}
+        actionTitle={bioTitle}
+        actionDescription={bioDescription}
+        amount={bioAmount}
+        currency={bioCurrency}
+        onSuccess={async (res) => {
+          setIsBioModalOpen(false);
+          if (pendingBioAction) {
+            await pendingBioAction();
+            setPendingBioAction(null);
+          }
+        }}
+        onCancel={() => {
+          setIsBioModalOpen(false);
+          setPendingBioAction(null);
+        }}
+      />
     </div>
   );
 }

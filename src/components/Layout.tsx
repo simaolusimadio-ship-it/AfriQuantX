@@ -15,13 +15,16 @@ import {
   ShieldAlert,
   TrendingUp,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Fingerprint,
+  ShieldCheck
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 import { LiveTicker } from './LiveTicker';
 import { CommandPalette } from './CommandPalette';
 import { ThemeToggleSwitch } from './ThemeToggleSwitch';
+import { BiometricAuthModal } from './BiometricAuthModal';
 import { supabase } from '../lib/supabase';
 
 interface LayoutProps {
@@ -78,6 +81,8 @@ export function Layout({
   const [showNotifications, setShowNotifications] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const notificationsRef = useRef<HTMLDivElement>(null);
+  const [isBiometricModalOpen, setIsBiometricModalOpen] = useState(false);
+  const [biometricStatusMsg, setBiometricStatusMsg] = useState<string | null>(null);
 
   useEffect(() => {
     // Fetch initial mock notifications
@@ -299,6 +304,16 @@ export function Layout({
             <div className="flex items-center gap-4 relative" ref={notificationsRef}>
               <ThemeToggleSwitch scale="compact" id="desktop-theme-toggle" />
 
+              {/* Hardware Biometric Security Gate Trigger */}
+              <button
+                onClick={() => setIsBiometricModalOpen(true)}
+                title="Hardware Biometric Security & Passkey Authentication"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-black border border-[#D4AF37]/30 text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:border-[#D4AF37] transition-all duration-300 shadow-2xl text-xs font-mono group"
+              >
+                <Fingerprint className="w-4 h-4 text-[#D4AF37] group-hover:scale-110 transition-transform" />
+                <span className="font-semibold hidden lg:inline">FIDO2 Biometrics</span>
+              </button>
+
               <button 
                 onClick={handleNotificationClick}
                 className="relative p-2.5 rounded-xl bg-black border border-white/5 text-zinc-500 hover:text-white hover:border-white/20 transition-all duration-300 shadow-2xl"
@@ -352,8 +367,15 @@ export function Layout({
             <img src="/logo.svg" alt="AfriQuantX Logo" className="w-8 h-8 object-contain" />
             <span className="font-extrabold text-base tracking-tight text-white">AfriQuantX</span>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             <ThemeToggleSwitch scale="micro" id="mobile-theme-toggle" />
+            <button
+              onClick={() => setIsBiometricModalOpen(true)}
+              title="Hardware Biometrics"
+              className="p-2 text-[#D4AF37] hover:text-[#D4AF37]/80 transition-colors"
+            >
+              <Fingerprint className="w-5 h-5" />
+            </button>
             <button 
               onClick={() => setIsCommandPaletteOpen(true)}
               className="p-2 text-zinc-500 hover:text-white transition-colors"
@@ -423,6 +445,17 @@ export function Layout({
           );
         })}
       </nav>
+
+      {/* Hardware Biometric Security Gate Modal */}
+      <BiometricAuthModal
+        isOpen={isBiometricModalOpen}
+        actionTitle="Institutional Passkey & Biometric Enrollment"
+        actionDescription="Secure hardware authentication using Web Authentication API (WebAuthn / FIDO2) with biometric sensor or hardware security key."
+        onSuccess={(result) => {
+          setIsBiometricModalOpen(false);
+        }}
+        onCancel={() => setIsBiometricModalOpen(false)}
+      />
     </div>
   );
 }

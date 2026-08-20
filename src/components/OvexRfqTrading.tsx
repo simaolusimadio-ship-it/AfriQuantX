@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { africanExchangeService, OvexRfqQuote, AltcoinLiveStats } from '../services/africanExchangeService';
+import { BiometricAuthModal } from './BiometricAuthModal';
 
 const SUPPORTED_MARKETS = [
   { id: 'btczar', name: 'Bitcoin / ZAR', symbol: 'BTCZAR', base: 'BTC', quote: 'ZAR', min: 5000 },
@@ -24,6 +25,7 @@ export function OvexRfqTrading() {
   const [quoteCountdown, setQuoteCountdown] = useState(0);
   const [executing, setExecuting] = useState(false);
   const [executionReceipt, setExecutionReceipt] = useState<any>(null);
+  const [isBioModalOpen, setIsBioModalOpen] = useState(false);
   
   // AltcoinTrader live data
   const [altStats, setAltStats] = useState<Record<string, AltcoinLiveStats>>({});
@@ -81,9 +83,14 @@ export function OvexRfqTrading() {
     }
   };
 
-  // Accept & Execute OTC Quote
-  const handleAcceptQuote = async () => {
+  // Accept & Execute OTC Quote with Hardware Biometric Signing
+  const handleAcceptQuote = () => {
     if (!quote || quoteCountdown === 0) return;
+    setIsBioModalOpen(true);
+  };
+
+  const executeConfirmedQuote = async () => {
+    if (!quote) return;
     setExecuting(true);
     const res = await africanExchangeService.acceptOvexQuote(quote.quote_token);
     setExecuting(false);
@@ -489,6 +496,20 @@ export function OvexRfqTrading() {
           </div>
         </div>
       )}
+
+      {/* Biometric Security Hardware Enclave Signing */}
+      <BiometricAuthModal
+        isOpen={isBioModalOpen}
+        actionTitle="Authorize Institutional RFQ Order"
+        actionDescription={`Hardware verification required to sign and lock OTC execution of ${quote?.market?.toUpperCase() || selectedMarket.toUpperCase()}.`}
+        amount={quote ? quote.from_amount : amount}
+        currency={quote?.side === 'buy' ? 'ZAR' : selectedMarket.replace('zar', '').toUpperCase()}
+        onSuccess={async () => {
+          setIsBioModalOpen(false);
+          await executeConfirmedQuote();
+        }}
+        onCancel={() => setIsBioModalOpen(false)}
+      />
     </div>
   );
 }
