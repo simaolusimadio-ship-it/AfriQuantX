@@ -22,8 +22,8 @@ export function LiveTicker() {
           <div key={index} className="flex items-center gap-3 px-8 border-r border-white/10">
             <span className="font-mono text-xs font-bold text-white/90">{item.symbol}</span>
             <span className="font-mono text-xs text-white">{item.price}</span>
-            <span className="flex items-center gap-1 font-mono text-xs text-[#D4AF37]">
-              {item.up ? <TrendingUp className="w-3 h-3 text-[#D4AF37]" /> : <TrendingDown className="w-3 h-3 text-[#D4AF37]" />}
+            <span className="flex items-center gap-1 font-mono text-xs text-[#FFFFFF]">
+              {item.up ? <TrendingUp className="w-3 h-3 text-[#FFFFFF]" /> : <TrendingDown className="w-3 h-3 text-[#FFFFFF]" />}
               {item.change}
             </span>
           </div>

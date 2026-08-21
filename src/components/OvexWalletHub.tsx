@@ -157,17 +157,17 @@ export function OvexWalletHub() {
   };
 
   return (
-    <div id="ovex-wallet-mesh" className="bg-black border border-[#D4AF37]/30 rounded-2xl p-6 text-white space-y-6">
+    <div id="ovex-wallet-mesh" className="bg-black border border-[#FFFFFF]/30 rounded-2xl p-6 text-white space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#FFFFFF]/20 pb-5">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
+          <div className="w-10 h-10 rounded-xl bg-[#FFFFFF]/10 border border-[#FFFFFF]/40 flex items-center justify-center text-[#FFFFFF]">
             <Wallet className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h2 className="text-xl font-bold text-white tracking-tight">OVEX Prime Custody & CARF Compliance Mesh</h2>
-              <span className="px-2 py-0.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/40 text-[#D4AF37] text-[10px] font-mono uppercase">
+              <span className="px-2 py-0.5 rounded-full bg-[#FFFFFF]/10 border border-[#FFFFFF]/40 text-[#FFFFFF] text-[10px] font-mono uppercase">
                 Tier 3 Institutional
               </span>
             </div>
@@ -180,9 +180,9 @@ export function OvexWalletHub() {
         {pendingCarf.length > 0 && (
           <button
             onClick={() => setActiveTab('carf')}
-            className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[#D4AF37] text-xs font-mono font-bold flex items-center gap-2 animate-pulse"
+            className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[#FFFFFF] text-xs font-mono font-bold flex items-center gap-2 animate-pulse"
           >
-            <AlertTriangle className="w-4 h-4 text-[#D4AF37]" />
+            <AlertTriangle className="w-4 h-4 text-[#FFFFFF]" />
             {pendingCarf.length} Pending CARF Declarations
           </button>
         )}
@@ -194,7 +194,7 @@ export function OvexWalletHub() {
           onClick={() => setActiveTab('deposit')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 shrink-0 ${
             activeTab === 'deposit'
-              ? 'bg-[#D4AF37] text-black font-extrabold'
+              ? 'bg-[#FFFFFF] text-black font-extrabold'
               : 'bg-black text-zinc-400 hover:text-white border border-white/10'
           }`}
         >
@@ -205,7 +205,7 @@ export function OvexWalletHub() {
           onClick={() => setActiveTab('withdraw')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 shrink-0 ${
             activeTab === 'withdraw'
-              ? 'bg-[#D4AF37] text-black font-extrabold'
+              ? 'bg-[#FFFFFF] text-black font-extrabold'
               : 'bg-black text-zinc-400 hover:text-white border border-white/10'
           }`}
         >
@@ -216,21 +216,21 @@ export function OvexWalletHub() {
           onClick={() => setActiveTab('carf')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 shrink-0 ${
             activeTab === 'carf'
-              ? 'bg-[#D4AF37] text-black font-extrabold'
+              ? 'bg-[#FFFFFF] text-black font-extrabold'
               : 'bg-black text-zinc-400 hover:text-white border border-white/10'
           }`}
         >
           <ShieldCheck className="w-4 h-4" />
           CARF Regulatory Declarations
           {pendingCarf.length > 0 && (
-            <span className="w-2 h-2 rounded-full bg-[#D4AF37] ml-1 animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-[#FFFFFF] ml-1 animate-ping" />
           )}
         </button>
         <button
           onClick={() => setActiveTab('offshore')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 shrink-0 ${
             activeTab === 'offshore'
-              ? 'bg-[#D4AF37] text-black font-extrabold'
+              ? 'bg-[#FFFFFF] text-black font-extrabold'
               : 'bg-black text-zinc-400 hover:text-white border border-white/10'
           }`}
         >
@@ -241,7 +241,7 @@ export function OvexWalletHub() {
           onClick={() => setActiveTab('fees')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-2 shrink-0 ${
             activeTab === 'fees'
-              ? 'bg-[#D4AF37] text-black font-extrabold'
+              ? 'bg-[#FFFFFF] text-black font-extrabold'
               : 'bg-black text-zinc-400 hover:text-white border border-white/10'
           }`}
         >
@@ -254,7 +254,7 @@ export function OvexWalletHub() {
       {activeTab === 'deposit' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-6 space-y-4 bg-white/[0.02] border border-white/10 rounded-xl p-5">
-            <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-wider flex items-center gap-2">
+            <h3 className="text-sm font-bold text-[#FFFFFF] uppercase tracking-wider flex items-center gap-2">
               <ArrowDownToLine className="w-4 h-4" />
               Generate Multi-Chain Deposit Address
             </h3>
@@ -276,7 +276,7 @@ export function OvexWalletHub() {
                     onClick={() => { setSelectedCurrency(c.id); loadDepositAddress(c.id); }}
                     className={`p-2.5 rounded-xl text-xs font-mono transition-all border text-center ${
                       selectedCurrency === c.id
-                        ? 'bg-[#D4AF37] text-black font-bold border-[#D4AF37]'
+                        ? 'bg-[#FFFFFF] text-black font-bold border-[#FFFFFF]'
                         : 'bg-black text-zinc-300 border-white/10 hover:border-white/20'
                     }`}
                   >
@@ -289,22 +289,22 @@ export function OvexWalletHub() {
             {/* Address Display Box */}
             {loadingDeposit ? (
               <div className="py-10 flex flex-col items-center justify-center gap-2 text-zinc-400 text-xs">
-                <RefreshCw className="w-5 h-5 animate-spin text-[#D4AF37]" />
+                <RefreshCw className="w-5 h-5 animate-spin text-[#FFFFFF]" />
                 Generating dedicated institutional escrow address from OVEX...
               </div>
             ) : depositData ? (
               <div className="space-y-4 pt-2">
-                <div className="p-4 bg-black border border-[#D4AF37]/40 rounded-xl space-y-3">
+                <div className="p-4 bg-black border border-[#FFFFFF]/40 rounded-xl space-y-3">
                   <div className="flex justify-between items-center text-xs text-zinc-400">
                     <span>Network: <strong className="text-white font-mono">{depositData.network}</strong></span>
-                    <span className="text-[#D4AF37] font-mono">Confirmations: {depositData.confirmations_required}</span>
+                    <span className="text-[#FFFFFF] font-mono">Confirmations: {depositData.confirmations_required}</span>
                   </div>
 
                   <div className="p-3 bg-white/[0.03] rounded-lg border border-white/10 flex items-center justify-between gap-3">
                     <span className="font-mono text-xs text-white break-all">{depositData.address}</span>
                     <button
                       onClick={() => handleCopy(depositData.address)}
-                      className="p-2 rounded-lg bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 text-[#D4AF37] shrink-0 transition-colors"
+                      className="p-2 rounded-lg bg-[#FFFFFF]/10 hover:bg-[#FFFFFF]/20 text-[#FFFFFF] shrink-0 transition-colors"
                       title="Copy Address"
                     >
                       {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
@@ -313,8 +313,8 @@ export function OvexWalletHub() {
 
                   {depositData.memo && (
                     <div className="p-3 bg-white/[0.02] rounded-lg border border-white/5 flex items-center justify-between text-xs font-mono">
-                      <span className="text-zinc-400">Required Memo/Tag: <strong className="text-[#D4AF37]">{depositData.memo}</strong></span>
-                      <button onClick={() => handleCopy(depositData.memo!)} className="text-[#D4AF37] text-[11px] underline">Copy</button>
+                      <span className="text-zinc-400">Required Memo/Tag: <strong className="text-[#FFFFFF]">{depositData.memo}</strong></span>
+                      <button onClick={() => handleCopy(depositData.memo!)} className="text-[#FFFFFF] text-[11px] underline">Copy</button>
                     </div>
                   )}
 
@@ -341,14 +341,14 @@ export function OvexWalletHub() {
           <div className="lg:col-span-6 space-y-4 bg-white/[0.02] border border-white/10 rounded-xl p-5">
             <h3 className="text-sm font-bold text-white flex items-center justify-between">
               <span>Recent Deposit Transactions</span>
-              <span className="text-xs font-mono text-[#D4AF37]">{depositsHistory.length} Recorded</span>
+              <span className="text-xs font-mono text-[#FFFFFF]">{depositsHistory.length} Recorded</span>
             </h3>
 
             <div className="space-y-2">
               {depositsHistory.map((dep) => (
                 <div key={dep.id} className="p-3.5 bg-black border border-white/10 rounded-xl space-y-2 text-xs">
                   <div className="flex justify-between items-center">
-                    <span className="font-mono font-bold text-[#D4AF37]">{dep.amount} {dep.currency}</span>
+                    <span className="font-mono font-bold text-[#FFFFFF]">{dep.amount} {dep.currency}</span>
                     <span className="px-2 py-0.5 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 font-mono text-[10px]">
                       {dep.state} ({dep.confirmations}/{dep.required_confirmations} conf)
                     </span>
@@ -374,7 +374,7 @@ export function OvexWalletHub() {
       {activeTab === 'withdraw' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-6 space-y-4 bg-white/[0.02] border border-white/10 rounded-xl p-5">
-            <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-wider flex items-center gap-2">
+            <h3 className="text-sm font-bold text-[#FFFFFF] uppercase tracking-wider flex items-center gap-2">
               <ArrowUpFromLine className="w-4 h-4" />
               Institutional Instant Withdrawal
             </h3>
@@ -385,7 +385,7 @@ export function OvexWalletHub() {
                 <select
                   value={withdrawCurrency}
                   onChange={(e) => setWithdrawCurrency(e.target.value)}
-                  className="w-full bg-black border border-white/15 rounded-xl px-4 py-2.5 text-white font-mono text-sm focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full bg-black border border-white/15 rounded-xl px-4 py-2.5 text-white font-mono text-sm focus:outline-none focus:border-[#FFFFFF]"
                 >
                   <option value="ZAR">South African Rand (ZAR Instant RTC EFT)</option>
                   <option value="USD">US Dollar (SWIFT Wire)</option>
@@ -399,7 +399,7 @@ export function OvexWalletHub() {
                 <select
                   value={withdrawBeneficiary}
                   onChange={(e) => setWithdrawBeneficiary(e.target.value)}
-                  className="w-full bg-black border border-white/15 rounded-xl px-4 py-2.5 text-white font-mono text-sm focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full bg-black border border-white/15 rounded-xl px-4 py-2.5 text-white font-mono text-sm focus:outline-none focus:border-[#FFFFFF]"
                 >
                   <option value="1">Investec Corporate Treasury (Acc: ...9941)</option>
                   <option value="2">Standard Bank Prime Escrow (Acc: ...8820)</option>
@@ -415,9 +415,9 @@ export function OvexWalletHub() {
                     value={withdrawAmount}
                     onChange={(e) => setWithdrawAmount(e.target.value)}
                     placeholder="100000"
-                    className="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-white font-mono text-lg focus:outline-none focus:border-[#D4AF37]"
+                    className="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-white font-mono text-lg focus:outline-none focus:border-[#FFFFFF]"
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#D4AF37]">
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#FFFFFF]">
                     {withdrawCurrency}
                   </span>
                 </div>
@@ -426,7 +426,7 @@ export function OvexWalletHub() {
               <div className="p-3 bg-black/60 border border-white/10 rounded-xl text-xs space-y-1">
                 <div className="flex justify-between text-zinc-400">
                   <span>Network / Clearing Fee:</span>
-                  <span className="text-[#D4AF37] font-mono font-bold">R 0.00 (Zero Fee)</span>
+                  <span className="text-[#FFFFFF] font-mono font-bold">R 0.00 (Zero Fee)</span>
                 </div>
                 <div className="flex justify-between text-zinc-400">
                   <span>Clearing Speed:</span>
@@ -437,7 +437,7 @@ export function OvexWalletHub() {
               <button
                 type="submit"
                 disabled={withdrawing || !withdrawAmount}
-                className="w-full py-3.5 bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-black font-extrabold rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.25)]"
+                className="w-full py-3.5 bg-[#FFFFFF] hover:bg-[#FFFFFF]/90 text-black font-extrabold rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.25)]"
               >
                 {withdrawing ? (
                   <>
@@ -469,7 +469,7 @@ export function OvexWalletHub() {
           <div className="lg:col-span-6 space-y-4 bg-white/[0.02] border border-white/10 rounded-xl p-5">
             <h3 className="text-sm font-bold text-white flex items-center justify-between">
               <span>Withdrawal Audit Trail</span>
-              <span className="text-xs font-mono text-[#D4AF37]">{withdrawsHistory.length} Completed</span>
+              <span className="text-xs font-mono text-[#FFFFFF]">{withdrawsHistory.length} Completed</span>
             </h3>
 
             <div className="space-y-2">
@@ -496,10 +496,10 @@ export function OvexWalletHub() {
       {/* Tab: CARF Regulatory Compliance */}
       {activeTab === 'carf' && (
         <div className="space-y-6">
-          <div className="p-5 bg-gradient-to-r from-black via-white/[0.02] to-black border border-[#D4AF37]/40 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="p-5 bg-gradient-to-r from-black via-white/[0.02] to-black border border-[#FFFFFF]/40 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-[#D4AF37]" />
+                <ShieldCheck className="w-5 h-5 text-[#FFFFFF]" />
                 <h3 className="text-base font-bold text-white">OECD & SARS Crypto-Asset Reporting Framework (CARF)</h3>
               </div>
               <p className="text-xs text-zinc-400 mt-1 max-w-2xl">
@@ -510,7 +510,7 @@ export function OvexWalletHub() {
               <button
                 onClick={handleDeclareCarfAll}
                 disabled={declaringCarf}
-                className="px-4 py-2.5 bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-black font-extrabold rounded-xl text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(212,175,55,0.3)] shrink-0 flex items-center gap-2"
+                className="px-4 py-2.5 bg-[#FFFFFF] hover:bg-[#FFFFFF]/90 text-black font-extrabold rounded-xl text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(212,175,55,0.3)] shrink-0 flex items-center gap-2"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 Declare All as Self-Transfer
@@ -527,7 +527,7 @@ export function OvexWalletHub() {
 
           {/* Pending CARF Declarations */}
           <div className="bg-white/[0.02] border border-white/10 rounded-xl p-5 space-y-4">
-            <h4 className="text-xs font-bold text-[#D4AF37] uppercase tracking-wider flex items-center justify-between">
+            <h4 className="text-xs font-bold text-[#FFFFFF] uppercase tracking-wider flex items-center justify-between">
               <span>Pending CARF Regulatory Declarations</span>
               <span className="font-mono">{pendingCarf.length} Pending</span>
             </h4>
@@ -544,8 +544,8 @@ export function OvexWalletHub() {
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
                         <span className="font-mono font-bold text-white text-sm">{item.amount} {item.currency}</span>
-                        <span className="text-[#D4AF37] font-mono">(≈ R {item.zar_value.toLocaleString()})</span>
-                        <span className="px-2 py-0.5 rounded bg-amber-500/20 text-[#D4AF37] text-[10px] font-mono">
+                        <span className="text-[#FFFFFF] font-mono">(≈ R {item.zar_value.toLocaleString()})</span>
+                        <span className="px-2 py-0.5 rounded bg-amber-500/20 text-[#FFFFFF] text-[10px] font-mono">
                           {item.compliance_deadline}
                         </span>
                       </div>
@@ -556,7 +556,7 @@ export function OvexWalletHub() {
 
                     <button
                       onClick={() => setSelectedPendingItem(item)}
-                      className="px-4 py-2 rounded-xl bg-white/10 hover:bg-[#D4AF37] hover:text-black text-white font-bold text-xs transition-colors shrink-0 flex items-center gap-2"
+                      className="px-4 py-2 rounded-xl bg-white/10 hover:bg-[#FFFFFF] hover:text-black text-white font-bold text-xs transition-colors shrink-0 flex items-center gap-2"
                     >
                       <FileCheck2 className="w-4 h-4" />
                       File Declaration
@@ -569,9 +569,9 @@ export function OvexWalletHub() {
 
           {/* Modal / Dialog for single declaration */}
           {selectedPendingItem && (
-            <div className="p-5 bg-black border border-[#D4AF37] rounded-xl space-y-4">
+            <div className="p-5 bg-black border border-[#FFFFFF] rounded-xl space-y-4">
               <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                <FileCheck2 className="w-4 h-4 text-[#D4AF37]" />
+                <FileCheck2 className="w-4 h-4 text-[#FFFFFF]" />
                 Declare Transfer Origin for Deposit #{selectedPendingItem.id} ({selectedPendingItem.amount} {selectedPendingItem.currency})
               </h4>
 
@@ -584,7 +584,7 @@ export function OvexWalletHub() {
                       onClick={() => setSelectedCarfType(t.id)}
                       className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
                         selectedCarfType === t.id
-                          ? 'bg-[#D4AF37]/10 border-[#D4AF37] text-white'
+                          ? 'bg-[#FFFFFF]/10 border-[#FFFFFF] text-white'
                           : 'bg-black border-white/10 text-zinc-400 hover:border-white/20'
                       }`}
                     >
@@ -594,11 +594,11 @@ export function OvexWalletHub() {
                           name="carf_type"
                           checked={selectedCarfType === t.id}
                           onChange={() => setSelectedCarfType(t.id)}
-                          className="accent-[#D4AF37]"
+                          className="accent-[#FFFFFF]"
                         />
                         <span className="text-xs font-semibold">{t.name}</span>
                       </div>
-                      <span className="text-[10px] font-mono text-[#D4AF37]">{t.code}</span>
+                      <span className="text-[10px] font-mono text-[#FFFFFF]">{t.code}</span>
                     </label>
                   ))}
                 </div>
@@ -614,7 +614,7 @@ export function OvexWalletHub() {
                 <button
                   onClick={handleDeclareCarfSingle}
                   disabled={declaringCarf}
-                  className="px-5 py-2 rounded-xl bg-[#D4AF37] text-black text-xs font-extrabold flex items-center gap-2"
+                  className="px-5 py-2 rounded-xl bg-[#FFFFFF] text-black text-xs font-extrabold flex items-center gap-2"
                 >
                   {declaringCarf ? 'Submitting to SARS/CARF...' : 'Submit Official Declaration'}
                 </button>
@@ -632,7 +632,7 @@ export function OvexWalletHub() {
               <div className="text-xs text-zinc-400 font-mono uppercase tracking-wider">
                 Single Discretionary Allowance (SDA)
               </div>
-              <div className="text-2xl font-bold font-mono text-[#D4AF37]">
+              <div className="text-2xl font-bold font-mono text-[#FFFFFF]">
                 {offshoreData.sarb_allowances?.sda_remaining} <span className="text-xs text-zinc-400 font-normal">Remaining</span>
               </div>
               <div className="text-xs text-zinc-400 flex justify-between pt-2 border-t border-white/10 font-mono">
@@ -645,7 +645,7 @@ export function OvexWalletHub() {
               <div className="text-xs text-zinc-400 font-mono uppercase tracking-wider">
                 Foreign Investment Allowance (FIA)
               </div>
-              <div className="text-2xl font-bold font-mono text-[#D4AF37]">
+              <div className="text-2xl font-bold font-mono text-[#FFFFFF]">
                 {offshoreData.sarb_allowances?.fia_remaining} <span className="text-xs text-zinc-400 font-normal">Remaining</span>
               </div>
               <div className="text-xs text-zinc-400 flex justify-between pt-2 border-t border-white/10 font-mono">
@@ -663,7 +663,7 @@ export function OvexWalletHub() {
               {offshoreData.transactions?.map((tx: any) => (
                 <div key={tx.id} className="p-3 bg-black border border-white/10 rounded-xl flex justify-between items-center text-xs font-mono">
                   <div>
-                    <span className="text-[#D4AF37] font-bold">{tx.type}</span>
+                    <span className="text-[#FFFFFF] font-bold">{tx.type}</span>
                     <span className="text-zinc-400 ml-2">({tx.amount} @ {tx.fx_rate})</span>
                   </div>
                   <div className="flex items-center gap-3">
@@ -683,7 +683,7 @@ export function OvexWalletHub() {
       {activeTab === 'fees' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white/[0.02] border border-white/10 rounded-xl p-5 space-y-3">
-            <h4 className="text-xs font-bold text-[#D4AF37] uppercase tracking-wider">Deposit Fee Schedule</h4>
+            <h4 className="text-xs font-bold text-[#FFFFFF] uppercase tracking-wider">Deposit Fee Schedule</h4>
             <div className="divide-y divide-white/5 text-xs font-mono">
               {Object.entries(feesData.deposit || {}).map(([key, val]) => (
                 <div key={key} className="py-2.5 flex justify-between text-zinc-300">
@@ -695,7 +695,7 @@ export function OvexWalletHub() {
           </div>
 
           <div className="bg-white/[0.02] border border-white/10 rounded-xl p-5 space-y-3">
-            <h4 className="text-xs font-bold text-[#D4AF37] uppercase tracking-wider">Withdrawal Fee Schedule</h4>
+            <h4 className="text-xs font-bold text-[#FFFFFF] uppercase tracking-wider">Withdrawal Fee Schedule</h4>
             <div className="divide-y divide-white/5 text-xs font-mono">
               {Object.entries(feesData.withdraw || {}).map(([key, val]) => (
                 <div key={key} className="py-2.5 flex justify-between text-zinc-300">

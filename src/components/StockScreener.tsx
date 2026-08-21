@@ -48,7 +48,7 @@ export function StockScreener() {
 
   return (
     <div className="flex-1 bg-white/[0.02] border border-white/10 rounded-3xl flex flex-col overflow-hidden relative backdrop-blur-xl shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#0066FF] via-[#D4AF37] to-[#00C896]" />
+      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#0066FF] via-[#FFFFFF] to-[#00C896]" />
       
       <div className="p-6 border-b border-white/10 bg-white/[0.01] flex flex-col gap-4 relative z-10">
         <div>
@@ -130,7 +130,7 @@ export function StockScreener() {
                   >
                     <td className="p-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0066FF]/20 to-[#D4AF37]/20 flex items-center justify-center border border-white/10 text-xs font-bold text-white">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0066FF]/20 to-[#FFFFFF]/20 flex items-center justify-center border border-white/10 text-xs font-bold text-white">
                           {stock.symbol[0]}
                         </div>
                         <div>
@@ -158,7 +158,7 @@ export function StockScreener() {
                       <span className={`font-medium ${
                         stock.analystRating?.includes('Buy') ? 'text-[#00C896]' : 
                         stock.analystRating?.includes('Sell') ? 'text-[#FF3B3B]' : 
-                        'text-[#D4AF37]'
+                        'text-[#FFFFFF]'
                       }`}>
                         {stock.analystRating || 'Hold'}
                       </span>
@@ -166,7 +166,7 @@ export function StockScreener() {
                     <td className="p-4">
                       <span className={`inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider border ${
                         stock.matchScore > 80 ? 'bg-[#00C896]/10 text-[#00C896] border-[#00C896]/20' :
-                        stock.matchScore > 50 ? 'bg-[#D4AF37]/10 text-[#D4AF37] border-[#D4AF37]/20' :
+                        stock.matchScore > 50 ? 'bg-[#FFFFFF]/10 text-[#FFFFFF] border-[#FFFFFF]/20' :
                         'bg-[#FF3B3B]/10 text-[#FF3B3B] border-[#FF3B3B]/20'
                       }`}>
                         {stock.matchScore > 80 ? 'Strong Match' : stock.matchScore > 50 ? 'Good Match' : 'Weak Match'}

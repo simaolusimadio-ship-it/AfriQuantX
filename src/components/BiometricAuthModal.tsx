@@ -84,7 +84,7 @@ export function BiometricAuthModal({
         className="relative w-full max-w-md bg-neutral-950 border border-white/10 rounded-3xl p-6 md:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] text-white text-center overflow-hidden"
       >
         {/* Subtle Gold Ambient Glow */}
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 bg-[#D4AF37]/10 blur-[60px] rounded-full pointer-events-none" />
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 bg-[#FFFFFF]/10 blur-[60px] rounded-full pointer-events-none" />
 
         <button
           onClick={onCancel}
@@ -94,8 +94,8 @@ export function BiometricAuthModal({
         </button>
 
         <div className="mb-4 pt-1 relative z-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest mb-3">
-            <Lock className="w-3 h-3 text-[#D4AF37]" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono text-[#FFFFFF] uppercase tracking-widest mb-3">
+            <Lock className="w-3 h-3 text-[#FFFFFF]" />
             WebAuthn FIDO2 Level-3 Vault
           </div>
           <h3 className="text-lg md:text-xl font-black tracking-tight text-white uppercase">{actionTitle}</h3>
@@ -105,7 +105,7 @@ export function BiometricAuthModal({
           {amount && (
             <div className="mt-4 p-3 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between">
               <span className="text-xs text-zinc-400 font-mono uppercase">Signing Amount</span>
-              <span className="text-base font-mono font-extrabold text-[#D4AF37]">
+              <span className="text-base font-mono font-extrabold text-[#FFFFFF]">
                 {currency} {typeof amount === 'number' ? amount.toLocaleString() : amount}
               </span>
             </div>
@@ -117,7 +117,7 @@ export function BiometricAuthModal({
           <div className="relative w-32 h-32 flex items-center justify-center">
             {/* Animated Ring */}
             {status === 'scanning' && (
-              <div className="absolute inset-0 rounded-full border-2 border-[#D4AF37]/30 border-t-[#D4AF37] animate-spin" />
+              <div className="absolute inset-0 rounded-full border-2 border-[#FFFFFF]/30 border-t-[#FFFFFF] animate-spin" />
             )}
             {status === 'success' && (
               <div className="absolute inset-0 rounded-full border-2 border-emerald-400 bg-emerald-500/10 animate-pulse" />
@@ -130,10 +130,10 @@ export function BiometricAuthModal({
               onClick={handleScan}
               disabled={status === 'scanning' || status === 'success'}
               className={`w-24 h-24 rounded-2xl flex flex-col items-center justify-center transition-all duration-300 group cursor-pointer ${
-                status === 'scanning' ? 'bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/40 shadow-[0_0_25px_rgba(212,175,55,0.2)]' :
+                status === 'scanning' ? 'bg-[#FFFFFF]/10 text-[#FFFFFF] border border-[#FFFFFF]/40 shadow-[0_0_25px_rgba(212,175,55,0.2)]' :
                 status === 'success' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-400 scale-105 shadow-[0_0_25px_rgba(16,185,129,0.3)]' :
                 status === 'failed' ? 'bg-rose-500/20 text-rose-400 border border-rose-500 hover:bg-rose-500/30' :
-                'bg-white/5 text-zinc-400 border border-white/10 hover:border-[#D4AF37]/50 hover:text-white'
+                'bg-white/5 text-zinc-400 border border-white/10 hover:border-[#FFFFFF]/50 hover:text-white'
               }`}
             >
               {status === 'success' ? (
@@ -141,7 +141,7 @@ export function BiometricAuthModal({
               ) : status === 'failed' ? (
                 <AlertCircle className="w-12 h-12 text-rose-400" />
               ) : status === 'scanning' ? (
-                <ScanFace className="w-12 h-12 text-[#D4AF37] animate-pulse" />
+                <ScanFace className="w-12 h-12 text-[#FFFFFF] animate-pulse" />
               ) : (
                 <Fingerprint className="w-12 h-12 text-white group-hover:scale-110 transition-transform" />
               )}
@@ -152,7 +152,7 @@ export function BiometricAuthModal({
         {/* Status Message */}
         <div className="min-h-[48px] flex flex-col items-center justify-center relative z-10">
           {status === 'scanning' && (
-            <div className="text-xs font-mono text-[#D4AF37] flex items-center gap-2">
+            <div className="text-xs font-mono text-[#FFFFFF] flex items-center gap-2">
               <RefreshCw className="w-3.5 h-3.5 animate-spin" />
               Verifying Touch ID / Face ID sensor...
             </div>
@@ -180,7 +180,7 @@ export function BiometricAuthModal({
           {status === 'failed' && (
             <button
               onClick={handleScan}
-              className="w-full py-3 bg-[#D4AF37] text-black font-extrabold text-xs uppercase tracking-wider rounded-xl hover:bg-[#b8972e] transition-colors"
+              className="w-full py-3 bg-[#FFFFFF] text-black font-extrabold text-xs uppercase tracking-wider rounded-xl hover:bg-[#E4E4E7] transition-colors"
             >
               Retry Biometric Scan
             </button>
@@ -191,7 +191,7 @@ export function BiometricAuthModal({
               onClick={handleRegisterPasskey}
               className="w-full py-2 bg-white/5 border border-white/10 hover:border-white/20 text-zinc-300 font-mono text-[11px] uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center gap-2"
             >
-              <KeyRound className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <KeyRound className="w-3.5 h-3.5 text-[#FFFFFF]" />
               Enroll / Sync Hardware Passkey
             </button>
           )}

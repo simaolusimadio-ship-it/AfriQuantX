@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   Activity, Globe, BarChart2, User, Sparkles, Send, 
-  RefreshCw, TrendingUp, TrendingDown, DollarSign, Calendar, Zap, Landmark
+  RefreshCw, TrendingUp, TrendingDown, Calendar, Zap, ArrowUpRight
 } from 'lucide-react';
 import OpenAI from "openai";
 import { 
@@ -163,7 +162,6 @@ export function News() {
               throw new Error("HTTP Error");
             }
           } catch (e) {
-            // High fidelity simulated quote fallback
             const base = sym === 'AAPL' ? 185.40 : sym === 'MSFT' ? 415.60 : sym === 'GOOG' ? 172.50 : sym === 'AMZN' ? 180.20 : sym === 'NVDA' ? 880.00 : 152.40;
             const change = (Math.random() * 6 - 3);
             const percent = (change / base) * 100;
@@ -195,7 +193,6 @@ export function News() {
         if (contentType && contentType.includes("application/json")) {
           const data = await res.json();
           if (data.values && Array.isArray(data.values)) {
-            // Reverse so timeline flows left-to-right
             const formatted = [...data.values].reverse().map((item: any) => ({
               date: item.datetime.length > 10 ? item.datetime.split(' ')[0] : item.datetime,
               price: parseFloat(item.close || item.price || 0)
@@ -208,7 +205,6 @@ export function News() {
       }
       throw new Error("No data");
     } catch (e) {
-      // Beautiful mock timeline fallback matching the selected symbol
       const mockValues = [];
       let basePrice = sym === 'AAPL' ? 180 : sym === 'MSFT' ? 410 : sym === 'GOOG' ? 170 : sym === 'AMZN' ? 175 : sym === 'NVDA' ? 850 : 150;
       for (let i = 15; i >= 0; i--) {
@@ -263,32 +259,31 @@ export function News() {
 
   const loadNewsToAI = (newsTitle: string, summary: string) => {
     setAiQuery(`Analyze the following economic announcement and explain its tactical investment implications for African equities: "${newsTitle}" - ${summary}`);
-    // Scroll to AI analyzer
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="space-y-6">
-      {/* Live Pan-African Market Data Strip (AltCoinTrader & OVEX) */}
-      <div className="bg-black border border-[#D4AF37]/30 rounded-2xl p-4 shadow-xl">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3 mb-3">
+    <div className="space-y-6 w-full">
+      {/* Live Pan-African Market Data Strip - Stretched */}
+      <div className="bg-neutral-900/50 rounded-2xl p-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-3 mb-3">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#D4AF37] flex items-center gap-1.5">
-              <Zap className="w-3.5 h-3.5 fill-current" />
-              AltCoinTrader v3 & OVEX Real-Time Liquidity Mesh
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-white flex items-center gap-1.5">
+              <Zap className="w-3.5 h-3.5" />
+              AltCoinTrader & OVEX Real-Time Liquidity Mesh
             </span>
           </div>
           <div className="flex items-center gap-2">
             <button 
               onClick={fetchAltcoinStats}
               disabled={isAltcoinLoading}
-              className="text-[10px] font-mono text-zinc-400 hover:text-white flex items-center gap-1 bg-white/5 px-2.5 py-1 rounded-lg border border-white/10 transition-colors"
+              className="text-[10px] font-mono text-zinc-400 hover:text-white flex items-center gap-1 bg-white/5 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
             >
-              <RefreshCw className={`w-3 h-3 ${isAltcoinLoading ? 'animate-spin text-[#D4AF37]' : ''}`} />
+              <RefreshCw className={`w-3 h-3 ${isAltcoinLoading ? 'animate-spin' : ''}`} />
               Auto-Synced (12s)
             </button>
-            <span className="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">
+            <span className="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded font-bold">
               ZAR Pairs Active
             </span>
           </div>
@@ -303,14 +298,14 @@ export function News() {
             return (
               <div 
                 key={sym}
-                className="bg-[#0A0A0A] border border-white/10 rounded-xl p-3 hover:border-[#D4AF37]/50 transition-all cursor-pointer group"
+                className="bg-white/[0.02] hover:bg-white/[0.05] rounded-xl p-3 transition-all cursor-pointer group"
                 onClick={() => {
                   setAiQuery(`Provide an in-depth institutional analysis of ${sym} currently trading at R ${priceNum.toLocaleString()} with 24h volume of ${item.Volume || 'N/A'} on South African markets.`);
                   window.scrollTo({ top: 100, behavior: 'smooth' });
                 }}
               >
                 <div className="flex justify-between items-start mb-1">
-                  <span className="text-xs font-bold text-white group-hover:text-[#D4AF37] transition-colors">{sym}</span>
+                  <span className="text-xs font-bold text-white">{sym}</span>
                   <span className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded ${isPos ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
                     {isPos ? '+' : ''}{item.Change}%
                   </span>
@@ -328,60 +323,63 @@ export function News() {
         </div>
       </div>
 
-      {/* AI News Analyzer */}
-      <Card className="bg-[#0A0A0A] border-white/[0.08] shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-        <CardHeader className="pb-3 border-b border-white/[0.04]">
-          <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-[#D4AF37]" /> Generative AI News Analysis
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-6">
-          <div className="flex gap-4 mb-4">
-            <input
-              type="text"
-              value={aiQuery}
-              onChange={(e) => setAiQuery(e.target.value)}
-              placeholder="Ask about market trends, specific companies, or economic impacts in Africa..."
-              className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-zinc-500 focus:outline-none focus:border-[#D4AF37]/50 text-sm"
-              onKeyDown={(e) => e.key === 'Enter' && handleAiAnalysis()}
-            />
-            <button
-              onClick={handleAiAnalysis}
-              disabled={isAnalyzing || !aiQuery.trim()}
-              className="px-6 py-3 bg-[#D4AF37] text-black font-bold rounded-xl hover:bg-[#D4AF37]/90 transition-colors disabled:opacity-50 flex items-center gap-2 cursor-pointer shrink-0"
-            >
-              {isAnalyzing ? (
-                <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-              ) : (
-                <>
-                  <Send className="w-4 h-4" /> Analyze
-                </>
-              )}
-            </button>
-          </div>
-          {aiResponse && (
-            <div className="p-4 bg-white/5 rounded-xl border border-white/10 text-zinc-300 text-sm whitespace-pre-wrap leading-relaxed">
-              {aiResponse}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+      {/* AI News Synthesis Terminal */}
+      <div className="bg-neutral-900/50 rounded-2xl p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <Sparkles className="w-4 h-4 text-white" />
+          <h3 className="text-sm font-bold uppercase tracking-wider text-white">Generative AI Macro News Analysis</h3>
+        </div>
 
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input
+            type="text"
+            value={aiQuery}
+            onChange={(e) => setAiQuery(e.target.value)}
+            placeholder="Ask about market trends, specific companies, or macro impacts across African economies..."
+            className="flex-1 bg-neutral-800 rounded-xl px-4 py-3 text-white placeholder:text-zinc-500 focus:outline-none focus:bg-neutral-700 text-xs"
+            onKeyDown={(e) => e.key === 'Enter' && handleAiAnalysis()}
+          />
+          <button
+            onClick={handleAiAnalysis}
+            disabled={isAnalyzing || !aiQuery.trim()}
+            className="px-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-zinc-200 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer text-xs shrink-0"
+          >
+            {isAnalyzing ? (
+              <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+            ) : (
+              <>
+                <Send className="w-4 h-4" /> Synthesize
+              </>
+            )}
+          </button>
+        </div>
+
+        {aiResponse && (
+          <div className="mt-4 p-4 bg-white/[0.03] rounded-xl text-zinc-300 text-xs leading-relaxed">
+            {aiResponse}
+          </div>
+        )}
+      </div>
+
+      {/* Market Terminal & Finnhub Quotes - Stretched 2-Column Grid */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        {/* Market Overview */}
-        <Card className="xl:col-span-2 bg-[#0A0A0A] border-white/[0.08] overflow-hidden min-h-[420px] flex flex-col shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-          <CardHeader className="pb-3 border-b border-white/[0.04] flex flex-row items-center justify-between shrink-0 gap-4 flex-wrap">
-            <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <BarChart2 className="w-4 h-4 text-[#0066FF]" /> Market Terminal
-            </CardTitle>
-            <div className="flex items-center gap-1.5 bg-white/5 p-1 rounded-xl border border-white/5">
+        
+        {/* Chart View */}
+        <div className="xl:col-span-2 bg-neutral-900/50 rounded-2xl p-6 flex flex-col justify-between min-h-[420px]">
+          <div className="flex flex-row items-center justify-between gap-4 flex-wrap pb-4 border-b border-white/5">
+            <div className="flex items-center gap-2">
+              <BarChart2 className="w-4 h-4 text-blue-400" />
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white">Market Terminal</h3>
+            </div>
+            
+            <div className="flex items-center gap-1.5 bg-white/5 p-1 rounded-xl">
               {watchSymbols.map((sym) => (
                 <button
                   key={sym}
                   onClick={() => setSelectedSymbol(sym)}
-                  className={`px-3 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                  className={`px-3 py-1 text-xs font-bold font-mono rounded-lg transition-all cursor-pointer ${
                     selectedSymbol === sym 
-                      ? 'bg-[#0066FF] text-white' 
+                      ? 'bg-white text-black' 
                       : 'text-zinc-400 hover:text-white'
                   }`}
                 >
@@ -389,21 +387,22 @@ export function News() {
                 </button>
               ))}
             </div>
-          </CardHeader>
-          <CardContent className="flex-1 p-6 relative flex flex-col justify-between">
+          </div>
+
+          <div className="flex-1 py-4 min-h-[240px]">
             {isLoadingChart ? (
-              <div className="flex-1 flex flex-col items-center justify-center text-zinc-500 py-12">
-                <RefreshCw className="w-8 h-8 animate-spin text-[#0066FF] mb-3" />
+              <div className="h-full flex flex-col items-center justify-center text-zinc-500 py-12">
+                <RefreshCw className="w-6 h-6 animate-spin text-white mb-2" />
                 <span className="text-xs font-mono">Syncing TwelveData Nodes...</span>
               </div>
             ) : (
-              <div className="flex-1 w-full min-h-[220px]">
+              <div className="w-full h-full min-h-[220px]">
                 <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
                   <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                     <defs>
                       <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#0066FF" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#0066FF" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="#FFFFFF" stopOpacity={0.2}/>
+                        <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.02)" vertical={false} />
@@ -424,12 +423,12 @@ export function News() {
                     <Tooltip 
                       contentStyle={{ backgroundColor: '#09090b', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '12px' }}
                       labelStyle={{ color: '#a1a1aa', fontWeight: 'bold', fontSize: '11px' }}
-                      itemStyle={{ color: '#0066FF', fontSize: '12px', fontWeight: 'bold' }}
+                      itemStyle={{ color: '#FFFFFF', fontSize: '12px', fontWeight: 'bold' }}
                     />
                     <Area 
                       type="monotone" 
                       dataKey="price" 
-                      stroke="#0066FF" 
+                      stroke="#FFFFFF" 
                       strokeWidth={2}
                       fillOpacity={1} 
                       fill="url(#chartGradient)" 
@@ -438,61 +437,64 @@ export function News() {
                 </ResponsiveContainer>
               </div>
             )}
-            <div className="flex justify-between items-center mt-4 pt-4 border-t border-white/[0.04] text-xs text-zinc-500">
-              <span className="flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-[#0066FF]" /> Continuous TwelveData REST Feed
-              </span>
-              <span>Values in USD</span>
-            </div>
-          </CardContent>
-        </Card>
+          </div>
+
+          <div className="flex justify-between items-center pt-3 border-t border-white/5 text-xs text-zinc-500">
+            <span className="flex items-center gap-1 font-mono">
+              <Calendar className="w-3.5 h-3.5 text-zinc-400" /> Continuous TwelveData Feed
+            </span>
+            <span className="font-mono">Values in USD</span>
+          </div>
+        </div>
 
         {/* Live Quotes Board */}
-        <Card className="xl:col-span-1 bg-[#0A0A0A] border-white/[0.08] overflow-hidden flex flex-col min-h-[420px] shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-          <CardHeader className="pb-3 border-b border-white/[0.04] flex flex-row items-center justify-between shrink-0">
-            <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <Activity className="w-4 h-4 text-[#D4AF37]" /> Finnhub Quotes Board
-            </CardTitle>
+        <div className="bg-neutral-900/50 rounded-2xl p-6 flex flex-col min-h-[420px]">
+          <div className="pb-3 border-b border-white/5 flex flex-row items-center justify-between shrink-0">
+            <div className="flex items-center gap-2">
+              <Activity className="w-4 h-4 text-white" />
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white">Quotes Board</h3>
+            </div>
             <button 
               onClick={fetchLiveQuotes}
               disabled={isRefreshingQuotes}
-              className="p-1.5 rounded-lg bg-white/5 border border-white/5 text-zinc-400 hover:text-white transition-colors cursor-pointer disabled:opacity-50"
+              className="p-1.5 rounded-lg bg-white/5 text-zinc-400 hover:text-white transition-colors cursor-pointer"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isRefreshingQuotes ? 'animate-spin' : ''}`} />
             </button>
-          </CardHeader>
-          <CardContent className="flex-1 p-4 overflow-y-auto space-y-3">
+          </div>
+
+          <div className="flex-1 py-3 overflow-y-auto space-y-2">
             {watchSymbols.map((sym) => {
               const q = quotes[sym];
               if (!q) return (
-                <div key={sym} className="h-14 bg-white/[0.02] border border-white/5 rounded-xl animate-pulse" />
+                <div key={sym} className="h-12 bg-white/[0.02] rounded-xl animate-pulse" />
               );
               const isPositive = q.change >= 0;
               return (
                 <div 
                   key={sym}
                   onClick={() => setSelectedSymbol(sym)}
-                  className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
+                  className={`p-3 rounded-xl transition-all cursor-pointer flex items-center justify-between ${
                     selectedSymbol === sym 
-                      ? 'bg-white/5 border-[#0066FF]/30' 
-                      : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.04]'
+                      ? 'bg-white/10' 
+                      : 'bg-white/[0.02] hover:bg-white/[0.04]'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#0066FF]/10 flex items-center justify-center font-bold text-xs text-[#0066FF]">
-                      {sym}
+                    <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center font-bold text-xs text-white">
+                      {sym.slice(0, 3)}
                     </div>
                     <div>
                       <h4 className="text-xs font-bold text-white uppercase">{sym}</h4>
                       <p className="text-[10px] text-zinc-500 font-mono">
-                        {q.is_fallback ? 'Simulated Ticks' : 'Live Finnhub Feed'}
+                        {q.is_fallback ? 'Simulated' : 'Finnhub'}
                       </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-bold font-mono text-white">${q.price.toFixed(2)}</p>
-                    <p className={`text-[10px] font-bold font-mono flex items-center gap-0.5 justify-end mt-0.5 ${
-                      isPositive ? 'text-emerald-400' : 'text-red-400'
+                    <p className="text-xs font-bold font-mono text-white">${q.price.toFixed(2)}</p>
+                    <p className={`text-[10px] font-bold font-mono flex items-center gap-0.5 justify-end ${
+                      isPositive ? 'text-emerald-400' : 'text-rose-400'
                     }`}>
                       {isPositive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
                       {isPositive ? '+' : ''}{q.percent_change}%
@@ -501,93 +503,95 @@ export function News() {
                 </div>
               );
             })}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
+
       </div>
 
+      {/* Strategic News & Key Governance Directory */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        {/* Curated Macroeconomic & Corporate News */}
-        <Card className="bg-[#0A0A0A] border-white/[0.08] overflow-hidden flex flex-col min-h-[500px] shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-          <CardHeader className="pb-3 border-b border-white/[0.04]">
-            <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <Globe className="w-4 h-4 text-[#00FFB2]" /> Strategic Economic Feed
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="flex-1 p-4 overflow-y-auto space-y-4">
+        
+        {/* Curated Macroeconomic News */}
+        <div className="bg-neutral-900/50 rounded-2xl p-6 space-y-4">
+          <div className="flex items-center gap-2 pb-3 border-b border-white/5">
+            <Globe className="w-4 h-4 text-white" />
+            <h3 className="text-sm font-bold uppercase tracking-wider text-white">Strategic Economic Feed</h3>
+          </div>
+
+          <div className="space-y-3">
             {CURATED_NEWS.map((item) => (
               <div 
                 key={item.id}
-                className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl hover:bg-white/[0.04] transition-all flex flex-col gap-3 group"
+                className="p-4 bg-white/[0.02] hover:bg-white/[0.04] rounded-2xl transition-all flex flex-col gap-2.5 group"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-extrabold tracking-wider bg-white/5 border border-white/10 text-[#00FFB2] px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-extrabold tracking-wider bg-white/10 text-white px-2 py-0.5 rounded">
                       {item.tag}
                     </span>
-                    <span className="text-[10px] font-bold font-mono text-[#D4AF37] uppercase bg-[#D4AF37]/5 px-2 py-0.5 rounded border border-[#D4AF37]/10">
-                      Impact: {item.impact}
+                    <span className="text-[10px] font-mono text-emerald-400 uppercase bg-emerald-500/10 px-2 py-0.5 rounded">
+                      {item.impact}
                     </span>
                   </div>
-                  <span className="text-[10px] text-zinc-500">{item.date}</span>
+                  <span className="text-[10px] text-zinc-500 font-mono">{item.date}</span>
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-[#00FFB2] transition-colors leading-snug">
+                  <h4 className="text-xs font-bold text-white group-hover:text-zinc-200 transition-colors leading-snug">
                     {item.title}
                   </h4>
-                  <p className="text-xs text-zinc-400 mt-1.5 leading-relaxed">
+                  <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
                     {item.summary}
                   </p>
                 </div>
-                <div className="flex items-center justify-between pt-2 border-t border-white/[0.02] text-[11px]">
+                <div className="flex items-center justify-between pt-2 border-t border-white/5 text-[11px]">
                   <span className="text-zinc-500 font-mono">Via {item.source}</span>
                   <button
                     onClick={() => loadNewsToAI(item.title, item.summary)}
-                    className="flex items-center gap-1 text-[#D4AF37] hover:text-[#D4AF37]/80 transition-colors font-bold cursor-pointer"
+                    className="flex items-center gap-1 text-white hover:underline font-bold cursor-pointer text-xs"
                   >
-                    <Sparkles className="w-3.5 h-3.5" /> Analyze with AI
+                    <Sparkles className="w-3.5 h-3.5 text-white" /> Synthesize AI
                   </button>
                 </div>
               </div>
             ))}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* Officers & Directors Directory */}
-        <Card className="bg-[#0A0A0A] border-white/[0.08] overflow-hidden flex flex-col min-h-[500px] shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-          <CardHeader className="pb-3 border-b border-white/[0.04] flex flex-row items-center justify-between">
-            <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <User className="w-4 h-4 text-[#00FFB2]" /> Key Executives Directory
-            </CardTitle>
-            <span className="text-xs font-mono text-zinc-500 bg-white/5 px-2.5 py-1 rounded-lg border border-white/5">
-              Active: {selectedSymbol}
-            </span>
-          </CardHeader>
-          <CardContent className="flex-1 p-6 space-y-4 overflow-y-auto">
-            <p className="text-xs text-zinc-400 leading-relaxed mb-2">
-              Corporate governance and lead executives for <span className="text-white font-bold">{selectedSymbol}</span>. This dynamic advisory directory changes in step with your active market ticker.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {(OFFICERS_BY_SYMBOL[selectedSymbol] || OFFICERS_BY_SYMBOL['AAPL']).map((officer, index) => (
-                <div 
-                  key={index}
-                  className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl flex gap-3.5 items-start"
-                >
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00FFB2]/20 to-[#0066FF]/20 flex items-center justify-center font-bold text-[#00FFB2] text-sm shadow-md shrink-0 border border-white/5">
-                    {officer.name.split(' ').map(n => n[0]).join('')}
-                  </div>
-                  <div className="min-w-0">
-                    <h4 className="text-xs font-bold text-white truncate">{officer.name}</h4>
-                    <p className="text-[11px] text-[#00FFB2] font-semibold mt-0.5 truncate">{officer.role}</p>
-                    <div className="text-[10px] text-zinc-500 mt-2 flex flex-col">
-                      <span className="uppercase tracking-wider font-extrabold text-[8px] text-zinc-600">Track Record:</span>
-                      <span className="truncate mt-0.5">{officer.prev}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
+        <div className="bg-neutral-900/50 rounded-2xl p-6 space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-white/5">
+            <div className="flex items-center gap-2">
+              <User className="w-4 h-4 text-white" />
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white">Executive Directory</h3>
             </div>
-          </CardContent>
-        </Card>
+            <span className="text-xs font-mono text-white bg-white/10 px-2.5 py-0.5 rounded-lg">
+              {selectedSymbol}
+            </span>
+          </div>
+
+          <p className="text-xs text-zinc-400 leading-relaxed">
+            Corporate governance and lead executives for <span className="text-white font-bold">{selectedSymbol}</span>.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            {(OFFICERS_BY_SYMBOL[selectedSymbol] || OFFICERS_BY_SYMBOL['AAPL']).map((officer, index) => (
+              <div 
+                key={index}
+                className="p-3.5 bg-white/[0.02] rounded-xl flex gap-3 items-start"
+              >
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-bold text-white text-xs shrink-0">
+                  {officer.name.split(' ').map(n => n[0]).join('')}
+                </div>
+                <div className="min-w-0">
+                  <h4 className="text-xs font-bold text-white truncate">{officer.name}</h4>
+                  <p className="text-[11px] text-zinc-300 font-medium truncate">{officer.role}</p>
+                  <p className="text-[10px] text-zinc-500 mt-1 truncate">{officer.prev}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </div>
   );

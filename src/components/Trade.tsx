@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowRightLeft, TrendingUp, TrendingDown, 
   Search, Filter, Clock, Activity, ShieldCheck,
-  ChevronDown, ArrowUpRight, ArrowDownRight, Radio, Landmark, Zap
+  ChevronDown, ArrowUpRight, ArrowDownRight, Radio, Landmark, Zap,
+  PanelLeftClose, PanelLeftOpen
 } from 'lucide-react';
 import { StockPurchaseConfirmation } from './StockPurchaseConfirmation';
 import { supabase } from '../lib/supabase';
@@ -33,6 +34,7 @@ export function Trade({ setActiveTab }: { setActiveTab: (tab: string) => void })
   const selectedAsset = assets.find(a => a.id === selectedAssetId) || assets[0];
 
   const [activeSubTab, setActiveSubTab] = useState<'ovex' | 'finnhub' | 'twelvedata' | 'private'>('ovex');
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(true);
 
   const [orderType, setOrderType] = useState<'market' | 'limit'>('market');
   const [tradeAction, setTradeAction] = useState<'buy' | 'sell'>('buy');
@@ -262,85 +264,132 @@ export function Trade({ setActiveTab }: { setActiveTab: (tab: string) => void })
           <h1 className="text-3xl font-bold text-white tracking-tight">Trading Desk</h1>
           <p className="text-zinc-400 mt-1">Access private equity, start-up shares, and global financial networks.</p>
         </div>
-
-        {/* Custom Tab Switcher */}
-        <div className="flex bg-black border border-[#D4AF37]/30 p-1.5 rounded-2xl flex-wrap gap-1.5">
-          <button
-            onClick={() => setActiveSubTab('ovex')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
-              activeSubTab === 'ovex' 
-                ? 'bg-[#D4AF37] text-black shadow-lg shadow-[#D4AF37]/20 font-extrabold' 
-                : 'text-zinc-400 hover:text-white'
-            }`}
-          >
-            <Zap className="w-4 h-4 text-amber-500 fill-current" />
-            OVEX RFQ & AltcoinTrader
-          </button>
-          <button
-            onClick={() => setActiveSubTab('finnhub')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
-              activeSubTab === 'finnhub' 
-                ? 'bg-[#D4AF37] text-black shadow-lg shadow-[#D4AF37]/20 font-extrabold' 
-                : 'text-zinc-400 hover:text-white'
-            }`}
-          >
-            <Radio className="w-4 h-4 text-emerald-400 animate-pulse" />
-            Finnhub Live WS
-          </button>
-          <button
-            onClick={() => setActiveSubTab('twelvedata')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
-              activeSubTab === 'twelvedata' 
-                ? 'bg-[#D4AF37] text-black shadow-lg shadow-[#D4AF37]/20 font-extrabold' 
-                : 'text-zinc-400 hover:text-white'
-            }`}
-          >
-            <Radio className="w-4 h-4 text-sky-400" />
-            Twelve Data WS
-          </button>
-          <button
-            onClick={() => setActiveSubTab('private')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
-              activeSubTab === 'private' 
-                ? 'bg-[#D4AF37] text-black shadow-lg shadow-[#D4AF37]/20 font-extrabold' 
-                : 'text-zinc-400 hover:text-white'
-            }`}
-          >
-            <Activity className="w-4 h-4" />
-            African Startups
-          </button>
-        </div>
       </div>
 
-      {activeSubTab === 'ovex' ? (
-        <OvexRfqTrading />
-      ) : activeSubTab === 'finnhub' ? (
-        <FinnhubTrade setActiveTab={setActiveTab} />
-      ) : activeSubTab === 'twelvedata' ? (
-        <TwelveDataTrade setActiveTab={setActiveTab} />
-      ) : (
-        <>
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-white tracking-tight">Secondary Market</h1>
-              <p className="text-zinc-400 mt-1">Trade private equity with instant liquidity</p>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00C896]/10 border border-[#00C896]/20 text-[#00C896] text-sm font-medium">
-                <Activity className="w-4 h-4 animate-pulse" />
-                Market Open
-              </div>
-            </div>
-          </div>
+      <div className="w-full flex-1 flex flex-col lg:flex-row gap-6 items-start">
+        {/* LEFT SUB-MENU - COLLAPSIBLE */}
+        <AnimatePresence initial={false} mode="wait">
+          {isSubMenuOpen ? (
+            <motion.aside
+              key="trade-left-submenu"
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 260, opacity: 1 }}
+              exit={{ width: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="w-full lg:w-64 shrink-0 overflow-hidden"
+            >
+              <div className="bg-neutral-900/80 border border-white/10 rounded-2xl p-3 space-y-3 shadow-xl backdrop-blur-md">
+                <div className="flex items-center justify-between px-2 py-1.5 border-b border-white/5 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+                      Trading Venues
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setIsSubMenuOpen(false)}
+                    className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                    title="Hide Sub-Menu"
+                    aria-label="Hide Sub-Menu"
+                  >
+                    <PanelLeftClose className="w-4 h-4" />
+                  </button>
+                </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column: Chart & Trade Panel */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Chart Area */}
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-xl shadow-lg">
+                <nav className="space-y-1">
+                  {[
+                    { id: 'ovex', label: 'OVEX RFQ & AltcoinTrader', icon: Zap, color: 'text-emerald-400', desc: 'Deep Liquidity RFQ' },
+                    { id: 'finnhub', label: 'Finnhub Live WS', icon: Radio, color: 'text-emerald-400', desc: 'Real-time WebSocket' },
+                    { id: 'twelvedata', label: 'Twelve Data WS', icon: Radio, color: 'text-sky-400', desc: 'FX & Global Feeds' },
+                    { id: 'private', label: 'African Startups', icon: Activity, color: 'text-zinc-400', desc: 'Secondary Equity' },
+                  ].map((item) => {
+                    const Icon = item.icon;
+                    const isActive = activeSubTab === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => setActiveSubTab(item.id as any)}
+                        className={`w-full flex items-start gap-3 p-2.5 rounded-xl text-left transition-all duration-200 cursor-pointer ${
+                          isActive
+                            ? 'bg-white text-black shadow-lg shadow-white/10'
+                            : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                        }`}
+                      >
+                        <Icon className={`w-4 h-4 mt-0.5 shrink-0 ${isActive ? 'text-black' : item.color}`} />
+                        <div className="min-w-0 flex-1">
+                          <div className={`text-xs font-bold uppercase tracking-wider truncate ${isActive ? 'text-black font-extrabold' : 'text-zinc-200'}`}>
+                            {item.label}
+                          </div>
+                          <div className={`text-[10px] truncate ${isActive ? 'text-zinc-700' : 'text-zinc-500'}`}>
+                            {item.desc}
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </nav>
+
+                <div className="pt-2.5 border-t border-white/5 px-2">
+                  <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400">
+                    <span className="flex items-center gap-1.5 text-emerald-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      Execution API Connected
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </motion.aside>
+          ) : (
+            <motion.div
+              key="trade-left-submenu-toggle"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="shrink-0"
+            >
+              <button
+                onClick={() => setIsSubMenuOpen(true)}
+                className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-neutral-900/80 border border-white/10 text-zinc-300 hover:text-white hover:bg-white/10 text-xs font-bold uppercase tracking-wider transition-all shadow-xl cursor-pointer group"
+                title="Show Sub-Menu"
+              >
+                <PanelLeftOpen className="w-4 h-4 text-emerald-400 group-hover:text-white transition-colors" />
+                <span>Show Venues</span>
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* WORKSPACE AREA */}
+        <div className="flex-1 min-w-0 w-full">
+          {activeSubTab === 'ovex' ? (
+            <OvexRfqTrading />
+          ) : activeSubTab === 'finnhub' ? (
+            <FinnhubTrade setActiveTab={setActiveTab} />
+          ) : activeSubTab === 'twelvedata' ? (
+            <TwelveDataTrade setActiveTab={setActiveTab} />
+          ) : (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h1 className="text-3xl font-bold text-white tracking-tight">Secondary Market</h1>
+                  <p className="text-zinc-400 mt-1">Trade private equity with instant liquidity</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00C896]/10 border border-[#00C896]/20 text-[#00C896] text-sm font-medium">
+                    <Activity className="w-4 h-4 animate-pulse" />
+                    Market Open
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Left Column: Chart & Trade Panel */}
+                <div className="lg:col-span-2 space-y-6">
+                  {/* Chart Area */}
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-xl shadow-lg">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0066FF] to-[#D4AF37] flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-[#0066FF]/20">
+                <div className="w-12 h-12 rounded-2xl bg-white text-black flex items-center justify-center font-bold text-xl shadow-lg">
                   {selectedAsset.symbol[0]}
                 </div>
                 <div>
@@ -616,8 +665,10 @@ export function Trade({ setActiveTab }: { setActiveTab: (tab: string) => void })
           </div>
         </div>
       </div>
-      </>
-      )}
+    </div>
+          )}
+        </div>
+      </div>
 
       {showConfirmation && confirmationData && (
         <StockPurchaseConfirmation

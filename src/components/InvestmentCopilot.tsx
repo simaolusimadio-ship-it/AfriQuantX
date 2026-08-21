@@ -23,7 +23,7 @@ export function InvestmentCopilot() {
 
   return (
     <div className="flex-1 bg-white/[0.02] border border-white/10 rounded-3xl flex flex-col overflow-hidden relative backdrop-blur-xl shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="absolute top-0 inset-x-0 h-1 bg-[#D4AF37]" />
+      <div className="absolute top-0 inset-x-0 h-1 bg-[#FFFFFF]" />
       
       <div className="p-6 border-b border-white/10 bg-white/[0.01] flex items-center justify-between relative z-10">
         <div className="flex items-center gap-4">

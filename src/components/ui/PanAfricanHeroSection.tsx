@@ -134,13 +134,15 @@ export function PanAfricanHeroSection({
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.55 }}
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 pt-2"
           >
-            <button
-              onClick={onNavigateToAuth}
-              className="px-8 py-4 rounded-full bg-[#D9A94E] hover:bg-[#e4b55c] text-[#0D0F13] font-bold text-sm sm:text-base tracking-tight transition-all duration-200 shadow-[0_10px_28px_rgba(217,169,78,0.32)] hover:scale-105 flex items-center justify-center gap-2 group cursor-pointer"
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSeSJRTsgzwwqIbZzpIT1_xvqu8_K-gsjqwFuhGNHYPlH2rAGA/viewform?usp=mail_form_link&urp=gmail_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 rounded-full bg-[#D9A94E] hover:bg-[#e4b55c] text-[#0D0F13] font-bold text-sm sm:text-base tracking-tight transition-all duration-200 shadow-[0_10px_28px_rgba(217,169,78,0.32)] hover:scale-105 flex items-center justify-center gap-2 group cursor-pointer text-decoration-none"
             >
               <span>Request Early Access</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </a>
 
             <button
               onClick={handleScrollToContent}

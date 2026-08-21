@@ -35,7 +35,7 @@ export function DueDiligence() {
   const renderStatusIcon = (status: string) => {
     switch (status) {
       case 'success': return <CheckCircle2 className="w-5 h-5 text-[#00C896] shrink-0 mt-0.5" />;
-      case 'warning': return <AlertCircle className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />;
+      case 'warning': return <AlertCircle className="w-5 h-5 text-[#FFFFFF] shrink-0 mt-0.5" />;
       case 'error': return <Shield className="w-5 h-5 text-[#FF3B3B] shrink-0 mt-0.5" />;
       default: return <Clock className="w-5 h-5 text-[#0066FF] shrink-0 mt-0.5" />;
     }
@@ -217,7 +217,7 @@ export function DueDiligence() {
                       <span className={`inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider border ${
                         doc.status === 'Analyzed' ? 'bg-[#00C896]/10 text-[#00C896] border-[#00C896]/20' :
                         doc.status === 'Analyzing' ? 'bg-[#0066FF]/10 text-[#0066FF] border-[#0066FF]/20 animate-pulse' :
-                        'bg-[#D4AF37]/10 text-[#D4AF37] border-[#D4AF37]/20'
+                        'bg-[#FFFFFF]/10 text-[#FFFFFF] border-[#FFFFFF]/20'
                       }`}>
                         {doc.status === 'Analyzing' && <Loader2 className="w-3 h-3 mr-1 animate-spin inline" />}
                         {doc.status}

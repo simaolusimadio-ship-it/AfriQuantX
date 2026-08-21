@@ -139,8 +139,8 @@ export function InvestorOnboardingFlow({ onComplete, onCancel }: InvestorOnboard
       <div className="mb-8">
         <div className="flex justify-between mb-2">
           {steps.map((s) => (
-            <div key={s.id} className={`flex flex-col items-center gap-2 ${step >= s.id ? 'text-[#D4AF37]' : 'text-zinc-600'}`}>
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors ${step >= s.id ? 'border-[#D4AF37] bg-[#D4AF37]/10 shadow-[0_0_15px_rgba(212,175,55,0.3)]' : 'border-zinc-700 bg-zinc-800/50'}`}>
+            <div key={s.id} className={`flex flex-col items-center gap-2 ${step >= s.id ? 'text-[#FFFFFF]' : 'text-zinc-600'}`}>
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors ${step >= s.id ? 'border-[#FFFFFF] bg-[#FFFFFF]/10 shadow-[0_0_15px_rgba(212,175,55,0.3)]' : 'border-zinc-700 bg-zinc-800/50'}`}>
                 <s.icon className="w-5 h-5" />
               </div>
               <span className="text-xs font-medium hidden sm:block">{s.title}</span>
@@ -149,7 +149,7 @@ export function InvestorOnboardingFlow({ onComplete, onCancel }: InvestorOnboard
         </div>
         <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]">
           <motion.div 
-            className="h-full bg-[#D4AF37]"
+            className="h-full bg-[#FFFFFF]"
             initial={{ width: `${((step - 1) / 4) * 100}%` }}
             animate={{ width: `${(step / 4) * 100}%` }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -168,20 +168,20 @@ export function InvestorOnboardingFlow({ onComplete, onCancel }: InvestorOnboard
         <form onSubmit={handleNext} className="space-y-6 relative z-10">
           {step === 1 && (
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-[#D4AF37] mb-6 tracking-wide uppercase">Personal Details</h2>
+              <h2 className="text-2xl font-bold text-[#FFFFFF] mb-6 tracking-wide uppercase">Personal Details</h2>
               <div>
                 <label className="block text-sm font-medium text-zinc-400 mb-1.5 uppercase tracking-wider">Full Name</label>
-                <input type="text" required value={data.fullName} onChange={e => { updateData({ fullName: e.target.value }); setErrors(prev => ({ ...prev, fullName: '' })); }} className={`w-full bg-[#0A0F1C]/50 border ${errors.fullName ? 'border-[#FF3B3B]/50' : 'border-white/10'} rounded-xl py-3 px-4 text-white focus:border-[#D4AF37] focus:bg-white/[0.02] outline-none transition-all placeholder:text-zinc-600`} placeholder="John Doe" />
+                <input type="text" required value={data.fullName} onChange={e => { updateData({ fullName: e.target.value }); setErrors(prev => ({ ...prev, fullName: '' })); }} className={`w-full bg-[#0A0F1C]/50 border ${errors.fullName ? 'border-[#FF3B3B]/50' : 'border-white/10'} rounded-xl py-3 px-4 text-white focus:border-[#FFFFFF] focus:bg-white/[0.02] outline-none transition-all placeholder:text-zinc-600`} placeholder="John Doe" />
                 {errors.fullName && <p className="text-[#FF3B3B] text-xs mt-1">{errors.fullName}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-zinc-400 mb-1.5 uppercase tracking-wider">Email Address</label>
-                <input type="text" required value={data.email} onChange={e => { updateData({ email: e.target.value }); setErrors(prev => ({ ...prev, email: '' })); }} className={`w-full bg-[#0A0F1C]/50 border ${errors.email ? 'border-[#FF3B3B]/50' : 'border-white/10'} rounded-xl py-3 px-4 text-white focus:border-[#D4AF37] focus:bg-white/[0.02] outline-none transition-all placeholder:text-zinc-600`} placeholder="investor@example.com" />
+                <input type="text" required value={data.email} onChange={e => { updateData({ email: e.target.value }); setErrors(prev => ({ ...prev, email: '' })); }} className={`w-full bg-[#0A0F1C]/50 border ${errors.email ? 'border-[#FF3B3B]/50' : 'border-white/10'} rounded-xl py-3 px-4 text-white focus:border-[#FFFFFF] focus:bg-white/[0.02] outline-none transition-all placeholder:text-zinc-600`} placeholder="investor@example.com" />
                 {errors.email && <p className="text-[#FF3B3B] text-xs mt-1">{errors.email}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-zinc-400 mb-1.5 uppercase tracking-wider">Password</label>
-                <input type="password" required value={data.password} onChange={e => { updateData({ password: e.target.value }); setErrors(prev => ({ ...prev, password: '' })); }} className={`w-full bg-[#0A0F1C]/50 border ${errors.password ? 'border-[#FF3B3B]/50' : 'border-white/10'} rounded-xl py-3 px-4 text-white focus:border-[#D4AF37] focus:bg-white/[0.02] outline-none transition-all placeholder:text-zinc-600`} placeholder="••••••••" />
+                <input type="password" required value={data.password} onChange={e => { updateData({ password: e.target.value }); setErrors(prev => ({ ...prev, password: '' })); }} className={`w-full bg-[#0A0F1C]/50 border ${errors.password ? 'border-[#FF3B3B]/50' : 'border-white/10'} rounded-xl py-3 px-4 text-white focus:border-[#FFFFFF] focus:bg-white/[0.02] outline-none transition-all placeholder:text-zinc-600`} placeholder="••••••••" />
                 {errors.password && <p className="text-[#FF3B3B] text-xs mt-1">{errors.password}</p>}
               </div>
             </div>
@@ -189,10 +189,10 @@ export function InvestorOnboardingFlow({ onComplete, onCancel }: InvestorOnboard
 
           {step === 2 && (
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-[#D4AF37] mb-6 tracking-wide uppercase">Identity Verification (KYC)</h2>
+              <h2 className="text-2xl font-bold text-[#FFFFFF] mb-6 tracking-wide uppercase">Identity Verification (KYC)</h2>
               <div>
                 <label className="block text-sm font-medium text-zinc-400 mb-1.5 uppercase tracking-wider">Document Type</label>
-                <select value={data.idType} onChange={e => updateData({ idType: e.target.value })} className="w-full bg-[#0A0F1C]/50 border border-white/10 rounded-xl py-3 px-4 text-white focus:border-[#D4AF37] focus:bg-white/[0.02] outline-none transition-all appearance-none">
+                <select value={data.idType} onChange={e => updateData({ idType: e.target.value })} className="w-full bg-[#0A0F1C]/50 border border-white/10 rounded-xl py-3 px-4 text-white focus:border-[#FFFFFF] focus:bg-white/[0.02] outline-none transition-all appearance-none">
                   <option value="passport">Passport</option>
                   <option value="national_id">National ID Card</option>
                   <option value="drivers_license">Driver's License</option>
@@ -200,7 +200,7 @@ export function InvestorOnboardingFlow({ onComplete, onCancel }: InvestorOnboard
               </div>
               <div>
                 <label className="block text-sm font-medium text-zinc-400 mb-1.5 uppercase tracking-wider">Document Number</label>
-                <input type="text" required value={data.idNumber} onChange={e => { updateData({ idNumber: e.target.value }); setErrors(prev => ({ ...prev, idNumber: '' })); }} className={`w-full bg-[#0A0F1C]/50 border ${errors.idNumber ? 'border-[#FF3B3B]/50' : 'border-white/10'} rounded-xl py-3 px-4 text-white focus:border-[#D4AF37] focus:bg-white/[0.02] outline-none transition-all placeholder:text-zinc-600`} placeholder="A12345678" />
+                <input type="text" required value={data.idNumber} onChange={e => { updateData({ idNumber: e.target.value }); setErrors(prev => ({ ...prev, idNumber: '' })); }} className={`w-full bg-[#0A0F1C]/50 border ${errors.idNumber ? 'border-[#FF3B3B]/50' : 'border-white/10'} rounded-xl py-3 px-4 text-white focus:border-[#FFFFFF] focus:bg-white/[0.02] outline-none transition-all placeholder:text-zinc-600`} placeholder="A12345678" />
                 {errors.idNumber && <p className="text-[#FF3B3B] text-xs mt-1">{errors.idNumber}</p>}
               </div>
               <div>
@@ -235,12 +235,12 @@ export function InvestorOnboardingFlow({ onComplete, onCancel }: InvestorOnboard
 
           {step === 3 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-[#D4AF37] mb-6 tracking-wide uppercase">Investment Profile</h2>
+              <h2 className="text-2xl font-bold text-[#FFFFFF] mb-6 tracking-wide uppercase">Investment Profile</h2>
               <div>
                 <label className="block text-sm font-medium text-zinc-400 mb-3 uppercase tracking-wider">Risk Tolerance</label>
                 <div className="grid grid-cols-3 gap-3">
                   {['low', 'moderate', 'high'].map(risk => (
-                    <button key={risk} type="button" onClick={() => updateData({ riskTolerance: risk })} className={`py-3 rounded-xl border text-sm font-medium capitalize transition-all ${data.riskTolerance === risk ? 'bg-[#D4AF37]/20 border-[#D4AF37] text-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.25)]' : 'bg-[#0A0F1C]/50 border-white/10 text-zinc-400 hover:bg-white/5 hover:border-white/20'}`}>
+                    <button key={risk} type="button" onClick={() => updateData({ riskTolerance: risk })} className={`py-3 rounded-xl border text-sm font-medium capitalize transition-all ${data.riskTolerance === risk ? 'bg-[#FFFFFF]/20 border-[#FFFFFF] text-[#FFFFFF] shadow-[0_0_20px_rgba(212,175,55,0.25)]' : 'bg-[#0A0F1C]/50 border-white/10 text-zinc-400 hover:bg-white/5 hover:border-white/20'}`}>
                       {risk}
                     </button>
                   ))}
@@ -250,7 +250,7 @@ export function InvestorOnboardingFlow({ onComplete, onCancel }: InvestorOnboard
                 <label className="block text-sm font-medium text-zinc-400 mb-3 uppercase tracking-wider">Investment Horizon</label>
                 <div className="grid grid-cols-3 gap-3">
                   {['short', 'medium', 'long'].map(horizon => (
-                    <button key={horizon} type="button" onClick={() => updateData({ investmentHorizon: horizon })} className={`py-3 rounded-xl border text-sm font-medium capitalize transition-all ${data.investmentHorizon === horizon ? 'bg-[#D4AF37]/20 border-[#D4AF37] text-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.25)]' : 'bg-[#0A0F1C]/50 border-white/10 text-zinc-400 hover:bg-white/5 hover:border-white/20'}`}>
+                    <button key={horizon} type="button" onClick={() => updateData({ investmentHorizon: horizon })} className={`py-3 rounded-xl border text-sm font-medium capitalize transition-all ${data.investmentHorizon === horizon ? 'bg-[#FFFFFF]/20 border-[#FFFFFF] text-[#FFFFFF] shadow-[0_0_20px_rgba(212,175,55,0.25)]' : 'bg-[#0A0F1C]/50 border-white/10 text-zinc-400 hover:bg-white/5 hover:border-white/20'}`}>
                       {horizon}
                     </button>
                   ))}
@@ -261,7 +261,7 @@ export function InvestorOnboardingFlow({ onComplete, onCancel }: InvestorOnboard
 
           {step === 4 && (
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-[#D4AF37] mb-6 tracking-wide uppercase">Portfolio Interests</h2>
+              <h2 className="text-2xl font-bold text-[#FFFFFF] mb-6 tracking-wide uppercase">Portfolio Interests</h2>
               <p className="text-sm text-zinc-400 mb-4">Select the sectors you are most interested in exploring across African markets.</p>
               {errors.sectors && <p className="text-[#FF3B3B] text-xs mb-4">{errors.sectors}</p>}
               
@@ -276,7 +276,7 @@ export function InvestorOnboardingFlow({ onComplete, onCancel }: InvestorOnboard
                 {['Fintech', 'Telecom', 'Agriculture', 'Mining', 'Real Estate', 'Energy', 'Healthcare', 'Consumer Goods', 'Manufacturing'].map(sector => {
                   const isSelected = data.sectors.includes(sector);
                   return (
-                    <button key={sector} type="button" onClick={() => toggleSector(sector)} className={`py-3 px-4 rounded-xl border text-sm font-medium transition-all flex items-center justify-between ${isSelected ? 'bg-[#D4AF37]/20 border-[#D4AF37] text-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.25)]' : 'bg-[#0A0F1C]/50 border-white/10 text-zinc-400 hover:bg-white/5 hover:border-white/20'}`}>
+                    <button key={sector} type="button" onClick={() => toggleSector(sector)} className={`py-3 px-4 rounded-xl border text-sm font-medium transition-all flex items-center justify-between ${isSelected ? 'bg-[#FFFFFF]/20 border-[#FFFFFF] text-[#FFFFFF] shadow-[0_0_20px_rgba(212,175,55,0.25)]' : 'bg-[#0A0F1C]/50 border-white/10 text-zinc-400 hover:bg-white/5 hover:border-white/20'}`}>
                       {sector}
                       {isSelected && <CheckCircle2 className="w-4 h-4" />}
                     </button>
@@ -290,7 +290,7 @@ export function InvestorOnboardingFlow({ onComplete, onCancel }: InvestorOnboard
             <button type="button" onClick={handleBack} disabled={isSubmitting} className="px-6 py-3 text-zinc-400 hover:text-white font-medium transition-colors flex items-center gap-2 uppercase tracking-wider text-sm disabled:opacity-50">
               <ArrowLeft className="w-4 h-4" /> {step === 1 ? 'Cancel' : 'Back'}
             </button>
-            <button type="submit" disabled={isSubmitting} className="group relative px-8 py-3 bg-[#D4AF37] text-[#0A0A0A] rounded-xl font-bold uppercase tracking-widest text-sm   hover:scale-[1.02] transition-all flex items-center gap-2 overflow-hidden disabled:opacity-50 disabled:hover:scale-100">
+            <button type="submit" disabled={isSubmitting} className="group relative px-8 py-3 bg-[#FFFFFF] text-[#0A0A0A] rounded-xl font-bold uppercase tracking-widest text-sm   hover:scale-[1.02] transition-all flex items-center gap-2 overflow-hidden disabled:opacity-50 disabled:hover:scale-100">
               <span className="relative">
                 {isSubmitting ? (
                   <span className="flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Creating Account...</span>

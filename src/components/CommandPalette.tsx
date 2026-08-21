@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, ArrowRight, LayoutDashboard, Briefcase, Store, BarChart3 } from 'lucide-react';
+import { Search, ArrowRight, LayoutDashboard, Briefcase, Store, BarChart3, Rocket, Cpu, Calculator } from 'lucide-react';
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -32,6 +32,9 @@ export function CommandPalette({ isOpen, onClose, onNavigate }: CommandPalettePr
 
   const actions = [
     { id: 'dashboard', label: 'Go to Dashboard', icon: LayoutDashboard },
+    { id: 'ipo-launch', label: 'IPO Launch & Bookbuilding Hub', icon: Rocket },
+    { id: 'algo-trading', label: 'Algorithmic Execution Desk (TWAP/VWAP)', icon: Cpu },
+    { id: 'valuation-workbench', label: 'DCF & LBO Valuation Workbench', icon: Calculator },
     { id: 'portfolio', label: 'View Portfolio', icon: Briefcase },
     { id: 'marketplace', label: 'Explore Markets', icon: Store },
     { id: 'index', label: 'Market Index', icon: BarChart3 },

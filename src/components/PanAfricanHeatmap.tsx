@@ -102,7 +102,7 @@ export function PanAfricanHeatmap() {
       <div className="flex-1 bg-[#0A0A0A] border border-white/[0.08] rounded-2xl p-4 relative overflow-hidden min-h-[400px] lg:min-h-[600px] shadow-[0_0_30px_rgba(0,0,0,0.5)]">
         <div className="absolute top-4 left-4 z-10">
           <h3 className="text-lg font-bold text-white flex items-center gap-2">
-            <Globe className="w-5 h-5 text-[#D4AF37]" />
+            <Globe className="w-5 h-5 text-[#FFFFFF]" />
             Live Market Heatmap
             <span className="relative flex h-2 w-2 ml-1">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FFB2] opacity-75"></span>
@@ -156,14 +156,14 @@ export function PanAfricanHeatmap() {
                       onClick={() => handleCountryClick(geo)}
                       style={{
                         default: {
-                          fill: isSelected ? "#D4AF37" : fillColor,
+                          fill: isSelected ? "#FFFFFF" : fillColor,
                           stroke: "#333333",
                           strokeWidth: 0.5,
                           outline: "none",
                           transition: "all 250ms"
                         },
                         hover: {
-                          fill: data ? "#D4AF37" : fillColor,
+                          fill: data ? "#FFFFFF" : fillColor,
                           stroke: "#666666",
                           strokeWidth: 1,
                           outline: "none",
@@ -219,7 +219,7 @@ export function PanAfricanHeatmap() {
             <div className="p-5 border-b border-white/[0.08] flex items-center justify-between bg-white/[0.02]">
               <div>
                 <h3 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/70">{selectedData.name}</h3>
-                <p className="text-sm text-[#D4AF37] uppercase tracking-wider">{selectedData.exchange} Exchange</p>
+                <p className="text-sm text-[#FFFFFF] uppercase tracking-wider">{selectedData.exchange} Exchange</p>
               </div>
               <button 
                 onClick={() => setSelectedCountry(null)}
@@ -278,7 +278,7 @@ export function PanAfricanHeatmap() {
                 </div>
                 <div className="bg-white/[0.02] border border-white/[0.05] rounded-xl p-3 shadow-[inset_0_0_10px_rgba(255,255,255,0.01)]">
                   <div className="flex items-center gap-2 text-zinc-400 mb-2">
-                    <DollarSign className="w-4 h-4 text-[#D4AF37]" />
+                    <DollarSign className="w-4 h-4 text-[#FFFFFF]" />
                     <span className="text-xs font-medium uppercase tracking-wider">Status</span>
                   </div>
                   <div className="text-sm font-semibold text-[#00FFB2] flex items-center gap-1.5">
@@ -291,7 +291,7 @@ export function PanAfricanHeatmap() {
               {/* Top Movers (Mocked based on country) */}
               <div>
                 <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2 uppercase tracking-wider">
-                  <BarChart2 className="w-4 h-4 text-[#D4AF37]" />
+                  <BarChart2 className="w-4 h-4 text-[#FFFFFF]" />
                   Top Movers
                 </h4>
                 <div className="space-y-2">
@@ -331,8 +331,8 @@ export function PanAfricanHeatmap() {
             exit={{ opacity: 0, width: 0 }}
             className="bg-[#0A0A0A] border border-white/[0.08] rounded-2xl flex flex-col items-center justify-center p-8 text-center shrink-0 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
           >
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#D4AF37]/20 to-transparent flex items-center justify-center mb-4 border border-[#D4AF37]/30">
-              <Globe className="w-8 h-8 text-[#D4AF37]" />
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFFFFF]/20 to-transparent flex items-center justify-center mb-4 border border-[#FFFFFF]/30">
+              <Globe className="w-8 h-8 text-[#FFFFFF]" />
             </div>
             <h3 className="text-lg font-bold text-white mb-2 uppercase tracking-wider">Select a Market</h3>
             <p className="text-sm text-zinc-400">Click on any highlighted country on the map to view detailed exchange performance and AI insights.</p>

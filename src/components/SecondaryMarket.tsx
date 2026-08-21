@@ -331,7 +331,7 @@ export function SecondaryMarket({ setActiveTab, initialView = 'hub', assetSlug, 
         {/* Asset Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0066FF] to-[#D4AF37] flex items-center justify-center text-2xl font-bold text-white shadow-lg">
+            <div className="w-16 h-16 rounded-2xl bg-white text-black flex items-center justify-center text-2xl font-bold shadow-lg">
               {selectedAsset.logo}
             </div>
             <div>

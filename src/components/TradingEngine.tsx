@@ -310,11 +310,11 @@ export function TradingEngine() {
             }}
             className={`flex-1 py-3 px-4 flex items-center justify-center gap-2 font-bold text-xs uppercase tracking-wider transition-all border-b-2 ${
               activeTab === tab.id 
-                ? 'border-[#D4AF37] text-white bg-white/[0.02]' 
+                ? 'border-[#FFFFFF] text-white bg-white/[0.02]' 
                 : 'border-transparent text-zinc-400 hover:text-white hover:bg-white/[0.01]'
             }`}
           >
-            <tab.icon className={`w-4 h-4 ${activeTab === tab.id ? 'text-[#D4AF37]' : 'text-zinc-400'}`} />
+            <tab.icon className={`w-4 h-4 ${activeTab === tab.id ? 'text-[#FFFFFF]' : 'text-zinc-400'}`} />
             <span>{tab.label}</span>
           </button>
         ))}
@@ -729,7 +729,7 @@ export function TradingEngine() {
                     <div className="space-y-4 font-mono text-xs">
                       {aiData.executions?.map((exec: any, idx: number) => {
                         const isFilled = exec.status === 'Filled';
-                        const statusColor = isFilled ? 'text-[#00C896]' : 'text-[#D4AF37]';
+                        const statusColor = isFilled ? 'text-[#00C896]' : 'text-[#FFFFFF]';
                         
                         return (
                           <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.01] border border-white/5 hover:bg-white/[0.03] transition-colors">

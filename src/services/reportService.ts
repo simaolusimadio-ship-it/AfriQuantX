@@ -1,3 +1,5 @@
+import { generateInstitutionalPdf } from './pdfExportService';
+
 /**
  * Institutional Reporting Engine Core Service
  * Extracted essential lightweight integration architecture from Jaspersoft Visualize.js and ReportServer
@@ -7,7 +9,7 @@
 export interface ReportTemplate {
   id: string;
   title: string;
-  category: 'Audit' | 'Trading' | 'Liquidity' | 'Tax & Regulatory' | 'Portfolio';
+  category: 'Intelligence' | 'Performance' | 'Audit' | 'Liquidity' | 'Tax & Regulatory';
   description: string;
   parameters: {
     key: string;
@@ -18,6 +20,15 @@ export interface ReportTemplate {
   }[];
 }
 
+export interface PDFExportOptions {
+  orientation?: 'portrait' | 'landscape';
+  colorTheme?: 'dark' | 'light';
+  customSubtitle?: string;
+  includeExecutiveSummary?: boolean;
+  includeIntelligenceCommentary?: boolean;
+  includeAuditStamp?: boolean;
+}
+
 export interface ReportExecutionResult {
   reportId: string;
   title: string;
@@ -26,26 +37,64 @@ export interface ReportExecutionResult {
   pageCount: number;
   totalRecords: number;
   parametersUsed: Record<string, any>;
+  commentary?: string;
+  auditHash?: string;
   dataSummary: {
     totalVolumeUsd: string;
     executedTrades: number;
     auditStatus: string;
     complianceScore: string;
     primaryExchange: string;
+    winRate?: string;
+    sharpeRatio?: string;
+    profitFactor?: string;
+    maxDrawdown?: string;
+    alphaPnl?: string;
   };
   rows: Array<Record<string, any>>;
 }
 
 export const AVAILABLE_REPORT_TEMPLATES: ReportTemplate[] = [
   {
+    id: 'trading_performance_metrics',
+    title: 'Trading Desk Performance & Alpha Execution Report',
+    category: 'Performance',
+    description: 'Institutional trading performance audit analyzing realized PnL, win rates, execution slippage, Sharpe/Sortino ratios, and algorithmic order flow telemetry.',
+    parameters: [
+      { key: 'timeframe', label: 'Evaluation Period', type: 'select', options: ['Month-to-Date (MTD)', 'Quarter-to-Date (QTD)', 'Year-to-Date (YTD)', 'Trailing 12 Months (T12M)'], defaultValue: 'Month-to-Date (MTD)' },
+      { key: 'strategy', label: 'Quantitative Strategy', type: 'select', options: ['All Strategies (Arbitrage, Momentum, TWAP/VWAP)', 'Cross-Exchange FX Arbitrage', 'High-Conviction Alpha Momentum', 'Algorithmic TWAP Execution'], defaultValue: 'All Strategies (Arbitrage, Momentum, TWAP/VWAP)' },
+      { key: 'minTradeSize', label: 'Min Trade Size ($)', type: 'number', defaultValue: 5000 },
+    ],
+  },
+  {
+    id: 'aqei_market_intelligence_summary',
+    title: 'AQEI Quantitative Market Intelligence Summary',
+    category: 'Intelligence',
+    description: 'Deep-dive quantitative report compiling regional macroeconomic indicators, composite alpha signals, Pan-African liquidity risk scores, and stress VaR forecasts.',
+    parameters: [
+      { key: 'modelConfidence', label: 'VaR Confidence Interval', type: 'select', options: ['95% Parametric VaR', '99% Monte Carlo Stress Scenario', '99.5% Tail Risk Simulation'], defaultValue: '95% Parametric VaR' },
+      { key: 'region', label: 'Regional Focus', type: 'select', options: ['Pan-African Aggregate (JSE, NGX, EGX, NSE, BRVM)', 'Southern Africa (JSE Focus)', 'West Africa (NGX & BRVM)', 'East Africa (NSE Kenya)'], defaultValue: 'Pan-African Aggregate (JSE, NGX, EGX, NSE, BRVM)' },
+    ],
+  },
+  {
     id: 'pan_african_liquidity_audit',
-    title: 'Pan-African Liquidity & Trade Audit Report',
+    title: 'Pan-African Liquidity & Multi-Exchange Audit Ledger',
     category: 'Audit',
-    description: 'Comprehensive multi-exchange audit ledger detailing trade settlement, exchange latency, and cross-border currency conversion verification.',
+    description: 'Comprehensive multi-exchange audit ledger detailing trade settlement, exchange latency, DvP clearing proofs, and cross-border currency conversion verification.',
     parameters: [
       { key: 'dateRange', label: 'Audit Timeframe', type: 'select', options: ['Last 24 Hours', 'Last 7 Days', 'Last 30 Days', 'Year to Date'], defaultValue: 'Last 7 Days' },
       { key: 'exchange', label: 'Target Exchange', type: 'select', options: ['All Exchanges (JSE, NGX, EGX, NSE, BRVM)', 'JSE (Johannesburg)', 'NGX (Lagos)', 'EGX (Cairo)', 'NSE (Nairobi)'], defaultValue: 'All Exchanges (JSE, NGX, EGX, NSE, BRVM)' },
       { key: 'minVolume', label: 'Minimum Transaction ($)', type: 'number', defaultValue: 1000 },
+    ],
+  },
+  {
+    id: 'portfolio_tax_compliance',
+    title: 'Institutional Capital Gains & Tax Compliance Statement',
+    category: 'Tax & Regulatory',
+    description: 'Official tax compliance document verifying realized capital gains, dividend distributions, and cross-border currency withholdings according to local revenue authorities.',
+    parameters: [
+      { key: 'taxYear', label: 'Tax Year', type: 'select', options: ['2026', '2025', '2024'], defaultValue: '2026' },
+      { key: 'jurisdiction', label: 'Regulatory Jurisdiction', type: 'select', options: ['South Africa (SARS)', 'Nigeria (FIRS)', 'Kenya (KRA)', 'Egypt (ETA)', 'International (OECD)'], defaultValue: 'South Africa (SARS)' },
     ],
   },
   {
@@ -56,25 +105,6 @@ export const AVAILABLE_REPORT_TEMPLATES: ReportTemplate[] = [
     parameters: [
       { key: 'tierFilter', label: 'Whop Membership Tier', type: 'select', options: ['All Tiers', 'VIP Trader', 'Institutional Enterprise', 'Standard Member'], defaultValue: 'All Tiers' },
       { key: 'exportFormat', label: 'Export Standard', type: 'select', options: ['PDF Document', 'Excel Spreadsheet', 'CSV Data Feed'], defaultValue: 'PDF Document' },
-    ],
-  },
-  {
-    id: 'portfolio_tax_compliance',
-    title: 'Institutional Capital Gains & Tax Statement',
-    category: 'Tax & Regulatory',
-    description: 'Official tax compliance document verifying realized capital gains, dividend distributions, and cross-border currency withholdings.',
-    parameters: [
-      { key: 'taxYear', label: 'Tax Year', type: 'select', options: ['2026', '2025', '2024'], defaultValue: '2026' },
-      { key: 'jurisdiction', label: 'Regulatory Jurisdiction', type: 'select', options: ['South Africa (SARS)', 'Nigeria (FIRS)', 'Kenya (KRA)', 'Egypt (ETA)', 'International (OECD)'], defaultValue: 'South Africa (SARS)' },
-    ],
-  },
-  {
-    id: 'aqei_market_intelligence_summary',
-    title: 'AQEI Quantitative Market Intelligence Report',
-    category: 'Trading',
-    description: 'Deep-dive quantitative report compiling regional macroeconomic indicators, volatility metrics, and algorithmic risk forecasts.',
-    parameters: [
-      { key: 'modelConfidence', label: 'Confidence Interval', type: 'select', options: ['95% VaR Standard', '99% Stress Scenario'], defaultValue: '95% VaR Standard' },
     ],
   },
 ];
@@ -91,20 +121,64 @@ export class ReportService {
     const template = AVAILABLE_REPORT_TEMPLATES.find(t => t.id === templateId) || AVAILABLE_REPORT_TEMPLATES[0];
 
     // Simulate ReportServer data compilation pipeline
-    await new Promise(resolve => setTimeout(resolve, 600));
+    await new Promise(resolve => setTimeout(resolve, 400));
 
     const exchanges = ['JSE', 'NGX', 'EGX', 'NSE', 'BRVM'];
-    const rows: Array<Record<string, any>> = Array.from({ length: 15 }).map((_, i) => ({
-      id: `AQX-REF-${1000 + i}`,
-      timestamp: new Date(Date.now() - i * 3600000 * 4).toISOString().replace('T', ' ').slice(0, 19),
-      exchange: exchanges[i % exchanges.length],
-      ticker: ['JSE:NPN', 'NGX:DANGCEM', 'EGX:COMI', 'NSE:S移动', 'BRVM:SNTS'][i % 5],
-      type: i % 2 === 0 ? 'BUY' : 'SELL',
-      volumeUsd: (12500 + i * 4200).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-      executionTimeMs: (12 + (i * 3) % 40) + ' ms',
-      auditHash: `0x${Math.random().toString(16).substr(2, 12)}...`,
+    const sampleTickers = [
+      { ticker: 'JSE:NPN', name: 'Naspers Ltd', ex: 'JSE' },
+      { ticker: 'NGX:DANGCEM', name: 'Dangote Cement', ex: 'NGX' },
+      { ticker: 'EGX:COMI', name: 'Commercial Intl Bank', ex: 'EGX' },
+      { ticker: 'NSE:SCOM', name: 'Safaricom PLC', ex: 'NSE' },
+      { ticker: 'BRVM:SNTS', name: 'Sonatel Senegal', ex: 'BRVM' },
+      { ticker: 'JSE:FSR', name: 'FirstRand Ltd', ex: 'JSE' },
+      { ticker: 'NGX:MTNN', name: 'MTN Nigeria', ex: 'NGX' },
+      { ticker: 'JSE:SOL', name: 'Sasol Ltd', ex: 'JSE' },
+      { ticker: 'NSE:EQTY', name: 'Equity Group Holdings', ex: 'NSE' },
+      { ticker: 'EGX:EAST', name: 'Eastern Tobacco', ex: 'EGX' },
+    ];
+
+    const rows: Array<Record<string, any>> = sampleTickers.map((item, i) => ({
+      id: `AQX-REF-${2000 + i}`,
+      timestamp: new Date(Date.now() - i * 3600000 * 3.5).toISOString().replace('T', ' ').slice(0, 19),
+      exchange: item.ex,
+      ticker: item.ticker,
+      assetName: item.name,
+      type: i % 3 === 0 ? 'SELL' : 'BUY',
+      volumeUsd: (18500 + i * 7350).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+      executionTimeMs: (8 + (i * 4) % 32) + ' ms',
+      slippageBps: `+${(0.8 + (i * 0.3) % 2.1).toFixed(2)} bps`,
+      auditHash: `0x${Math.random().toString(16).substr(2, 14)}...`,
       status: 'VERIFIED_SETTLED',
     }));
+
+    // Generate specialized summaries based on template
+    let commentary = 'Institutional market telemetry indicates robust algorithmic liquidity provision with zero settlement fails. Cross-border FX conversions on Strate and Central Depository settlement nodes executed within target VaR collars.';
+    let dataSummary = {
+      totalVolumeUsd: '$1,482,910.00',
+      executedTrades: rows.length,
+      auditStatus: 'PASSED (100% Match)',
+      complianceScore: '99.9% Perfect Settlement',
+      primaryExchange: params.exchange || params.region || 'Multi-Exchange Pan-African',
+      winRate: '78.4%',
+      sharpeRatio: '2.48',
+      profitFactor: '3.12x',
+      maxDrawdown: '-2.15%',
+      alphaPnl: '+$142,680.00',
+    };
+
+    if (template.id === 'trading_performance_metrics') {
+      commentary = 'Trading desk alpha metrics demonstrated a 78.4% win rate across 10 institutional blocks. Automated TWAP router executed orders with an average latency of 14.2ms and 1.1 bps negative slippage (price improvement).';
+      dataSummary.totalVolumeUsd = '$2,340,500.00';
+      dataSummary.winRate = '81.2%';
+      dataSummary.sharpeRatio = '2.64';
+      dataSummary.profitFactor = '3.45x';
+      dataSummary.alphaPnl = '+$218,400.00';
+    } else if (template.id === 'aqei_market_intelligence_summary') {
+      commentary = 'AQEI Intelligence radar shows heightened momentum across Sub-Saharan telecommunications and Nigerian industrial equities. Realized volatility across JSE Top 40 and NGX All-Share consolidated within optimal Sharpe frontier bands.';
+      dataSummary.totalVolumeUsd = '$5,820,000.00';
+      dataSummary.complianceScore = '99.8% Model Confidence';
+      dataSummary.primaryExchange = 'Pan-African 5-Exchange Matrix';
+    }
 
     return {
       reportId: `REP-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
@@ -114,22 +188,25 @@ export class ReportService {
       pageCount: Math.ceil(rows.length / 8),
       totalRecords: rows.length,
       parametersUsed: params,
-      dataSummary: {
-        totalVolumeUsd: '$482,910.00',
-        executedTrades: 15,
-        auditStatus: 'PASSED (100% Match)',
-        complianceScore: '99.8% Perfect Settlement',
-        primaryExchange: params.exchange || 'Multi-Exchange Pan-African',
-      },
+      commentary,
+      auditHash: `0x${Math.random().toString(16).substring(2, 10)}${Math.random().toString(16).substring(2, 8)}`,
+      dataSummary,
       rows,
     };
   }
 
   /**
-   * Exports generated report to specified file format (Triggers client file download)
+   * Exports generated report to specified file format (Clean PDF via jsPDF or CSV/Excel)
    */
-  public static exportReportFile(result: ReportExecutionResult) {
+  public static exportReportFile(result: ReportExecutionResult, options: PDFExportOptions = {}) {
     if (typeof window === 'undefined') return;
+
+    if (result.format === 'pdf') {
+      const doc = generateInstitutionalPdf(result, options);
+      const filename = `${result.title.replace(/[^a-zA-Z0-9]/g, '_')}_${result.reportId}.pdf`;
+      doc.save(filename);
+      return;
+    }
 
     if (result.format === 'csv') {
       const headers = Object.keys(result.rows[0] || {}).join(',');
@@ -143,21 +220,19 @@ export class ReportService {
       a.download = `${result.title.replace(/\s+/g, '_')}_${result.reportId}.csv`;
       a.click();
       URL.revokeObjectURL(url);
-    } else {
-      // Simulate PDF / Excel Document Download
-      const dummyContent = `=== ${result.title} ===\nReport ID: ${result.reportId}\nGenerated: ${result.generatedAt}\nFormat: ${result.format.toUpperCase()}\n\nSummary:\n- Volume: ${result.dataSummary.totalVolumeUsd}\n- Status: ${result.dataSummary.auditStatus}\n\nRecords:\n` + 
-        result.rows.map(r => `${r.id} | ${r.timestamp} | ${r.ticker} | ${r.volumeUsd}`).join('\n');
-
-      const mimeType = result.format === 'pdf' ? 'application/pdf' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-      const ext = result.format === 'pdf' ? 'pdf' : 'xlsx';
-      
-      const blob = new Blob([dummyContent], { type: mimeType });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${result.title.replace(/\s+/g, '_')}_${result.reportId}.${ext}`;
-      a.click();
-      URL.revokeObjectURL(url);
+      return;
     }
+
+    // Default Fallback
+    const dummyContent = `=== ${result.title} ===\nReport ID: ${result.reportId}\nGenerated: ${result.generatedAt}\n\nSummary:\n- Volume: ${result.dataSummary.totalVolumeUsd}\n- Status: ${result.dataSummary.auditStatus}\n\nRecords:\n` + 
+      result.rows.map(r => `${r.id} | ${r.timestamp} | ${r.ticker} | ${r.volumeUsd}`).join('\n');
+
+    const blob = new Blob([dummyContent], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${result.title.replace(/\s+/g, '_')}_${result.reportId}.xlsx`;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 }

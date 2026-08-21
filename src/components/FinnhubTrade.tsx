@@ -323,7 +323,7 @@ export function FinnhubTrade({ setActiveTab }: FinnhubTradeProps) {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-3xl font-extrabold text-white tracking-tight">Finnhub Real-time Workspace</h1>
-            <span className="bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#D4AF37] px-2.5 py-0.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider">SECURE FINNHUB STREAM</span>
+            <span className="bg-[#FFFFFF]/15 border border-[#FFFFFF]/30 text-[#FFFFFF] px-2.5 py-0.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider">SECURE FINNHUB STREAM</span>
           </div>
           <p className="text-zinc-400 mt-1">Multi-asset streaming ticks backed by Finnhub APIs & high-frequency socket pipelines.</p>
         </div>

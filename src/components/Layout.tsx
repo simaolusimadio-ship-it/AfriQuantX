@@ -17,7 +17,10 @@ import {
   ChevronLeft,
   ChevronRight,
   Fingerprint,
-  ShieldCheck
+  ShieldCheck,
+  Rocket,
+  Cpu,
+  Calculator
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
@@ -39,6 +42,9 @@ interface LayoutProps {
 
 const allNavItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { id: 'ipo-launch', label: 'IPO Bookbuilding', icon: Rocket },
+  { id: 'algo-trading', label: 'Algo Execution Desk', icon: Cpu },
+  { id: 'valuation-workbench', label: 'Valuation & Advisory', icon: Calculator },
   { id: 'wallet', label: 'Wallet', icon: Wallet },
   { id: 'marketplace', label: 'Markets', icon: Store },
   { id: 'market-secondary', label: 'Secondary Market', icon: Store },
@@ -84,15 +90,51 @@ export function Layout({
   const [isBiometricModalOpen, setIsBiometricModalOpen] = useState(false);
   const [biometricStatusMsg, setBiometricStatusMsg] = useState<string | null>(null);
 
+  const [toastNotification, setToastNotification] = useState<any | null>(null);
+
   useEffect(() => {
-    // Fetch initial mock notifications
+    // Initial notifications
     setNotifications([
-      { id: '1', title: 'Welcome to NXG', message: 'Your account is ready.', time: 'Just now', read: false },
-      { id: '2', title: 'Market Update', message: 'Equities are up 2.4% today.', time: '2h ago', read: false }
+      { id: 'notif-init-1', title: 'Institutional Gateway Active', message: 'Direct market data feeds connected across JSE, NGX, and NSE Kenya.', time: 'Just now', read: false, type: 'info' },
+      { id: 'notif-init-2', title: 'Real-Time Market Update', message: 'Pan-African Index surged +2.48% on strong telecommunications earnings.', time: '2m ago', read: false, type: 'market' }
     ]);
     setUnreadCount(2);
 
-    // Subscribe to real-time transactions
+    // Live real-time notification generator for institutional feeds
+    const liveEventPool = [
+      { title: 'FIX 4.4 Trade Execution', message: 'Child slice of 2,500 shares filled for JSE:SBK at ZAR 208.50 on Strate.', type: 'trade' },
+      { title: 'IPO Bookbuilding Update', message: 'AfriHydropower Green Bond syndicate reached 3.42x institutional oversubscription.', type: 'ipo' },
+      { title: 'AQEI Predictive Signal', message: 'New high-conviction BUY alert detected for Safaricom (SCOM) with 87% confidence.', type: 'signal' },
+      { title: 'DvP Settlement Cleared', message: 'Pre-funded escrow allotment of ZAR 4,500,000 cleared by CSD Custody Node.', type: 'settlement' },
+      { title: 'Pre-Trade Risk Gate Checked', message: 'TWAP parent order VaR collar validated: 0.18% headroom within 2.5% band.', type: 'risk' },
+      { title: 'Macro FX Telemetry', message: 'USD/ZAR implied volatility compressed 14 bps following SARB policy rate release.', type: 'macro' }
+    ];
+
+    let eventIdx = 0;
+    const interval = setInterval(() => {
+      const selected = liveEventPool[eventIdx % liveEventPool.length];
+      eventIdx++;
+
+      const newNotif = {
+        id: `notif-live-${Date.now()}`,
+        title: selected.title,
+        message: selected.message,
+        time: 'Just now',
+        read: false,
+        type: selected.type
+      };
+
+      setNotifications(prev => [newNotif, ...prev.slice(0, 19)]);
+      setUnreadCount(prev => prev + 1);
+
+      // Trigger temporary live real-time toast banner
+      setToastNotification(newNotif);
+      setTimeout(() => {
+        setToastNotification((curr: any) => (curr?.id === newNotif.id ? null : curr));
+      }, 4500);
+    }, 12000);
+
+    // Subscribe to real-time transactions in Supabase
     const channel = supabase.channel('realtime-notifications')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'transactions' }, payload => {
         const newNotif = {
@@ -100,25 +142,18 @@ export function Layout({
           title: 'New Transaction',
           message: `A new ${payload.new.type} of ${payload.new.amount} was recorded.`,
           time: 'Just now',
-          read: false
+          read: false,
+          type: 'trade'
         };
         setNotifications(prev => [newNotif, ...prev]);
         setUnreadCount(prev => prev + 1);
-      })
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'audit_logs' }, payload => {
-        const newNotif = {
-          id: payload.new.id,
-          title: 'System Alert',
-          message: payload.new.action,
-          time: 'Just now',
-          read: false
-        };
-        setNotifications(prev => [newNotif, ...prev]);
-        setUnreadCount(prev => prev + 1);
+        setToastNotification(newNotif);
+        setTimeout(() => setToastNotification(null), 4000);
       })
       .subscribe();
 
     return () => {
+      clearInterval(interval);
       supabase.removeChannel(channel);
     };
   }, []);
@@ -230,34 +265,33 @@ export function Layout({
         <div className={cn("p-4 mt-auto transition-all duration-300", isSidebarCollapsed ? "items-center flex flex-col gap-4" : "")}>
           {isSidebarCollapsed ? (
             <div className="flex flex-col items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#D4AF37] p-[2px] cursor-pointer hover:scale-105 transition-transform" title="Alex Investor">
+              <div className="w-10 h-10 rounded-full bg-white p-[2px] cursor-pointer hover:scale-105 transition-transform" title="Alex Investor">
                 <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
                   <User className="w-5 h-5 text-white" />
                 </div>
               </div>
-              <div className="w-8 h-8 rounded-full bg-black border border-white/10 flex items-center justify-center text-zinc-400 hover:text-[#D4AF37] cursor-pointer" title="Wallet Balance: $0">
+              <div className="w-8 h-8 rounded-full bg-black border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer" title="Wallet Balance: $0">
                 <Wallet className="w-4 h-4" />
               </div>
             </div>
           ) : (
-            <div className="p-4 rounded-2xl bg-black border border-white/10 relative overflow-hidden group cursor-pointer hover:border-[#D4AF37]/40 transition-colors shadow-2xl">
-              <div className="absolute inset-0 bg-[#D4AF37]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="p-4 rounded-2xl bg-neutral-900/60 border border-white/5 relative overflow-hidden group cursor-pointer hover:border-white/20 transition-colors shadow-2xl">
               <div className="flex items-center gap-3 mb-4 relative z-10">
-                <div className="w-10 h-10 rounded-full bg-[#D4AF37] p-[2px]">
+                <div className="w-10 h-10 rounded-full bg-white p-[2px]">
                   <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
                     <User className="w-5 h-5 text-white" />
                   </div>
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white uppercase tracking-wider">Alex Investor</p>
-                  <p className="text-[10px] text-[#D4AF37] flex items-center gap-1 uppercase tracking-widest font-bold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" /> Verified
+                  <p className="text-[10px] text-emerald-400 flex items-center gap-1 uppercase tracking-widest font-bold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Verified
                   </p>
                 </div>
               </div>
-              <div className="pt-3 border-t border-white/10 relative z-10">
+              <div className="pt-3 border-t border-white/5 relative z-10">
                 <p className="text-[10px] text-zinc-400 mb-1 flex items-center gap-1 uppercase tracking-widest font-bold">
-                  <Wallet className="w-3 h-3 text-[#D4AF37]" /> Wallet Balance
+                  <Wallet className="w-3 h-3 text-white" /> Wallet Balance
                 </p>
                 <p className="text-lg font-bold font-mono text-white tracking-tight">$0</p>
               </div>
@@ -308,19 +342,22 @@ export function Layout({
               <button
                 onClick={() => setIsBiometricModalOpen(true)}
                 title="Hardware Biometric Security & Passkey Authentication"
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-black border border-[#D4AF37]/30 text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:border-[#D4AF37] transition-all duration-300 shadow-2xl text-xs font-mono group"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-neutral-900 border border-white/10 text-white hover:bg-white hover:text-black transition-all duration-300 shadow-2xl text-xs font-mono group"
               >
-                <Fingerprint className="w-4 h-4 text-[#D4AF37] group-hover:scale-110 transition-transform" />
+                <Fingerprint className="w-4 h-4 text-white group-hover:text-black group-hover:scale-110 transition-transform" />
                 <span className="font-semibold hidden lg:inline">FIDO2 Biometrics</span>
               </button>
 
               <button 
                 onClick={handleNotificationClick}
-                className="relative p-2.5 rounded-xl bg-black border border-white/5 text-zinc-500 hover:text-white hover:border-white/20 transition-all duration-300 shadow-2xl"
+                className="relative p-2.5 rounded-xl bg-neutral-900 border border-white/5 text-zinc-400 hover:text-white hover:border-white/20 transition-all duration-300 shadow-2xl"
               >
                 <Bell className="w-5 h-5" />
                 {unreadCount > 0 && (
-                  <span className="absolute top-2 right-2 w-2 h-2 bg-white rounded-full"></span>
+                  <span className="absolute top-2 right-2 flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                  </span>
                 )}
               </button>
 
@@ -330,21 +367,24 @@ export function Layout({
                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    className="absolute top-full right-0 mt-2 w-80 bg-black border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-50"
+                    className="absolute top-full right-0 mt-2 w-88 bg-black border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-50"
                   >
-                    <div className="p-4 border-b border-white/10 flex justify-between items-center">
-                      <h3 className="font-semibold text-white">Notifications</h3>
-                      <span className="text-xs text-zinc-500">{notifications.length} total</span>
+                    <div className="p-4 border-b border-white/10 flex justify-between items-center bg-neutral-900/60">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <h3 className="font-semibold text-white text-sm">Real-Time Telemetry & Alerts</h3>
+                      </div>
+                      <span className="text-xs text-zinc-400 font-mono">{notifications.length} events</span>
                     </div>
-                    <div className="max-h-96 overflow-y-auto">
+                    <div className="max-h-96 overflow-y-auto divide-y divide-white/5">
                       {notifications.length > 0 ? (
                         notifications.map(notif => (
-                          <div key={notif.id} className={`p-4 border-b border-white/5 hover:bg-white/5 transition-colors ${!notif.read ? 'bg-white/5' : ''}`}>
+                          <div key={notif.id} className={`p-3.5 hover:bg-white/5 transition-colors ${!notif.read ? 'bg-white/[0.03]' : ''}`}>
                             <div className="flex justify-between items-start mb-1">
-                              <h4 className="text-sm font-medium text-white">{notif.title}</h4>
-                              <span className="text-xs text-zinc-500">{notif.time}</span>
+                              <h4 className="text-xs font-bold text-white uppercase tracking-wider">{notif.title}</h4>
+                              <span className="text-[10px] text-zinc-500 font-mono">{notif.time}</span>
                             </div>
-                            <p className="text-xs text-zinc-400">{notif.message}</p>
+                            <p className="text-xs text-zinc-400 leading-relaxed">{notif.message}</p>
                           </div>
                         ))
                       ) : (
@@ -372,7 +412,7 @@ export function Layout({
             <button
               onClick={() => setIsBiometricModalOpen(true)}
               title="Hardware Biometrics"
-              className="p-2 text-[#D4AF37] hover:text-[#D4AF37]/80 transition-colors"
+              className="p-2 text-white hover:text-zinc-300 transition-colors"
             >
               <Fingerprint className="w-5 h-5" />
             </button>
@@ -388,7 +428,7 @@ export function Layout({
             >
               <Bell className="w-5 h-5" />
               {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-white rounded-full"></span>
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-emerald-400 rounded-full"></span>
               )}
             </button>
             {onLogout && (
@@ -402,21 +442,50 @@ export function Layout({
           <LiveTicker />
         </div>
 
-        {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-4 pb-24 md:pb-8 md:p-8 z-10 scroll-smooth">
+        {/* Scrollable Content - FULL WIDTH STRETCHED LAYOUT */}
+        <div className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 pb-24 md:pb-8 z-10 scroll-smooth w-full">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, y: 15, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -15, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-7xl mx-auto h-full"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25 }}
+              className="w-full h-full min-h-[calc(100vh-140px)]"
             >
               {children}
             </motion.div>
           </AnimatePresence>
         </div>
+
+        {/* Real-time Notification Toast Notification */}
+        <AnimatePresence>
+          {toastNotification && (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              className="fixed bottom-6 right-6 z-50 max-w-sm w-full bg-black/95 border border-white/20 p-4 rounded-2xl shadow-2xl backdrop-blur-xl flex items-start gap-3 pointer-events-auto"
+            >
+              <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                <Bell className="w-4 h-4 text-emerald-400 animate-bounce" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between gap-2 mb-0.5">
+                  <p className="text-xs font-bold text-white uppercase tracking-wider truncate">{toastNotification.title}</p>
+                  <span className="text-[10px] text-zinc-500 font-mono">{toastNotification.time}</span>
+                </div>
+                <p className="text-xs text-zinc-400 line-clamp-2">{toastNotification.message}</p>
+              </div>
+              <button
+                onClick={() => setToastNotification(null)}
+                className="text-zinc-500 hover:text-white p-1 text-xs"
+              >
+                ✕
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       {/* Mobile Bottom Navigation */}

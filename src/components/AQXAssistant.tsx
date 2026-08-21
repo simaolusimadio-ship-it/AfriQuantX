@@ -217,9 +217,9 @@ export function AQXAssistant({ setActiveTab }: AQXAssistantProps) {
             className={`flex gap-4 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
           >
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-              msg.role === 'user' ? 'bg-[#0066FF]/20 border border-[#0066FF]/30' : 'bg-[#D4AF37]/20 border border-[#D4AF37]/30'
+              msg.role === 'user' ? 'bg-[#0066FF]/20 border border-[#0066FF]/30' : 'bg-[#FFFFFF]/20 border border-[#FFFFFF]/30'
             }`}>
-              {msg.role === 'user' ? <User className="w-5 h-5 text-[#0066FF]" /> : <Bot className="w-5 h-5 text-[#D4AF37]" />}
+              {msg.role === 'user' ? <User className="w-5 h-5 text-[#0066FF]" /> : <Bot className="w-5 h-5 text-[#FFFFFF]" />}
             </div>
             
             <div className={`max-w-[80%] ${msg.role === 'user' ? 'items-end' : 'items-start'} flex flex-col gap-2`}>
@@ -239,7 +239,7 @@ export function AQXAssistant({ setActiveTab }: AQXAssistantProps) {
                 )}
                 {msg.visualType === 'scenario' && (
                   <div className="mt-4 p-4 bg-black/40 rounded-xl border border-white/5 flex flex-col items-center justify-center h-32">
-                    <Zap className="w-8 h-8 text-[#D4AF37] mb-2" />
+                    <Zap className="w-8 h-8 text-[#FFFFFF] mb-2" />
                     <span className="text-xs text-zinc-500 uppercase tracking-wider">Scenario Simulation Ready</span>
                   </div>
                 )}
@@ -292,13 +292,13 @@ export function AQXAssistant({ setActiveTab }: AQXAssistantProps) {
             animate={{ opacity: 1 }}
             className="flex gap-4"
           >
-            <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/20 border border-[#D4AF37]/30 flex items-center justify-center shrink-0">
-              <Bot className="w-5 h-5 text-[#D4AF37]" />
+            <div className="w-10 h-10 rounded-xl bg-[#FFFFFF]/20 border border-[#FFFFFF]/30 flex items-center justify-center shrink-0">
+              <Bot className="w-5 h-5 text-[#FFFFFF]" />
             </div>
             <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm p-4 flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-bounce" style={{ animationDelay: '0ms' }} />
-              <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-bounce" style={{ animationDelay: '150ms' }} />
-              <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-bounce" style={{ animationDelay: '300ms' }} />
+              <div className="w-2 h-2 rounded-full bg-[#FFFFFF] animate-bounce" style={{ animationDelay: '0ms' }} />
+              <div className="w-2 h-2 rounded-full bg-[#FFFFFF] animate-bounce" style={{ animationDelay: '150ms' }} />
+              <div className="w-2 h-2 rounded-full bg-[#FFFFFF] animate-bounce" style={{ animationDelay: '300ms' }} />
             </div>
           </motion.div>
         )}

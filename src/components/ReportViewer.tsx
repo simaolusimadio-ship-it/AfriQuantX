@@ -4,21 +4,42 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
   FileText, Download, Play, RefreshCw, Filter, CheckCircle2, 
-  Layers, Printer, ChevronLeft, ChevronRight, Search, BarChart3, ShieldCheck 
+  Layers, Printer, ChevronLeft, ChevronRight, Search, BarChart3, 
+  ShieldCheck, TrendingUp, Zap, Sliders, Eye, Sparkles, FileSpreadsheet,
+  Globe, Activity, Award
 } from 'lucide-react';
-import { AVAILABLE_REPORT_TEMPLATES, ReportExecutionResult, ReportService, ReportTemplate } from '../services/reportService';
+import { 
+  AVAILABLE_REPORT_TEMPLATES, 
+  ReportExecutionResult, 
+  ReportService, 
+  ReportTemplate,
+  PDFExportOptions 
+} from '../services/reportService';
+import { generateInstitutionalPdf } from '../services/pdfExportService';
 
 export function ReportViewer() {
   const [selectedTemplate, setSelectedTemplate] = useState<ReportTemplate>(AVAILABLE_REPORT_TEMPLATES[0]);
   const [paramValues, setParamValues] = useState<Record<string, any>>({});
   const [format, setFormat] = useState<'pdf' | 'xlsx' | 'csv' | 'html'>('pdf');
   const [loading, setLoading] = useState(false);
+  const [exportingPdf, setExportingPdf] = useState(false);
   const [reportResult, setReportResult] = useState<ReportExecutionResult | null>(null);
   const [activePage, setActivePage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // PDF Customization Options
+  const [pdfOptions, setPdfOptions] = useState<PDFExportOptions>({
+    orientation: 'portrait',
+    colorTheme: 'dark',
+    includeExecutiveSummary: true,
+    includeIntelligenceCommentary: true,
+    includeAuditStamp: true,
+    customSubtitle: 'Verified Quantitative Execution, Settlement Telemetry & Multi-Exchange Performance Audit',
+  });
+  const [showPdfOptions, setShowPdfOptions] = useState(false);
 
   useEffect(() => {
-    // Initialize default parameter values
+    // Initialize default parameter values for the selected template
     const defaults: Record<string, any> = {};
     selectedTemplate.parameters.forEach(p => {
       defaults[p.key] = p.defaultValue;
@@ -45,10 +66,30 @@ export function ReportViewer() {
     }
   };
 
-  const handleExport = () => {
-    if (reportResult) {
-      ReportService.exportReportFile(reportResult);
+  const handleExport = (targetFormat?: 'pdf' | 'xlsx' | 'csv') => {
+    if (!reportResult) return;
+    
+    if (targetFormat === 'pdf' || format === 'pdf') {
+      setExportingPdf(true);
+      try {
+        const updatedResult = { ...reportResult, format: 'pdf' as const };
+        ReportService.exportReportFile(updatedResult, pdfOptions);
+      } finally {
+        setTimeout(() => setExportingPdf(false), 500);
+      }
+    } else {
+      const exportFmt = targetFormat || format;
+      const updatedResult = { ...reportResult, format: exportFmt as any };
+      ReportService.exportReportFile(updatedResult);
     }
+  };
+
+  const handlePreviewPdfInNewTab = () => {
+    if (!reportResult) return;
+    const doc = generateInstitutionalPdf(reportResult, pdfOptions);
+    const pdfBlob = doc.output('blob');
+    const blobUrl = URL.createObjectURL(pdfBlob);
+    window.open(blobUrl, '_blank');
   };
 
   const filteredRows = reportResult?.rows.filter(row => {
@@ -57,60 +98,168 @@ export function ReportViewer() {
     return (
       row.id?.toLowerCase().includes(q) ||
       row.ticker?.toLowerCase().includes(q) ||
+      row.assetName?.toLowerCase().includes(q) ||
       row.exchange?.toLowerCase().includes(q) ||
       row.status?.toLowerCase().includes(q)
     );
   }) || [];
 
   return (
-    <div className="space-y-6">
-      {/* Top Banner */}
-      <div className="bg-gradient-to-r from-blue-900/40 via-purple-900/30 to-black border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-xl relative overflow-hidden shadow-2xl">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-400 shrink-0">
+    <div className="space-y-6 pb-12">
+      {/* Top Banner with Quick Actions */}
+      <div className="bg-gradient-to-r from-neutral-950 via-neutral-900 to-black border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-xl relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 blur-3xl rounded-full pointer-events-none" />
+        
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+          <div className="flex items-start sm:items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-white text-black flex items-center justify-center font-bold shrink-0 shadow-xl">
               <FileText className="w-7 h-7" />
             </div>
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <Badge variant="outline" className="text-blue-400 border-blue-500/30 bg-blue-500/10 font-mono text-[10px] uppercase">
-                  Jaspersoft & ReportServer Engine
-                </Badge>
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
                 <Badge variant="outline" className="text-emerald-400 border-emerald-500/30 bg-emerald-500/10 font-mono text-[10px] uppercase">
-                  Institutional Ready
+                  AQEI Quantitative Engine
+                </Badge>
+                <Badge variant="outline" className="text-sky-400 border-sky-500/30 bg-sky-500/10 font-mono text-[10px] uppercase">
+                  Institutional PDF Export
+                </Badge>
+                <Badge variant="outline" className="text-amber-400 border-amber-500/30 bg-amber-500/10 font-mono text-[10px] uppercase">
+                  Multi-Exchange Verified
                 </Badge>
               </div>
-              <h2 className="text-2xl font-bold text-white tracking-tight">Financial & Audit Reporting System</h2>
-              <p className="text-xs text-zinc-400 mt-1 max-w-xl">
-                Generate high-precision trade audit ledgers, Whop wallet entitlement proofs, tax compliance certificates, and quantitative risk statements.
+              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Financial Intelligence & Performance Reporting</h2>
+              <p className="text-xs text-zinc-400 mt-1 max-w-2xl leading-relaxed">
+                Export institutional-grade financial intelligence summaries, trading performance metrics, and multi-exchange settlement ledgers as clean, formatted PDF reports.
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 flex-wrap shrink-0">
             <Button
-              onClick={handleExport}
-              disabled={!reportResult || loading}
-              className="bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold text-xs uppercase tracking-wider py-2.5 px-5 rounded-xl flex items-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+              onClick={() => setShowPdfOptions(!showPdfOptions)}
+              variant="outline"
+              className="border-white/10 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 font-bold text-xs uppercase tracking-wider py-2.5 px-4 rounded-xl flex items-center gap-2 cursor-pointer"
             >
-              <Download className="w-4 h-4" />
-              Export Report ({format.toUpperCase()})
+              <Sliders className="w-4 h-4 text-zinc-400" />
+              PDF Options
+            </Button>
+
+            <Button
+              onClick={handlePreviewPdfInNewTab}
+              disabled={!reportResult || loading}
+              variant="outline"
+              className="border-white/10 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 font-bold text-xs uppercase tracking-wider py-2.5 px-4 rounded-xl flex items-center gap-2 cursor-pointer"
+              title="Preview formatted PDF in a new tab"
+            >
+              <Eye className="w-4 h-4 text-sky-400" />
+              Quick Preview
+            </Button>
+
+            <Button
+              onClick={() => handleExport('pdf')}
+              disabled={!reportResult || loading || exportingPdf}
+              className="bg-white text-black hover:bg-zinc-200 font-extrabold text-xs uppercase tracking-wider py-2.5 px-5 rounded-xl flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)] cursor-pointer"
+            >
+              {exportingPdf ? (
+                <>
+                  <RefreshCw className="w-4 h-4 animate-spin text-black" />
+                  Generating PDF...
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4" />
+                  Export Clean PDF
+                </>
+              )}
             </Button>
           </div>
         </div>
+
+        {/* PDF Customization Settings Drawer */}
+        {showPdfOptions && (
+          <div className="mt-6 pt-6 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in duration-200">
+            <div className="space-y-1.5">
+              <label className="text-zinc-400 text-[11px] font-bold uppercase tracking-wider block">Page Orientation</label>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setPdfOptions(opt => ({ ...opt, orientation: 'portrait' }))}
+                  className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-mono font-bold border transition-all cursor-pointer ${
+                    pdfOptions.orientation === 'portrait'
+                      ? 'bg-white text-black border-white'
+                      : 'bg-black border-white/10 text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  Portrait (A4)
+                </button>
+                <button
+                  onClick={() => setPdfOptions(opt => ({ ...opt, orientation: 'landscape' }))}
+                  className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-mono font-bold border transition-all cursor-pointer ${
+                    pdfOptions.orientation === 'landscape'
+                      ? 'bg-white text-black border-white'
+                      : 'bg-black border-white/10 text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  Landscape
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-zinc-400 text-[11px] font-bold uppercase tracking-wider block">Executive KPI Strip</label>
+              <button
+                onClick={() => setPdfOptions(opt => ({ ...opt, includeExecutiveSummary: !opt.includeExecutiveSummary }))}
+                className={`w-full py-1.5 px-3 rounded-lg text-xs font-mono font-bold border flex items-center justify-between transition-all cursor-pointer ${
+                  pdfOptions.includeExecutiveSummary
+                    ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-400'
+                    : 'bg-black border-white/10 text-zinc-500'
+                }`}
+              >
+                <span>Metric Scorecards</span>
+                <span>{pdfOptions.includeExecutiveSummary ? 'ENABLED' : 'DISABLED'}</span>
+              </button>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-zinc-400 text-[11px] font-bold uppercase tracking-wider block">Intelligence Commentary</label>
+              <button
+                onClick={() => setPdfOptions(opt => ({ ...opt, includeIntelligenceCommentary: !opt.includeIntelligenceCommentary }))}
+                className={`w-full py-1.5 px-3 rounded-lg text-xs font-mono font-bold border flex items-center justify-between transition-all cursor-pointer ${
+                  pdfOptions.includeIntelligenceCommentary
+                    ? 'bg-sky-500/10 border-sky-500/40 text-sky-400'
+                    : 'bg-black border-white/10 text-zinc-500'
+                }`}
+              >
+                <span>AQEI Insights</span>
+                <span>{pdfOptions.includeIntelligenceCommentary ? 'ENABLED' : 'DISABLED'}</span>
+              </button>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-zinc-400 text-[11px] font-bold uppercase tracking-wider block">Custom PDF Subtitle</label>
+              <input
+                type="text"
+                value={pdfOptions.customSubtitle || ''}
+                onChange={(e) => setPdfOptions(opt => ({ ...opt, customSubtitle: e.target.value }))}
+                placeholder="Custom Header Subtitle..."
+                className="w-full bg-black border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-white/40 font-mono"
+              />
+            </div>
+          </div>
+        )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Template Selector Sidebar */}
+      {/* Main Grid: Left Catalog & Parameter Controls / Right Live Report Canvas */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+        {/* Template Selector & Parameter Sidebar */}
         <div className="lg:col-span-1 space-y-4">
           <Card className="bg-neutral-950 border-white/10 shadow-xl">
             <CardHeader className="pb-3 border-b border-white/5">
               <CardTitle className="text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2">
-                <Layers className="w-4 h-4 text-blue-400" />
-                Report Catalog
+                <Layers className="w-4 h-4 text-emerald-400" />
+                Report Templates Catalog
               </CardTitle>
               <CardDescription className="text-zinc-500 text-[11px]">
-                Select pre-configured Jaspersoft templates.
+                Choose an institutional reporting template.
               </CardDescription>
             </CardHeader>
 
@@ -121,19 +270,28 @@ export function ReportViewer() {
                   <button
                     key={tpl.id}
                     onClick={() => setSelectedTemplate(tpl)}
-                    className={`w-full text-left p-3 rounded-2xl border transition-all ${
+                    className={`w-full text-left p-3 rounded-2xl border transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-blue-500/10 border-blue-500/40 text-white shadow-lg'
+                        ? 'bg-white text-black border-white shadow-xl font-bold'
                         : 'bg-white/5 border-white/5 text-zinc-400 hover:bg-white/10 hover:text-white'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-bold text-white truncate max-w-[160px]">{tpl.title}</span>
-                      <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-white/10 text-zinc-400 font-mono">
+                      <span className={`text-xs font-bold truncate max-w-[150px] ${isSelected ? 'text-black font-extrabold' : 'text-white'}`}>
+                        {tpl.title}
+                      </span>
+                      <Badge 
+                        variant="outline" 
+                        className={`text-[9px] px-1.5 py-0 font-mono uppercase ${
+                          isSelected ? 'border-black text-black bg-black/5 font-extrabold' : 'border-white/10 text-zinc-400'
+                        }`}
+                      >
                         {tpl.category}
                       </Badge>
                     </div>
-                    <p className="text-[10px] text-zinc-500 line-clamp-2 leading-relaxed">{tpl.description}</p>
+                    <p className={`text-[10px] line-clamp-2 leading-relaxed ${isSelected ? 'text-neutral-800' : 'text-zinc-500'}`}>
+                      {tpl.description}
+                    </p>
                   </button>
                 );
               })}
@@ -144,7 +302,7 @@ export function ReportViewer() {
           <Card className="bg-neutral-950 border-white/10 shadow-xl">
             <CardHeader className="pb-3 border-b border-white/5">
               <CardTitle className="text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2">
-                <Filter className="w-4 h-4 text-orange-400" />
+                <Filter className="w-4 h-4 text-amber-400" />
                 Report Parameters
               </CardTitle>
             </CardHeader>
@@ -156,7 +314,7 @@ export function ReportViewer() {
                     <select
                       value={paramValues[p.key] || p.defaultValue}
                       onChange={(e) => setParamValues({ ...paramValues, [p.key]: e.target.value })}
-                      className="w-full bg-black border border-white/10 rounded-xl px-3 py-2 text-white font-mono text-xs outline-none focus:border-blue-500/50"
+                      className="w-full bg-black border border-white/10 rounded-xl px-3 py-2 text-white font-mono text-xs outline-none focus:border-emerald-500/50 cursor-pointer"
                     >
                       {p.options?.map((opt) => (
                         <option key={opt} value={opt} className="bg-neutral-950">{opt}</option>
@@ -167,20 +325,20 @@ export function ReportViewer() {
                       type={p.type === 'number' ? 'number' : 'text'}
                       value={paramValues[p.key] || ''}
                       onChange={(e) => setParamValues({ ...paramValues, [p.key]: e.target.value })}
-                      className="w-full bg-black border border-white/10 rounded-xl px-3 py-2 text-white font-mono text-xs outline-none focus:border-blue-500/50"
+                      className="w-full bg-black border border-white/10 rounded-xl px-3 py-2 text-white font-mono text-xs outline-none focus:border-emerald-500/50"
                     />
                   )}
                 </div>
               ))}
 
               <div className="space-y-1.5 pt-2">
-                <label className="text-zinc-400 font-medium block text-[11px]">Export Format</label>
+                <label className="text-zinc-400 font-medium block text-[11px]">Default Export Format</label>
                 <div className="grid grid-cols-4 gap-1">
                   {(['pdf', 'xlsx', 'csv', 'html'] as const).map((fmt) => (
                     <button
                       key={fmt}
                       onClick={() => setFormat(fmt)}
-                      className={`py-1.5 rounded-lg font-mono text-[10px] uppercase font-bold border transition-all ${
+                      className={`py-1.5 rounded-lg font-mono text-[10px] uppercase font-bold border transition-all cursor-pointer ${
                         format === fmt
                           ? 'bg-white text-black border-white'
                           : 'bg-black border-white/10 text-zinc-400 hover:text-white'
@@ -195,7 +353,7 @@ export function ReportViewer() {
               <Button
                 onClick={() => handleRunReport()}
                 disabled={loading}
-                className="w-full bg-white text-black hover:bg-zinc-200 font-extrabold text-xs uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-2 mt-4"
+                className="w-full bg-white text-black hover:bg-zinc-200 font-extrabold text-xs uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-2 mt-4 cursor-pointer"
               >
                 {loading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4 fill-current" />}
                 Execute Pipeline
@@ -206,11 +364,11 @@ export function ReportViewer() {
 
         {/* Report Preview Canvas */}
         <div className="lg:col-span-3 space-y-4">
-          <Card className="bg-neutral-950 border-white/10 shadow-2xl overflow-hidden min-h-[600px] flex flex-col justify-between">
+          <Card className="bg-neutral-950 border-white/10 shadow-2xl overflow-hidden min-h-[650px] flex flex-col justify-between">
             {/* Header bar */}
             <div className="p-4 border-b border-white/10 bg-black/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
-                <h3 className="text-white font-bold text-base flex items-center gap-2">
+                <h3 className="text-white font-bold text-base flex items-center gap-2 flex-wrap">
                   {selectedTemplate.title}
                   {reportResult && (
                     <Badge variant="outline" className="text-emerald-400 border-emerald-500/30 bg-emerald-500/10 font-mono text-[10px]">
@@ -225,16 +383,29 @@ export function ReportViewer() {
                 )}
               </div>
 
-              {/* Search filter in preview */}
-              <div className="relative w-full sm:w-64">
-                <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
-                <input
-                  type="text"
-                  placeholder="Filter report records..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-black border border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder:text-zinc-600 outline-none focus:border-blue-500/50"
-                />
+              {/* Search filter in preview & Quick PDF Export */}
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <div className="relative w-full sm:w-56">
+                  <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                  <input
+                    type="text"
+                    placeholder="Filter audit records..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full bg-black border border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder:text-zinc-600 outline-none focus:border-white/40"
+                  />
+                </div>
+
+                <Button
+                  onClick={() => handleExport('pdf')}
+                  disabled={!reportResult || loading || exportingPdf}
+                  size="sm"
+                  className="bg-white text-black hover:bg-zinc-200 font-bold text-xs uppercase tracking-wider rounded-xl flex items-center gap-1.5 shrink-0 cursor-pointer"
+                  title="Export this report to PDF"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  PDF
+                </Button>
               </div>
             </div>
 
@@ -242,36 +413,55 @@ export function ReportViewer() {
             <div className="p-6 flex-1 space-y-6">
               {loading ? (
                 <div className="h-96 flex flex-col items-center justify-center gap-3">
-                  <RefreshCw className="w-8 h-8 text-blue-400 animate-spin" />
-                  <p className="text-xs font-mono text-zinc-400">Compiling Jaspersoft / ReportServer data pipeline...</p>
+                  <RefreshCw className="w-8 h-8 text-emerald-400 animate-spin" />
+                  <p className="text-xs font-mono text-zinc-400">Compiling financial intelligence & trade telemetry...</p>
                 </div>
               ) : reportResult ? (
                 <>
                   {/* Summary Metric Strip */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-xs">
-                    <div className="bg-white/5 border border-white/5 rounded-2xl p-3.5">
-                      <span className="text-[10px] text-zinc-500 uppercase font-sans font-bold block">Total Volume</span>
+                    <div className="bg-neutral-900/60 border border-white/5 rounded-2xl p-4">
+                      <span className="text-[10px] text-zinc-500 uppercase font-sans font-bold block">Total Volume / AUM</span>
                       <span className="text-white text-base font-bold mt-1 block">{reportResult.dataSummary.totalVolumeUsd}</span>
                     </div>
 
-                    <div className="bg-white/5 border border-white/5 rounded-2xl p-3.5">
-                      <span className="text-[10px] text-zinc-500 uppercase font-sans font-bold block">Audit Verification</span>
+                    <div className="bg-neutral-900/60 border border-white/5 rounded-2xl p-4">
+                      <span className="text-[10px] text-zinc-500 uppercase font-sans font-bold block">
+                        {reportResult.dataSummary.winRate ? 'Win Rate / Profit Factor' : 'Audit Verification'}
+                      </span>
                       <span className="text-emerald-400 text-xs font-bold mt-1 block flex items-center gap-1">
                         <CheckCircle2 className="w-3.5 h-3.5" />
-                        {reportResult.dataSummary.auditStatus}
+                        {reportResult.dataSummary.winRate ? `${reportResult.dataSummary.winRate} (${reportResult.dataSummary.profitFactor})` : reportResult.dataSummary.auditStatus}
                       </span>
                     </div>
 
-                    <div className="bg-white/5 border border-white/5 rounded-2xl p-3.5">
-                      <span className="text-[10px] text-zinc-500 uppercase font-sans font-bold block">Settlement Score</span>
-                      <span className="text-blue-400 text-xs font-bold mt-1 block">{reportResult.dataSummary.complianceScore}</span>
+                    <div className="bg-neutral-900/60 border border-white/5 rounded-2xl p-4">
+                      <span className="text-[10px] text-zinc-500 uppercase font-sans font-bold block">
+                        {reportResult.dataSummary.sharpeRatio ? 'Sharpe Ratio' : 'Settlement Score'}
+                      </span>
+                      <span className="text-sky-400 text-xs font-bold mt-1 block">
+                        {reportResult.dataSummary.sharpeRatio ? `${reportResult.dataSummary.sharpeRatio} (Optimal)` : reportResult.dataSummary.complianceScore}
+                      </span>
                     </div>
 
-                    <div className="bg-white/5 border border-white/5 rounded-2xl p-3.5">
-                      <span className="text-[10px] text-zinc-500 uppercase font-sans font-bold block">Primary Target</span>
-                      <span className="text-orange-400 text-xs font-bold mt-1 block truncate">{reportResult.dataSummary.primaryExchange}</span>
+                    <div className="bg-neutral-900/60 border border-white/5 rounded-2xl p-4">
+                      <span className="text-[10px] text-zinc-500 uppercase font-sans font-bold block">Target Venue</span>
+                      <span className="text-amber-400 text-xs font-bold mt-1 block truncate">{reportResult.dataSummary.primaryExchange}</span>
                     </div>
                   </div>
+
+                  {/* Financial Intelligence & Performance Commentary */}
+                  {reportResult.commentary && (
+                    <div className="bg-neutral-900/40 border border-white/10 rounded-2xl p-4 space-y-1.5">
+                      <div className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
+                        <Sparkles className="w-4 h-4 text-emerald-400" />
+                        Quantitative Intelligence & Alpha Telemetry
+                      </div>
+                      <p className="text-xs text-zinc-400 leading-relaxed">
+                        {reportResult.commentary}
+                      </p>
+                    </div>
+                  )}
 
                   {/* Data Table */}
                   <div className="overflow-x-auto border border-white/10 rounded-2xl">
@@ -281,20 +471,23 @@ export function ReportViewer() {
                           <th className="p-3">Audit Ref</th>
                           <th className="p-3">Timestamp</th>
                           <th className="p-3">Exchange</th>
-                          <th className="p-3">Ticker</th>
+                          <th className="p-3">Ticker / Asset</th>
                           <th className="p-3">Side</th>
                           <th className="p-3 text-right">Volume</th>
-                          <th className="p-3">Latency</th>
+                          <th className="p-3 text-center">Latency / Slip</th>
                           <th className="p-3">Status</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/5">
                         {filteredRows.map((row) => (
                           <tr key={row.id} className="hover:bg-white/5 transition-colors">
-                            <td className="p-3 text-blue-400 font-bold">{row.id}</td>
+                            <td className="p-3 text-sky-400 font-bold">{row.id}</td>
                             <td className="p-3 text-zinc-400 text-[11px]">{row.timestamp}</td>
                             <td className="p-3 text-white">{row.exchange}</td>
-                            <td className="p-3 text-white font-bold">{row.ticker}</td>
+                            <td className="p-3">
+                              <span className="text-white font-bold block">{row.ticker}</span>
+                              {row.assetName && <span className="text-[10px] text-zinc-500 block">{row.assetName}</span>}
+                            </td>
                             <td className="p-3">
                               <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                                 row.type === 'BUY' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'
@@ -303,7 +496,10 @@ export function ReportViewer() {
                               </span>
                             </td>
                             <td className="p-3 text-right text-white font-bold">{row.volumeUsd}</td>
-                            <td className="p-3 text-zinc-400 text-[11px]">{row.executionTimeMs}</td>
+                            <td className="p-3 text-center">
+                              <span className="text-zinc-300 block">{row.executionTimeMs}</span>
+                              {row.slippageBps && <span className="text-[10px] text-emerald-400 block">{row.slippageBps}</span>}
+                            </td>
                             <td className="p-3">
                               <span className="text-emerald-400 text-[10px] flex items-center gap-1">
                                 <ShieldCheck className="w-3 h-3" />
@@ -319,16 +515,24 @@ export function ReportViewer() {
               ) : null}
             </div>
 
-            {/* Footer Pagination */}
-            <div className="p-4 border-t border-white/10 bg-black/40 flex items-center justify-between text-xs font-mono text-zinc-400">
-              <span>Page {activePage} of {reportResult?.pageCount || 1}</span>
+            {/* Footer Pagination & Audit Hash */}
+            <div className="p-4 border-t border-white/10 bg-black/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-zinc-400">
+              <div className="flex items-center gap-3">
+                <span>Page {activePage} of {reportResult?.pageCount || 1}</span>
+                {reportResult?.auditHash && (
+                  <span className="hidden sm:inline text-[10px] text-zinc-500">
+                    CSD Verification Hash: {reportResult.auditHash}
+                  </span>
+                )}
+              </div>
+
               <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   disabled={activePage <= 1}
                   onClick={() => setActivePage(p => p - 1)}
-                  className="border-white/10 text-white hover:bg-white/10"
+                  className="border-white/10 text-white hover:bg-white/10 cursor-pointer"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </Button>
@@ -337,7 +541,7 @@ export function ReportViewer() {
                   size="sm"
                   disabled={!reportResult || activePage >= reportResult.pageCount}
                   onClick={() => setActivePage(p => p + 1)}
-                  className="border-white/10 text-white hover:bg-white/10"
+                  className="border-white/10 text-white hover:bg-white/10 cursor-pointer"
                 >
                   <ChevronRight className="w-4 h-4" />
                 </Button>

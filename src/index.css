@@ -35,7 +35,7 @@
 
 @layer base {
   body {
-    @apply bg-black text-white antialiased selection:bg-[#D4AF37] selection:text-black;
+    @apply bg-black text-white antialiased selection:bg-white selection:text-black;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
@@ -538,32 +538,33 @@
 }
 
 /* =========================================================================
-   LIGHT MODE PALETTE OVERRIDES
-   Crisp, mathematical light theme maintaining AfriQuantX luxury and contrast
+   LIGHT MODE PALETTE OVERRIDES (80% WHITE / 20% BLACK, NO GOLD)
    ========================================================================= */
 
 html.light-mode body {
-  background-color: #F8F9FA !important;
-  color: #0F172A !important;
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
 }
 
 html.light-mode ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.15);
 }
 
 html.light-mode * {
-  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
 }
 
 html.light-mode .bg-black {
   background-color: #FFFFFF !important;
+  color: #000000 !important;
 }
 
 html.light-mode .bg-black\/50,
+html.light-mode .bg-black\/60,
 html.light-mode .bg-black\/80,
 html.light-mode .bg-black\/85,
 html.light-mode .bg-black\/90 {
-  background-color: rgba(255, 255, 255, 0.92) !important;
+  background-color: rgba(255, 255, 255, 0.96) !important;
 }
 
 html.light-mode .bg-neutral-950,
@@ -573,33 +574,89 @@ html.light-mode .bg-\[\#07090E\],
 html.light-mode .bg-\[\#04060C\],
 html.light-mode .bg-\[\#0A0F1C\],
 html.light-mode .bg-\[\#0B0E17\] {
-  background-color: #FFFFFF !important;
+  background-color: #FAFAFA !important;
+  color: #000000 !important;
 }
 
 html.light-mode .bg-neutral-800,
 html.light-mode .bg-white\/5,
 html.light-mode .bg-white\/10 {
-  background-color: #F1F5F9 !important;
+  background-color: #F4F4F5 !important;
 }
 
 html.light-mode .bg-white\/\[0\.02\],
 html.light-mode .bg-white\/\[0\.03\],
 html.light-mode .bg-white\/\[0\.04\] {
-  background-color: #F8FAFC !important;
+  background-color: #F8F8F9 !important;
 }
 
 html.light-mode .text-white {
-  color: #0F172A !important;
+  color: #000000 !important;
 }
 
 html.light-mode .text-zinc-200,
 html.light-mode .text-zinc-300 {
-  color: #1E293B !important;
+  color: #18181B !important;
 }
 
 html.light-mode .text-zinc-400,
 html.light-mode .text-zinc-500 {
-  color: #64748B !important;
+  color: #52525B !important;
+}
+
+/* Eliminate all gold text and backgrounds */
+.text-\[\#D4AF37\],
+.text-\[\#8A7322\],
+.text-\[\#F5A623\] {
+  color: #000000 !important;
+}
+
+html:not(.light-mode) .text-\[\#D4AF37\],
+html:not(.light-mode) .text-\[\#8A7322\],
+html:not(.light-mode) .text-\[\#F5A623\] {
+  color: #FFFFFF !important;
+}
+
+.bg-\[\#D4AF37\],
+.bg-\[\#8A7322\],
+.bg-\[\#F5A623\] {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+html:not(.light-mode) .bg-\[\#D4AF37\],
+html:not(.light-mode) .bg-\[\#8A7322\],
+html:not(.light-mode) .bg-\[\#F5A623\] {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+}
+
+.border-\[\#D4AF37\],
+.border-\[\#D4AF37\]\/30,
+.border-\[\#D4AF37\]\/20,
+.border-\[\#D4AF37\]\/10,
+.border-\[\#8A7322\] {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.light-mode .border-\[\#D4AF37\],
+html.light-mode .border-\[\#D4AF37\]\/30,
+html.light-mode .border-\[\#D4AF37\]\/20,
+html.light-mode .border-\[\#D4AF37\]\/10,
+html.light-mode .border-\[\#8A7322\] {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.bg-\[\#D4AF37\]\/10,
+.bg-\[\#D4AF37\]\/20,
+.bg-\[\#D4AF37\]\/5 {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.light-mode .bg-\[\#D4AF37\]\/10,
+html.light-mode .bg-\[\#D4AF37\]\/20,
+html.light-mode .bg-\[\#D4AF37\]\/5 {
+  background-color: rgba(0, 0, 0, 0.05) !important;
 }
 
 html.light-mode .border-white\/5,
@@ -610,29 +667,31 @@ html.light-mode .border-white\/\[0\.04\],
 html.light-mode .border-white\/\[0\.08\],
 html.light-mode .border-neutral-800,
 html.light-mode .border-neutral-900 {
-  border-color: rgba(0, 0, 0, 0.08) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
 }
 
 html.light-mode .divide-white\/5,
-html.light-mode .divide-white\/10 {
-  border-color: rgba(0, 0, 0, 0.06) !important;
+html.light-mode .divide-white\/10,
+html.light-mode .divide-white\/\[0\.04\] {
+  border-color: rgba(0, 0, 0, 0.05) !important;
 }
 
 html.light-mode header,
 html.light-mode aside {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 html.light-mode input,
 html.light-mode select,
 html.light-mode textarea {
-  color: #0F172A !important;
+  color: #000000 !important;
+  background-color: #F4F4F5 !important;
 }
 
 html.light-mode .hover\:bg-white\/5:hover,
 html.light-mode .hover\:bg-white\/10:hover,
 html.light-mode .hover\:bg-white\/\[0\.03\]:hover {
-  background-color: #F1F5F9 !important;
+  background-color: #F4F4F5 !important;
 }
 
 

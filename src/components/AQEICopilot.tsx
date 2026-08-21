@@ -61,8 +61,8 @@ const ADVISOR_DESKS: AdvisorDesk[] = [
     shortName: 'Chief Strategist',
     tagline: 'Multi-asset allocation, cross-border capital flows & macroeconomic strategy',
     icon: Globe,
-    color: '#D4AF37',
-    bgGradient: 'from-[#D4AF37]/20 via-[#D4AF37]/5 to-transparent',
+    color: '#3B82F6',
+    bgGradient: 'from-[#3B82F6]/20 via-[#3B82F6]/5 to-transparent',
     systemPrompt: `You are the Chief Investment Strategist at AfriQuantX, a tier-1 global and pan-African investment bank. You possess comprehensive, elite-level mastery across African stock exchanges (JSE, NGX, NSE, EGX, CSE, BRVM, GSE, SEM), global macroeconomics, central bank monetary policy (CBN, SARB, CBK, CBE, Federal Reserve, ECB, BOE, PBOC), foreign exchange corridors (NAFEM, ZAR, KES, EGP, GHS, CFA Francs), hard & soft commodities (Gold, PGM, Lithium, Copper, Bonny Light Crude, Natural Gas, Cocoa, Coffee), and geopolitical risk dynamics (AfCFTA, BRICS+ expansion, sovereign debt restructuring, energy corridors).
 
 Provide sophisticated, institutional-grade financial analysis. Structure your responses logically with:
@@ -693,11 +693,11 @@ The African investment landscape is undergoing a structural paradigm shift chara
           </div>
 
           {/* Workstation Tool Switcher */}
-          <div className="flex items-center bg-[#D4AF37]/10 p-1 rounded-xl border border-[#D4AF37]/20 gap-1 shrink-0">
+          <div className="flex items-center bg-white/5 p-1 rounded-xl border border-white/10 gap-1 shrink-0">
             <button
               onClick={() => setActiveToolTab('chat')}
               className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeToolTab === 'chat' ? 'bg-[#D4AF37] text-black' : 'text-[#D4AF37] hover:bg-[#D4AF37]/10'
+                activeToolTab === 'chat' ? 'bg-white text-black' : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
             >
               Advisory Chat
@@ -705,7 +705,7 @@ The African investment landscape is undergoing a structural paradigm shift chara
             <button
               onClick={() => setActiveToolTab('valuations')}
               className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeToolTab === 'valuations' ? 'bg-[#D4AF37] text-black' : 'text-[#D4AF37] hover:bg-[#D4AF37]/10'
+                activeToolTab === 'valuations' ? 'bg-white text-black' : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
             >
               DCF Multiples
@@ -713,7 +713,7 @@ The African investment landscape is undergoing a structural paradigm shift chara
             <button
               onClick={() => setActiveToolTab('sovereign')}
               className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeToolTab === 'sovereign' ? 'bg-[#D4AF37] text-black' : 'text-[#D4AF37] hover:bg-[#D4AF37]/10'
+                activeToolTab === 'sovereign' ? 'bg-white text-black' : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
             >
               Sovereign Radar
@@ -721,7 +721,7 @@ The African investment landscape is undergoing a structural paradigm shift chara
             <button
               onClick={() => setActiveToolTab('commodities')}
               className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeToolTab === 'commodities' ? 'bg-[#D4AF37] text-black' : 'text-[#D4AF37] hover:bg-[#D4AF37]/10'
+                activeToolTab === 'commodities' ? 'bg-white text-black' : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
             >
               Commodities
@@ -729,7 +729,7 @@ The African investment landscape is undergoing a structural paradigm shift chara
             <button
               onClick={() => setActiveToolTab('scenarios')}
               className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeToolTab === 'scenarios' ? 'bg-[#D4AF37] text-black' : 'text-[#D4AF37] hover:bg-[#D4AF37]/10'
+                activeToolTab === 'scenarios' ? 'bg-white text-black' : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
             >
               Shock Simulator
@@ -756,7 +756,7 @@ The African investment landscape is undergoing a structural paradigm shift chara
               </div>
               <button
                 onClick={() => setActiveToolTab('chat')}
-                className="text-xs text-[#D4AF37] font-bold hover:underline"
+                className="text-xs text-[#FFFFFF] font-bold hover:underline"
               >
                 Return to Chat →
               </button>
@@ -790,7 +790,7 @@ The African investment landscape is undergoing a structural paradigm shift chara
               
               {/* Inputs */}
               <div className="lg:col-span-6 space-y-4">
-                <h4 className="text-xs font-bold text-[#D4AF37] uppercase tracking-wider">Model Valuation Parameters</h4>
+                <h4 className="text-xs font-bold text-[#FFFFFF] uppercase tracking-wider">Model Valuation Parameters</h4>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -907,7 +907,7 @@ The African investment landscape is undergoing a structural paradigm shift chara
               </div>
               <button
                 onClick={() => setActiveToolTab('chat')}
-                className="text-xs text-[#D4AF37] font-bold hover:underline"
+                className="text-xs text-[#FFFFFF] font-bold hover:underline"
               >
                 Return to Chat →
               </button>
@@ -978,7 +978,7 @@ The African investment landscape is undergoing a structural paradigm shift chara
               </div>
               <button
                 onClick={() => setActiveToolTab('chat')}
-                className="text-xs text-[#D4AF37] font-bold hover:underline"
+                className="text-xs text-[#FFFFFF] font-bold hover:underline"
               >
                 Return to Chat →
               </button>
@@ -1045,7 +1045,7 @@ The African investment landscape is undergoing a structural paradigm shift chara
               </div>
               <button
                 onClick={() => setActiveToolTab('chat')}
-                className="text-xs text-[#D4AF37] font-bold hover:underline"
+                className="text-xs text-[#FFFFFF] font-bold hover:underline"
               >
                 Return to Chat →
               </button>
@@ -1165,7 +1165,7 @@ The African investment landscape is undergoing a structural paradigm shift chara
                       {msg.role === 'model' && (
                         <div className="pt-3 border-t border-white/[0.04] flex items-center justify-between text-[10px] font-mono text-zinc-500">
                           <span className="flex items-center gap-1.5 text-zinc-400">
-                            <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
+                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                             Institutional Quantitative Advisory Desk • T+0 Clearing Engine
                           </span>
                           <span className="hidden sm:inline text-zinc-600">Model: AQEI DeepMind v4.2 Quant</span>
@@ -1201,9 +1201,9 @@ The African investment landscape is undergoing a structural paradigm shift chara
                   <div className="bg-[#0B0E14] border border-white/10 rounded-2xl rounded-tl-none px-5 py-3.5 flex items-center gap-3 shadow-xl">
                     <span className="text-xs font-mono text-zinc-400">Synthesizing cross-border bourses & macro telemetry...</span>
                     <div className="flex gap-1">
-                      <div className="w-1.5 h-1.5 bg-[#D4AF37] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                      <div className="w-1.5 h-1.5 bg-[#D4AF37] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                      <div className="w-1.5 h-1.5 bg-[#D4AF37] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                      <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                     </div>
                   </div>
                 </motion.div>
@@ -1214,13 +1214,13 @@ The African investment landscape is undergoing a structural paradigm shift chara
             {/* Prompt Templates Library Pills */}
             <div className="px-6 py-2 bg-[#090C12] border-t border-white/5 overflow-x-auto scrollbar-none flex gap-2 shrink-0">
               <span className="text-[10px] font-mono uppercase text-zinc-500 font-bold self-center shrink-0 flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-[#D4AF37]" /> Prompts:
+                <Sparkles className="w-3 h-3 text-white" /> Prompts:
               </span>
               {PROMPT_TEMPLATES.flatMap(cat => cat.prompts).slice(0, 7).map((prompt, i) => (
                 <button 
                   key={i}
                   onClick={() => handleSend(prompt)}
-                  className="whitespace-nowrap px-3 py-1 rounded-lg bg-white/[0.03] border border-white/10 text-[11px] font-medium text-zinc-400 hover:text-white hover:bg-white/10 hover:border-[#D4AF37]/50 transition-all shrink-0 cursor-pointer"
+                  className="whitespace-nowrap px-3 py-1 rounded-lg bg-white/[0.03] border border-white/10 text-[11px] font-medium text-zinc-400 hover:text-white hover:bg-white/10 hover:border-white/30 transition-all shrink-0 cursor-pointer"
                 >
                   {prompt.length > 55 ? prompt.slice(0, 55) + '...' : prompt}
                 </button>
@@ -1239,14 +1239,14 @@ The African investment landscape is undergoing a structural paradigm shift chara
                       if (e.key === 'Enter') handleSend();
                     }}
                     placeholder={`Ask ${activeDesk.shortName} (e.g. valuation of Safaricom, DRC Cobalt outlook, NGN/ZAR carry-trade)...`} 
-                    className="w-full bg-white/[0.04] border border-white/[0.12] rounded-xl pl-4 pr-12 py-3.5 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-[#D4AF37] focus:bg-white/[0.07] transition-all font-sans"
+                    className="w-full bg-white/[0.04] border border-white/[0.12] rounded-xl pl-4 pr-12 py-3.5 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-white/40 focus:bg-white/[0.07] transition-all font-sans"
                   />
                 </div>
                 
                 <button 
                   onClick={() => handleSend()}
                   disabled={!inputValue.trim() || isTyping}
-                  className="px-5 py-3.5 bg-gradient-to-r from-[#D4AF37] via-[#BFA030] to-[#997F20] text-black font-bold text-xs uppercase tracking-wider rounded-xl hover:opacity-95 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(212,175,55,0.3)] flex items-center gap-2 cursor-pointer shrink-0"
+                  className="px-5 py-3.5 bg-white text-black font-bold text-xs uppercase tracking-wider rounded-xl hover:bg-zinc-200 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(255,255,255,0.2)] flex items-center gap-2 cursor-pointer shrink-0"
                 >
                   <span>Inquire</span>
                   <Send className="w-4 h-4" />

@@ -121,7 +121,7 @@ export function CompanyProfile({ companyId, onBack, setActiveTab }: CompanyProfi
 
       {/* Hero Section */}
       <div className="relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-xl">
-        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-[#00C896]/20 via-[#0066FF]/20 to-[#D4AF37]/20" />
+        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-[#00C896]/20 via-[#0066FF]/20 to-[#FFFFFF]/20" />
         <div className="p-8 pt-16 relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-end">
           <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#00C896] to-[#0066FF] flex items-center justify-center shrink-0 shadow-lg shadow-[#00C896]/20">
             <span className="text-3xl font-bold text-white">NA</span>
@@ -223,7 +223,7 @@ export function CompanyProfile({ companyId, onBack, setActiveTab }: CompanyProfi
               {/* AI Insights */}
               <section className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <BrainCircuit className="w-5 h-5 text-[#D4AF37]" />
+                  <BrainCircuit className="w-5 h-5 text-[#FFFFFF]" />
                   <h2 className="text-xl font-semibold text-white">AI-Generated Insights</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

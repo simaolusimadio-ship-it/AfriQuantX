@@ -30,6 +30,9 @@ import { Onboarding } from './components/Onboarding';
 import { LandingPage } from './components/LandingPage';
 import { AITradingBot } from './components/AITradingBot';
 import { ReportViewer } from './components/ReportViewer';
+import { IPOLaunchHub } from './components/IPOLaunchHub';
+import { AlgorithmicTradingDesk } from './components/AlgorithmicTradingDesk';
+import { ValuationWorkbench } from './components/ValuationWorkbench';
 import { InitialLoader } from './components/InitialLoader';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { AnimatePresence } from 'motion/react';
@@ -145,6 +148,12 @@ export default function App() {
         return <Marketplace onNavigateToCompany={handleNavigateToCompany} onNavigateToOnboarding={() => setActiveTab('company-onboarding')} setActiveTab={setActiveTab} />;
       case 'trade':
         return <Trade setActiveTab={setActiveTab} />;
+      case 'ipo-launch':
+        return <IPOLaunchHub setActiveTab={setActiveTab} />;
+      case 'algo-trading':
+        return <AlgorithmicTradingDesk setActiveTab={setActiveTab} />;
+      case 'valuation-workbench':
+        return <ValuationWorkbench setActiveTab={setActiveTab} />;
       case 'index':
         return <Index setActiveTab={setActiveTab} />;
       case 'aqei':

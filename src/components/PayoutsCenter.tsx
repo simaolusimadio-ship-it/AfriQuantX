@@ -42,8 +42,8 @@ const growthData = [
 const assetContribution = [
   { name: 'Naspers', value: 45, color: '#00FFB2' },
   { name: 'Standard Bank', value: 30, color: '#0066FF' },
-  { name: 'Dangote Cement', value: 15, color: '#D4AF37' },
-  { name: 'Others', value: 10, color: '#888888' },
+  { name: 'Dangote Cement', value: 15, color: '#A1A1AA' },
+  { name: 'Others', value: 10, color: '#52525B' },
 ];
 
 export function PayoutsCenter({ setActiveTab, initialView = 'overview' }: PayoutsCenterProps) {
@@ -101,7 +101,7 @@ export function PayoutsCenter({ setActiveTab, initialView = 'overview' }: Payout
                 {[
                   { name: 'Naspers', shares: 1500, yield: '4.2%', amount: 202.50, color: '#00FFB2' },
                   { name: 'Standard Bank', shares: 800, yield: '3.8%', amount: 135.00, color: '#0066FF' },
-                  { name: 'Dangote Cement', shares: 2000, yield: '5.1%', amount: 67.50, color: '#D4AF37' },
+                  { name: 'Dangote Cement', shares: 2000, yield: '5.1%', amount: 67.50, color: '#A1A1AA' },
                   { name: 'EduTech NG', shares: 500, yield: '2.9%', amount: 45.00, color: '#888888' },
                 ].map((asset) => (
                   <div key={asset.name} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5">
@@ -120,15 +120,15 @@ export function PayoutsCenter({ setActiveTab, initialView = 'overview' }: Payout
           </div>
 
           <div className="space-y-6">
-            <div className="bg-gradient-to-br from-[#0066FF]/20 to-[#D4AF37]/20 border border-[#0066FF]/30 rounded-3xl p-6 shadow-[0_0_30px_rgba(0,102,255,0.15)] relative overflow-hidden">
+            <div className="bg-neutral-900/60 border border-white/10 rounded-3xl p-6 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-4 opacity-50">
-                <Sparkles className="w-24 h-24 text-[#0066FF] blur-xl" />
+                <Sparkles className="w-24 h-24 text-white blur-xl" />
               </div>
               <div className="flex items-center gap-2 mb-4 relative z-10">
-                <Sparkles className="w-5 h-5 text-[#0066FF]" />
+                <Sparkles className="w-5 h-5 text-white" />
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider">AI Forecast Adjustments</h3>
               </div>
-              <p className="text-sm text-[#0066FF]/80 leading-relaxed relative z-10">
+              <p className="text-sm text-zinc-300 leading-relaxed relative z-10">
                 Based on recent earnings reports, Naspers's contribution was adjusted up by 1.2%. Tax implications remain standard at 10% withholding for non-registered accounts.
               </p>
             </div>
@@ -284,17 +284,17 @@ export function PayoutsCenter({ setActiveTab, initialView = 'overview' }: Payout
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-gradient-to-br from-[#D4AF37]/20 to-orange-500/10 border border-[#D4AF37]/30 rounded-3xl p-6 shadow-[0_0_30px_rgba(212,175,55,0.1)] relative overflow-hidden"
+            className="bg-neutral-900/60 border border-white/10 rounded-3xl p-6 relative overflow-hidden"
           >
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#D4AF37]/20 border border-[#D4AF37]/30 text-[#D4AF37] text-[10px] font-bold uppercase tracking-wider mb-4">
-                <Sparkles className="w-3 h-3" /> Elite Upgrade
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 text-white text-[10px] font-bold uppercase tracking-wider mb-4">
+                <Sparkles className="w-3 h-3 text-white" /> Elite Upgrade
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Wealth Automation Engine</h3>
-              <p className="text-sm text-[#D4AF37]/80 mb-4 leading-relaxed">
+              <p className="text-sm text-zinc-300 mb-4 leading-relaxed">
                 $450 payout arriving in 14 days. Reinvesting into high-yield assets could generate an additional <strong className="text-white">$78 annually</strong>.
               </p>
-              <button className="w-full py-3 bg-[#D4AF37] hover:bg-[#C5A028] text-black font-bold rounded-xl transition-colors flex items-center justify-center gap-2">
+              <button className="w-full py-3 bg-white hover:bg-zinc-200 text-black font-bold rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer">
                 <RefreshCw className="w-4 h-4" /> Enable Auto-Reinvest
               </button>
             </div>

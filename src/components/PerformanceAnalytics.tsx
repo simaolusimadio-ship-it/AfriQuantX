@@ -108,7 +108,7 @@ export function PerformanceAnalytics({ setActiveTab, initialRange = '6M' }: Perf
           <div className="space-y-2">
             <div className="flex justify-between items-center">
               <span className="text-sm text-white flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-[#D4AF37]" /> Total Value
+                <div className="w-2 h-2 rounded-full bg-[#FFFFFF]" /> Total Value
               </span>
               <span className="text-sm font-bold text-white">${payload[0].value.toLocaleString()}</span>
             </div>
@@ -193,7 +193,7 @@ export function PerformanceAnalytics({ setActiveTab, initialRange = '6M' }: Perf
         <div className="bg-[#0A0A0A] border border-white/[0.08] rounded-3xl p-6 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
           <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-wider mb-2">Volatility Index</p>
           <div className="flex items-center gap-2">
-            <Activity className="w-5 h-5 text-[#D4AF37]" />
+            <Activity className="w-5 h-5 text-[#FFFFFF]" />
             <h3 className="text-2xl font-bold text-white">{metrics.volatility}</h3>
           </div>
         </div>
@@ -206,7 +206,7 @@ export function PerformanceAnalytics({ setActiveTab, initialRange = '6M' }: Perf
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="bg-gradient-to-r from-[#0066FF]/20 to-[#D4AF37]/10 border border-[#0066FF]/30 backdrop-blur-md rounded-2xl p-4 shadow-[0_0_20px_rgba(0,102,255,0.15)]"
+            className="bg-gradient-to-r from-[#0066FF]/20 to-[#FFFFFF]/10 border border-[#0066FF]/30 backdrop-blur-md rounded-2xl p-4 shadow-[0_0_20px_rgba(0,102,255,0.15)]"
           >
             <div className="flex items-start gap-3">
               <Sparkles className="w-5 h-5 text-[#0066FF] shrink-0 mt-0.5" />
@@ -269,8 +269,8 @@ export function PerformanceAnalytics({ setActiveTab, initialRange = '6M' }: Perf
             >
               <defs>
                 <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={metrics.isPositive ? "#D4AF37" : "#ef4444"} stopOpacity={0.3}/>
-                  <stop offset="95%" stopColor={metrics.isPositive ? "#D4AF37" : "#ef4444"} stopOpacity={0}/>
+                  <stop offset="5%" stopColor={metrics.isPositive ? "#FFFFFF" : "#ef4444"} stopOpacity={0.3}/>
+                  <stop offset="95%" stopColor={metrics.isPositive ? "#FFFFFF" : "#ef4444"} stopOpacity={0}/>
                 </linearGradient>
                 <linearGradient id="colorInvest" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#0066FF" stopOpacity={0.1}/>
@@ -324,7 +324,7 @@ export function PerformanceAnalytics({ setActiveTab, initialRange = '6M' }: Perf
               <Area 
                 type="monotone" 
                 dataKey="value" 
-                stroke={metrics.isPositive ? "#D4AF37" : "#ef4444"} 
+                stroke={metrics.isPositive ? "#FFFFFF" : "#ef4444"} 
                 strokeWidth={3} 
                 fillOpacity={1} 
                 fill="url(#colorValue)" 
@@ -402,7 +402,7 @@ export function PerformanceAnalytics({ setActiveTab, initialRange = '6M' }: Perf
                 <p className="text-zinc-500 text-xs font-bold uppercase tracking-wider">Movement Drivers</p>
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
                   <div className="flex items-start gap-3">
-                    <Info className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
+                    <Info className="w-5 h-5 text-[#FFFFFF] shrink-0 mt-0.5" />
                     <div>
                       <h4 className="text-sm font-bold text-white mb-2">Capital Efficiency Improved</h4>
                       <p className="text-sm text-zinc-400 leading-relaxed">

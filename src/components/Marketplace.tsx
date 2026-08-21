@@ -364,12 +364,12 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
           <p className="text-zinc-400 mt-1 font-medium">Africa's Wall Street: Equities, Commodities & Forex</p>
           <div className="flex items-center gap-3 mt-3">
             <span className="text-2xl font-mono text-white font-bold">1,485.20</span>
-            <span className="flex items-center px-2.5 py-1 rounded-md bg-[#D4AF37]/10 text-[#D4AF37] text-xs font-bold border border-[#D4AF37]/20">
-              <TrendingUp className="w-3 h-3 mr-1 text-[#D4AF37]" />
+            <span className="flex items-center px-2.5 py-1 rounded-md bg-[#FFFFFF]/10 text-[#FFFFFF] text-xs font-bold border border-[#FFFFFF]/20">
+              <TrendingUp className="w-3 h-3 mr-1 text-[#FFFFFF]" />
               +2.4%
             </span>
-            <span className="flex items-center px-2.5 py-1 rounded-md bg-[#D4AF37]/10 text-[#D4AF37] text-xs font-bold border border-[#D4AF37]/20">
-              <BrainCircuit className="w-3 h-3 mr-1 text-[#D4AF37]" />
+            <span className="flex items-center px-2.5 py-1 rounded-md bg-[#FFFFFF]/10 text-[#FFFFFF] text-xs font-bold border border-[#FFFFFF]/20">
+              <BrainCircuit className="w-3 h-3 mr-1 text-[#FFFFFF]" />
               Bullish Trend
             </span>
           </div>
@@ -381,7 +381,7 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
               onClick={() => setActiveTab('equities')}
               className={`px-4 md:px-6 py-2.5 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 ${
                 activeTab === 'equities' 
-                  ? 'bg-[#D4AF37] text-black shadow-lg' 
+                  ? 'bg-[#FFFFFF] text-black shadow-lg' 
                   : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
             >
@@ -391,7 +391,7 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
               onClick={() => setActiveTab('commodities')}
               className={`px-4 md:px-6 py-2.5 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 ${
                 activeTab === 'commodities' 
-                  ? 'bg-[#D4AF37] text-black shadow-lg' 
+                  ? 'bg-[#FFFFFF] text-black shadow-lg' 
                   : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
             >
@@ -409,7 +409,7 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
               onClick={() => setActiveTab('products')}
               className={`px-4 md:px-6 py-2.5 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 ${
                 activeTab === 'products' 
-                  ? 'bg-[#D4AF37] text-black shadow-lg' 
+                  ? 'bg-[#FFFFFF] text-black shadow-lg' 
                   : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
             >
@@ -421,14 +421,14 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
               onClick={() => {
                 if (setAppActiveTab) setAppActiveTab('market-secondary');
               }}
-              className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 hover:bg-[#D4AF37] hover:text-black transition-colors text-sm font-bold uppercase tracking-wider whitespace-nowrap"
+              className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FFFFFF]/10 text-[#FFFFFF] border border-[#FFFFFF]/20 hover:bg-[#FFFFFF] hover:text-black transition-colors text-sm font-bold uppercase tracking-wider whitespace-nowrap"
             >
               <ArrowRightLeft className="w-4 h-4" />
               Secondary Market
             </button>
             <button 
               onClick={onNavigateToOnboarding}
-              className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#D4AF37] text-black border border-[#D4AF37] hover:bg-white hover:text-black transition-colors text-sm font-bold uppercase tracking-wider whitespace-nowrap"
+              className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FFFFFF] text-black border border-[#FFFFFF] hover:bg-white hover:text-black transition-colors text-sm font-bold uppercase tracking-wider whitespace-nowrap"
             >
               <Building2 className="w-4 h-4" />
               List Company
@@ -446,7 +446,7 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
           {/* Top Performing Companies */}
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <TrendingUp className="w-5 h-5 text-[#D4AF37]" />
+              <TrendingUp className="w-5 h-5 text-[#FFFFFF]" />
               <h2 className="text-xl font-bold text-white uppercase tracking-wider">Top African Equities</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -454,21 +454,21 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
                 <div 
                   key={company.id}
                   onClick={() => onNavigateToCompany?.(company.id)}
-                  className="bg-black border border-white/10 rounded-2xl p-6 hover:border-[#D4AF37]/50 transition-all duration-300 cursor-pointer group relative overflow-hidden shadow-2xl"
+                  className="bg-black border border-white/10 rounded-2xl p-6 hover:border-[#FFFFFF]/50 transition-all duration-300 cursor-pointer group relative overflow-hidden shadow-2xl"
                 >
                   <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <BrainCircuit className="w-24 h-24 text-[#D4AF37]" />
+                    <BrainCircuit className="w-24 h-24 text-[#FFFFFF]" />
                   </div>
                   
                   <div className="flex items-start justify-between mb-4 relative z-10">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-black bg-[#D4AF37] shadow-lg">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-black bg-[#FFFFFF] shadow-lg">
                         {company.logo}
                       </div>
                       <div>
-                        <h3 className="text-lg font-bold text-white flex items-center gap-1.5 group-hover:text-[#D4AF37] transition-colors">
+                        <h3 className="text-lg font-bold text-white flex items-center gap-1.5 group-hover:text-[#FFFFFF] transition-colors">
                           {company.ticker}
-                          <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
+                          <ShieldCheck className="w-4 h-4 text-[#FFFFFF]" />
                         </h3>
                         <span className="text-xs text-zinc-400">{company.name} • {company.sector}</span>
                       </div>
@@ -487,16 +487,16 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
                     </div>
                     <div className="bg-white/[0.02] rounded-xl p-3 border border-white/10">
                       <p className="text-xs text-zinc-400 mb-1 uppercase tracking-wider font-bold">Growth</p>
-                      <p className="text-sm font-mono font-bold text-[#D4AF37]">{company.revGrowth}</p>
+                      <p className="text-sm font-mono font-bold text-[#FFFFFF]">{company.revGrowth}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-white/10 relative z-10">
                     <div className="flex items-center gap-2">
                       <span className="text-xs text-zinc-400 uppercase tracking-wider font-bold">AI Score:</span>
-                      <span className="text-sm font-bold text-[#D4AF37] font-mono">{company.growthScore}/100</span>
+                      <span className="text-sm font-bold text-[#FFFFFF] font-mono">{company.growthScore}/100</span>
                     </div>
-                    <button className="bg-[#D4AF37] text-black px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-white transition-all shadow-md">
+                    <button className="bg-[#FFFFFF] text-black px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-white transition-all shadow-md">
                       Trade
                     </button>
                   </div>
@@ -515,33 +515,33 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
           className="space-y-8"
         >
           <div className="flex items-center gap-2 mb-6">
-            <Coins className="w-5 h-5 text-[#D4AF37]" />
+            <Coins className="w-5 h-5 text-[#FFFFFF]" />
             <h2 className="text-xl font-bold text-white uppercase tracking-wider">African Commodities Market</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {getPaginatedData(allCommodities).map((cmd: any) => (
-              <div key={cmd.id} className="bg-black border border-white/10 rounded-2xl p-6 hover:border-[#D4AF37]/50 transition-all group shadow-2xl">
+              <div key={cmd.id} className="bg-black border border-white/10 rounded-2xl p-6 hover:border-[#FFFFFF]/50 transition-all group shadow-2xl">
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xl">
                       {cmd.icon}
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-white group-hover:text-[#D4AF37] transition-colors">{cmd.name}</h3>
+                      <h3 className="text-lg font-bold text-white group-hover:text-[#FFFFFF] transition-colors">{cmd.name}</h3>
                       <p className="text-xs text-zinc-400">{cmd.type}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p className="text-lg font-mono font-bold text-white">${cmd.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
-                    <p className="text-sm font-bold font-mono flex items-center justify-end gap-1 text-[#D4AF37]">
-                      {cmd.trend === 'up' ? <TrendingUp className="w-3 h-3 text-[#D4AF37]" /> : <TrendingDown className="w-3 h-3 text-[#D4AF37]" />}
+                    <p className="text-sm font-bold font-mono flex items-center justify-end gap-1 text-[#FFFFFF]">
+                      {cmd.trend === 'up' ? <TrendingUp className="w-3 h-3 text-[#FFFFFF]" /> : <TrendingDown className="w-3 h-3 text-[#FFFFFF]" />}
                       {cmd.change}
                     </p>
                   </div>
                 </div>
                 <p className="text-sm text-zinc-300 mb-6 font-medium">{cmd.description}</p>
                 <div className="flex gap-3">
-                  <button className="flex-1 bg-[#D4AF37] text-black border border-[#D4AF37] py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-white transition-colors">
+                  <button className="flex-1 bg-[#FFFFFF] text-black border border-[#FFFFFF] py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-white transition-colors">
                     Buy
                   </button>
                   <button className="flex-1 bg-white/5 text-white border border-white/10 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors">
@@ -566,7 +566,7 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
               <motion.div 
                 key={product.id}
                 whileHover={{ y: -6 }}
-                className="bg-black border border-white/10 rounded-3xl overflow-hidden flex flex-col group shadow-2xl relative hover:border-[#D4AF37]/50 transition-colors"
+                className="bg-black border border-white/10 rounded-3xl overflow-hidden flex flex-col group shadow-2xl relative hover:border-[#FFFFFF]/50 transition-colors"
               >
               <div className="relative h-56 overflow-hidden p-2">
                 <div className="w-full h-full rounded-2xl overflow-hidden relative">
@@ -581,7 +581,7 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
                 <div className="absolute top-4 left-4 bg-black px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-white border border-white/10">
                   {product.category}
                 </div>
-                <div className="absolute top-4 right-4 bg-[#D4AF37] px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-black flex items-center gap-1 shadow-lg">
+                <div className="absolute top-4 right-4 bg-[#FFFFFF] px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-black flex items-center gap-1 shadow-lg">
                   <TrendingUp className="w-3 h-3 text-black" />
                   +{product.equity}% Equity
                 </div>
@@ -589,10 +589,10 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
               
               <div className="p-6 flex flex-col flex-1 relative z-10">
                 <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-xl font-bold text-white group-hover:text-[#D4AF37] transition-colors leading-tight">{product.name}</h3>
-                  <div className="flex items-center gap-1 text-[#D4AF37] text-sm bg-[#D4AF37]/10 px-2 py-1 rounded-lg border border-[#D4AF37]/20">
-                    <Star className="w-3.5 h-3.5 fill-current text-[#D4AF37]" />
-                    <span className="font-bold text-[#D4AF37] font-mono">{product.rating}</span>
+                  <h3 className="text-xl font-bold text-white group-hover:text-[#FFFFFF] transition-colors leading-tight">{product.name}</h3>
+                  <div className="flex items-center gap-1 text-[#FFFFFF] text-sm bg-[#FFFFFF]/10 px-2 py-1 rounded-lg border border-[#FFFFFF]/20">
+                    <Star className="w-3.5 h-3.5 fill-current text-[#FFFFFF]" />
+                    <span className="font-bold text-[#FFFFFF] font-mono">{product.rating}</span>
                   </div>
                 </div>
                 <p className="text-zinc-300 text-sm mb-6 flex-1 leading-relaxed font-medium">{product.description}</p>
@@ -604,7 +604,7 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
                   </div>
                   <button 
                     onClick={() => setSelectedProduct(product)}
-                    className="bg-[#D4AF37] text-black px-5 py-2.5 rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300 flex items-center gap-2 hover:bg-white hover:text-black shadow-lg"
+                    className="bg-[#FFFFFF] text-black px-5 py-2.5 rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300 flex items-center gap-2 hover:bg-white hover:text-black shadow-lg"
                   >
                     <ShoppingBag className="w-4 h-4" />
                     Buy & Earn
@@ -638,11 +638,11 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className="relative w-full max-w-md bg-black border border-white/10 rounded-3xl shadow-2xl overflow-hidden"
             >
-              <div className="absolute top-0 inset-x-0 h-1 bg-[#D4AF37]" />
+              <div className="absolute top-0 inset-x-0 h-1 bg-[#FFFFFF]" />
               
               <div className="p-6 sm:p-8">
                 <div className="flex justify-between items-start mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]">
+                  <div className="w-12 h-12 rounded-2xl bg-[#FFFFFF]/10 border border-[#FFFFFF]/20 flex items-center justify-center text-[#FFFFFF]">
                     <BrainCircuit className="w-6 h-6" />
                   </div>
                   <button 
@@ -667,9 +667,9 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
                     <span className="font-bold font-mono text-white">${selectedProduct.price.toLocaleString()}</span>
                   </div>
 
-                  <div className="flex justify-between items-center p-4 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20">
-                    <span className="text-[#D4AF37] text-sm font-bold uppercase tracking-wider">Equity Earned:</span>
-                    <span className="font-bold text-[#D4AF37] text-lg font-mono">+{selectedProduct.equity}%</span>
+                  <div className="flex justify-between items-center p-4 rounded-2xl bg-[#FFFFFF]/10 border border-[#FFFFFF]/20">
+                    <span className="text-[#FFFFFF] text-sm font-bold uppercase tracking-wider">Equity Earned:</span>
+                    <span className="font-bold text-[#FFFFFF] text-lg font-mono">+{selectedProduct.equity}%</span>
                   </div>
 
                   <div className="flex justify-between items-center p-4 rounded-2xl bg-white/[0.03] border border-white/10">
@@ -678,7 +678,7 @@ export function Marketplace({ onNavigateToCompany, onNavigateToOnboarding, setAc
                   </div>
                 </div>
 
-                <button className="w-full bg-[#D4AF37] text-black py-4 rounded-2xl font-bold uppercase tracking-wider text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:bg-white hover:text-black shadow-2xl">
+                <button className="w-full bg-[#FFFFFF] text-black py-4 rounded-2xl font-bold uppercase tracking-wider text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:bg-white hover:text-black shadow-2xl">
                   Confirm Investment <ChevronRight className="w-5 h-5" />
                 </button>
                 <p className="text-center text-xs text-zinc-500 mt-4">

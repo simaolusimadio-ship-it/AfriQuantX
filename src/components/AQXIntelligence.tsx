@@ -20,7 +20,7 @@ const projectionData = [
 const sectorData = [
   { name: 'FinTech', value: 45, color: '#0066FF' },
   { name: 'Technology', value: 25, color: '#00FFB2' },
-  { name: 'Financials', value: 20, color: '#D4AF37' },
+  { name: 'Financials', value: 20, color: '#FFFFFF' },
   { name: 'Manufacturing', value: 10, color: '#9333EA' },
 ];
 
@@ -133,7 +133,7 @@ export function AQXIntelligence({ setActiveTab }: AQXIntelligenceProps) {
           >
             <div className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors cursor-default group">
               <div className="flex items-center gap-2 mb-3">
-                <PieChart className="w-4 h-4 text-[#D4AF37]" />
+                <PieChart className="w-4 h-4 text-[#FFFFFF]" />
                 <h3 className="text-sm font-bold text-white">Diversification</h3>
               </div>
               <p className="text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors">
@@ -142,11 +142,11 @@ export function AQXIntelligence({ setActiveTab }: AQXIntelligenceProps) {
             </div>
             <div className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors cursor-default group">
               <div className="flex items-center gap-2 mb-3">
-                <Zap className="w-4 h-4 text-[#D4AF37]" />
+                <Zap className="w-4 h-4 text-[#FFFFFF]" />
                 <h3 className="text-sm font-bold text-white">Opportunity Signals</h3>
               </div>
               <p className="text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors">
-                <span className="text-[#D4AF37] font-bold">Financials</span> sector shows strong pre-dividend momentum.
+                <span className="text-[#FFFFFF] font-bold">Financials</span> sector shows strong pre-dividend momentum.
               </p>
             </div>
             <div className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors cursor-default group">
@@ -200,24 +200,24 @@ export function AQXIntelligence({ setActiveTab }: AQXIntelligenceProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-gradient-to-br from-[#0066FF]/20 to-[#D4AF37]/20 border border-[#0066FF]/20 rounded-3xl p-6 relative overflow-hidden"
+            className="bg-gradient-to-br from-[#0066FF]/20 to-[#FFFFFF]/20 border border-[#0066FF]/20 rounded-3xl p-6 relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 p-4 opacity-10">
               <BrainCircuit className="w-24 h-24 text-[#0066FF]" />
             </div>
             <h2 className="text-lg font-bold text-white mb-4 relative z-10 flex items-center gap-2">
-              <Zap className="w-5 h-5 text-[#D4AF37]" />
+              <Zap className="w-5 h-5 text-[#FFFFFF]" />
               AI Decision Engine
             </h2>
             
             <div className="space-y-4 relative z-10">
-              <div className="p-4 bg-black/40 border border-white/10 rounded-2xl hover:border-[#D4AF37]/50 transition-colors cursor-pointer group">
+              <div className="p-4 bg-black/40 border border-white/10 rounded-2xl hover:border-[#FFFFFF]/50 transition-colors cursor-pointer group">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#D4AF37]/20 flex items-center justify-center shrink-0 mt-1">
-                    <ArrowRight className="w-4 h-4 text-[#D4AF37]" />
+                  <div className="w-8 h-8 rounded-full bg-[#FFFFFF]/20 flex items-center justify-center shrink-0 mt-1">
+                    <ArrowRight className="w-4 h-4 text-[#FFFFFF]" />
                   </div>
                   <div>
-                    <h4 className="text-white font-medium group-hover:text-[#D4AF37] transition-colors">Reallocate to Financials</h4>
+                    <h4 className="text-white font-medium group-hover:text-[#FFFFFF] transition-colors">Reallocate to Financials</h4>
                     <p className="text-sm text-zinc-400 mt-1 leading-relaxed">
                       Reallocate 12% ($7,200) from low-performing assets into Financials to maximize Q4 dividend yield (<span className="text-[#00C896] font-medium">+2.8% projected gain</span>).
                     </p>
@@ -261,7 +261,7 @@ export function AQXIntelligence({ setActiveTab }: AQXIntelligenceProps) {
         className="bg-[#0A0A0A] border border-white/10 rounded-3xl p-6 md:p-8"
       >
         <div className="flex items-center gap-2 mb-6">
-          <BarChart3 className="w-5 h-5 text-[#D4AF37]" />
+          <BarChart3 className="w-5 h-5 text-[#FFFFFF]" />
           <h2 className="text-xl font-bold text-white">Deep Dive Analytics</h2>
         </div>
         
